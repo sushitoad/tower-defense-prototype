@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp3bno7h7a6jm"]
+
+[ext_resource type="PackedScene" uid="uid://3s7v6hrcvn3b" path="res://scenes/build_ui.tscn" id="1_g7g4h"]
+[ext_resource type="PackedScene" uid="uid://cjh8qx3046uwq" path="res://scenes/tower_manager.tscn" id="2_j8ivh"]
+
+[node name="Test Scene" type="Node2D"]
+
+[node name="BuildUI" parent="." node_paths=PackedStringArray("towerManager") instance=ExtResource("1_g7g4h")]
+towerManager = NodePath("../TowerManager")
+
+[node name="TowerManager" parent="." instance=ExtResource("2_j8ivh")]

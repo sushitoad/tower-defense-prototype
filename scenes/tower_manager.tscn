@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjh8qx3046uwq"]
+
+[ext_resource type="Script" uid="uid://uowtl4xy7oj5" path="res://scripts/tower_manager.gd" id="1_n6plm"]
+[ext_resource type="PackedScene" uid="uid://d3ipy8tqa17n4" path="res://scenes/proto_tower.tscn" id="2_1ur6m"]
+
+[node name="TowerManager" type="Node2D"]
+script = ExtResource("1_n6plm")
+protoTower = ExtResource("2_1ur6m")
