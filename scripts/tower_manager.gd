@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var protoTower: PackedScene
-
+#buttz
 #also refactor so build ui is telling this which tower to place
 
 func PlaceNewTower():
