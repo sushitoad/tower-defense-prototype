@@ -28,11 +28,10 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "maek tower"
 
-[node name="GhostSprite" type="Sprite2D" parent="CanvasLayer"]
+[node name="GhostProtoTower" type="Sprite2D" parent="CanvasLayer"]
 visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_xa1c1")
 
 [connection signal="mouse_entered" from="CanvasLayer/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Button" to="." method="_on_button_mouse_exited"]
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="BuildTower"]
