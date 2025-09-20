@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://3s7v6hrcvn3b"]
+[gd_scene load_steps=2 format=3 uid="uid://3s7v6hrcvn3b"]
 
 [ext_resource type="Script" uid="uid://3jdwqtai60f7" path="res://scripts/build_ui.gd" id="1_uej6l"]
-[ext_resource type="Texture2D" uid="uid://dte7ua0we0ylg" path="res://icon.svg" id="2_xa1c1"]
 
 [node name="BuildUI" type="Control"]
 layout_mode = 3
@@ -14,24 +13,35 @@ script = ExtResource("1_uej6l")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Button" type="Button" parent="CanvasLayer"]
+[node name="BasicTowerButton" type="Button" parent="CanvasLayer"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -50.0
+offset_left = -82.0
 offset_top = -65.0
-offset_right = 51.0
+offset_right = 19.0
 offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "maek tower"
+text = "basic tower"
 
-[node name="GhostProtoTower" type="Sprite2D" parent="CanvasLayer"]
-visible = false
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_xa1c1")
+[node name="ChargeTowerButton" type="Button" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 32.5
+offset_top = -65.0
+offset_right = 142.5
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "charge tower"
 
-[connection signal="mouse_entered" from="CanvasLayer/Button" to="." method="_on_button_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/Button" to="." method="_on_button_mouse_exited"]
+[connection signal="mouse_entered" from="CanvasLayer/BasicTowerButton" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/BasicTowerButton" to="." method="_on_button_mouse_exited"]
+[connection signal="mouse_entered" from="CanvasLayer/ChargeTowerButton" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/ChargeTowerButton" to="." method="_on_button_mouse_exited"]

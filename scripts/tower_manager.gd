@@ -1,34 +1,37 @@
 extends Node2D
 
-@export var protoTower: PackedScene
+@export var basicTower: PackedScene
+@export var chargeTower: PackedScene
 @export var buildUI: Control
 
-var ghostProtoTower: Sprite2D
+var ghostTower: Sprite2D
 
 var placingTower: bool = false
 var mousePosition: Vector2
 
+#its enum and match time
+
 func _ready() -> void:
-	ghostProtoTower = buildUI.find_child("GhostProtoTower")
-	var buildButton = buildUI.find_child("Button")
-	#I will need a different solution when I have more tower options and more buttons
-	buildButton.pressed.connect(SpawnTower)
+	for button in buildUI.find_children("*", "Button"):
+		button.pressed.connect(SpawnTower)
+	#this is clever but I might have to write an individual line for each button and have specific functions per tower?
 
 func _process(delta: float) -> void:
 	mousePosition = get_global_mouse_position()
-	if ghostProtoTower != null:
-		ghostProtoTower.position = mousePosition
+	if ghostTower != null:
+		ghostTower.position = mousePosition
 	if Input.is_action_just_pressed("LeftClick") and buildUI.isMouseOverButton == false:
 		if placingTower:
 			PlaceSpawnedTower()
 
 func SpawnTower():
 	placingTower = true
-	ghostProtoTower.visible = true
+	ghostTower = find_child("BasicTowerSprite")
+	ghostTower.visible = true
 
 func PlaceSpawnedTower():
-	ghostProtoTower.visible = false
-	var newTower = protoTower.instantiate()
+	ghostTower.visible = false
+	var newTower = basicTower.instantiate()
 	add_child(newTower)
 	newTower.position = mousePosition
 	placingTower = false

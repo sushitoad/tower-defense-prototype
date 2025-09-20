@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dncxjlgaytiy"]
+
+[ext_resource type="Texture2D" uid="uid://dte7ua0we0ylg" path="res://icon.svg" id="1_3lh4g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6myfv"]
+size = Vector2(60, 60)
+
+[node name="ChargeTower" type="StaticBody2D" groups=["tower"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.894118, 0.780392, 0.298039, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_3lh4g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6myfv")
