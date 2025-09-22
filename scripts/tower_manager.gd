@@ -9,14 +9,12 @@ var ghostTower: Sprite2D
 var placingTower: bool = false
 var mousePosition: Vector2
 
-#its enum and match time
 enum TowerType { BASIC, CHARGE, ADVANCED }
 var towerTypeToPlace: TowerType
 
 func _ready() -> void:
 	#for button in buildUI.find_children("*", "Button"):
 		#button.pressed.connect(SpawnTower)
-	#this is clever but I might have to write an individual line for each button and have specific functions per tower?
 	var basicButtion = buildUI.find_child("BasicTowerButton")
 	basicButtion.pressed.connect(SpawnTower.bind(TowerType.BASIC))
 	var chargeButtion = buildUI.find_child("ChargeTowerButton")
