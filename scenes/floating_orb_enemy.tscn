@@ -10,7 +10,7 @@ height = 16.0
 [node name="FloatingOrbEnemy" type="CharacterBody2D" groups=["enemy"]]
 motion_mode = 1
 script = ExtResource("1_pv3vx")
-moveToPoint = Vector2(100, 100)
+moveSpeed = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_5hhww")

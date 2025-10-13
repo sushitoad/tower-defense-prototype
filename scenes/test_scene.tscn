@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cp3bno7h7a6jm"]
+[gd_scene load_steps=4 format=3 uid="uid://cp3bno7h7a6jm"]
 
 [ext_resource type="PackedScene" uid="uid://3s7v6hrcvn3b" path="res://scenes/build_ui.tscn" id="1_g7g4h"]
 [ext_resource type="PackedScene" uid="uid://cjh8qx3046uwq" path="res://scenes/tower_manager.tscn" id="2_j8ivh"]
+[ext_resource type="PackedScene" uid="uid://ddiwxlxpx87cf" path="res://scenes/floating_orb_enemy.tscn" id="3_nd71p"]
 
 [node name="Test Scene" type="Node2D"]
 
@@ -9,3 +10,12 @@
 
 [node name="TowerManager" parent="." node_paths=PackedStringArray("buildUI") instance=ExtResource("2_j8ivh")]
 buildUI = NodePath("../BuildUI")
+
+[node name="target 1" type="Node2D" parent="." groups=["target"]]
+position = Vector2(238, 497)
+
+[node name="target 2" type="Node2D" parent="." groups=["target"]]
+position = Vector2(1042, 378)
+
+[node name="FloatingOrbEnemy" parent="." instance=ExtResource("3_nd71p")]
+position = Vector2(604, 43)
