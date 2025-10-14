@@ -6,7 +6,6 @@ var currentHealth: int
 
 func _ready() -> void:
 	currentHealth = maxHealth
-	TakeDamage(0)
 	
 func TakeDamage(damage: int):
 	currentHealth -= damage
