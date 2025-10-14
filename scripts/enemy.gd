@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var moveToPoint: Vector2
+var currentTarget: Node2D
 @export var moveSpeed: float = 10
 @export var range: float = 20
 
@@ -8,8 +8,8 @@ func _ready() -> void:
 	FindTarget()
 
 func _physics_process(delta: float) -> void:
-	if position.distance_to(moveToPoint) > range:
-		velocity = position.direction_to(moveToPoint) * moveSpeed
+	if position.distance_to(currentTarget.position) > range:
+		velocity = position.direction_to(currentTarget.position) * moveSpeed
 	else:
 		velocity = Vector2.ZERO
 	
@@ -22,11 +22,12 @@ func _process(delta: float) -> void:
 		$Sprite2D.flip_h = false
 		
 func FindTarget():
-	print("finding target")
 	var closestTarget: Vector2 = Vector2(10000000000, 10000000000)
-	for target in get_tree().get_nodes_in_group("target"):
-		if target.position.distance_to(position) < closestTarget.distance_to(position):
+	var closestAllure: float = 1
+	for target in get_tree().get_nodes_in_group("tower"):
+		if (target.position.distance_to(position) / target.allure) < (closestTarget.distance_to(position) / closestAllure):
 			closestTarget = target.position
-	moveToPoint = closestTarget
+			closestAllure = target.allure
+			currentTarget = target
 	
 	

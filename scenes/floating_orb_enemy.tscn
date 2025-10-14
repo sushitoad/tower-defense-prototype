@@ -9,6 +9,7 @@ height = 16.0
 
 [node name="FloatingOrbEnemy" type="CharacterBody2D" groups=["enemy"]]
 motion_mode = 1
+safe_margin = 0.2
 script = ExtResource("1_pv3vx")
 moveSpeed = 50.0
 
