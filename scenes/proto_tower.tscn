@@ -1,18 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3ipy8tqa17n4"]
+[gd_scene load_steps=5 format=3 uid="uid://d3ipy8tqa17n4"]
 
 [ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/tower.gd" id="1_6myfv"]
-[ext_resource type="Texture2D" uid="uid://dte7ua0we0ylg" path="res://icon.svg" id="1_aymbp"]
+[ext_resource type="Texture2D" uid="uid://3avl1qlj0i44" path="res://art/basic tower proto 2.png" id="2_6myfv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6myfv"]
-size = Vector2(60, 60)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_em1u4"]
+radius = 3.0
+height = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m4352"]
+radius = 6.0
 
 [node name="ProtoTower" type="StaticBody2D" groups=["tower"]]
 script = ExtResource("1_6myfv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.95158, 0.95158, 0.95158, 1)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_aymbp")
+texture = ExtResource("2_6myfv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_6myfv")
+position = Vector2(-1, 13)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_em1u4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 9)
+shape = SubResource("CircleShape2D_m4352")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjh8qx3046uwq"]
+[gd_scene load_steps=6 format=3 uid="uid://cjh8qx3046uwq"]
 
 [ext_resource type="Script" uid="uid://uowtl4xy7oj5" path="res://scripts/tower_manager.gd" id="1_n6plm"]
 [ext_resource type="PackedScene" uid="uid://d3ipy8tqa17n4" path="res://scenes/proto_tower.tscn" id="2_1ur6m"]
 [ext_resource type="PackedScene" uid="uid://dncxjlgaytiy" path="res://scenes/charge_tower.tscn" id="3_k8ofr"]
+[ext_resource type="Texture2D" uid="uid://3avl1qlj0i44" path="res://art/basic tower proto 2.png" id="4_6eb6n"]
 [ext_resource type="Texture2D" uid="uid://dte7ua0we0ylg" path="res://icon.svg" id="4_vvfa4"]
 
 [node name="TowerManager" type="Node2D"]
@@ -13,8 +14,7 @@ chargeTower = ExtResource("3_k8ofr")
 [node name="BasicTowerSprite" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0.95158, 0.95158, 0.95158, 1)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_vvfa4")
+texture = ExtResource("4_6eb6n")
 
 [node name="ChargeTowerSprite" type="Sprite2D" parent="."]
 visible = false
