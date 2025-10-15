@@ -13,6 +13,7 @@ safe_margin = 0.2
 script = ExtResource("1_pv3vx")
 moveSpeed = 60.0
 range = 50.0
+attackSpeed = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_5hhww")

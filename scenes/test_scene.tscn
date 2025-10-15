@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cp3bno7h7a6jm"]
+[gd_scene load_steps=8 format=3 uid="uid://cp3bno7h7a6jm"]
 
+[ext_resource type="PackedScene" uid="uid://j55nalk0nn57" path="res://scenes/level_manager.tscn" id="1_3qnke"]
 [ext_resource type="PackedScene" uid="uid://3s7v6hrcvn3b" path="res://scenes/build_ui.tscn" id="1_g7g4h"]
 [ext_resource type="PackedScene" uid="uid://cjh8qx3046uwq" path="res://scenes/tower_manager.tscn" id="2_j8ivh"]
 [ext_resource type="PackedScene" uid="uid://ddiwxlxpx87cf" path="res://scenes/floating_orb_enemy.tscn" id="3_nd71p"]
@@ -9,6 +10,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_qjeyg"]
 
 [node name="Test Scene" type="Node2D"]
+
+[node name="LevelManager" parent="." instance=ExtResource("1_3qnke")]
 
 [node name="BuildUI" parent="." instance=ExtResource("1_g7g4h")]
 
@@ -20,6 +23,7 @@ position = Vector2(604, 43)
 
 [node name="TheHeartfire" parent="." instance=ExtResource("4_7ddre")]
 position = Vector2(598, 531)
+allure = 0.0
 
 [node name="dummy target 1" type="StaticBody2D" parent="." groups=["tower"]]
 position = Vector2(466, 288)
@@ -27,3 +31,12 @@ script = ExtResource("3_qjeyg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dummy target 1"]
 shape = SubResource("CircleShape2D_qjeyg")
+
+[node name="dummy target 2" type="StaticBody2D" parent="." groups=["tower"]]
+position = Vector2(675, 227)
+script = ExtResource("3_qjeyg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dummy target 2"]
+shape = SubResource("CircleShape2D_qjeyg")
+
+[connection signal="on_destroyed" from="TheHeartfire" to="LevelManager" method="GameOver"]

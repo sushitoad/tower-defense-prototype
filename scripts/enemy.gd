@@ -11,15 +11,16 @@ func _ready() -> void:
 	FindTarget()
 
 func _physics_process(delta: float) -> void:
-	if position.distance_to(currentTarget.position) > range:
-		velocity = position.direction_to(currentTarget.position) * moveSpeed
-		isInRangeOfTarget = false
-	else:
-		velocity = Vector2.ZERO
-		isInRangeOfTarget = true
+	if currentTarget != null:
+		if position.distance_to(currentTarget.position) > range:
+			velocity = position.direction_to(currentTarget.position) * moveSpeed
+			isInRangeOfTarget = false
+		else:
+			velocity = Vector2.ZERO
+			isInRangeOfTarget = true
 	
 	move_and_slide()
-	
+
 func _process(delta: float) -> void:
 	if velocity.x > 0:
 		$Sprite2D.flip_h = true
@@ -28,16 +29,26 @@ func _process(delta: float) -> void:
 	if isInRangeOfTarget:
 		if $AttackTimer.is_stopped():
 			$AttackTimer.start(attackSpeed)
+
 func FindTarget():
+	print("finding target")
+	if currentTarget != null:
+		currentTarget.on_destroyed.disconnect(FindTarget)
+	currentTarget = null
+	isInRangeOfTarget = false
 	var closestTarget: Vector2 = Vector2(10000000000, 10000000000)
 	var closestAllure: float = 1
 	for target in get_tree().get_nodes_in_group("tower"):
-		if (target.position.distance_to(position) / target.allure) < (closestTarget.distance_to(position) / closestAllure):
-			closestTarget = target.position
-			closestAllure = target.allure
-			currentTarget = target
+		if !target.isDestroyed:
+			if (target.position.distance_to(position) / target.allure) < (closestTarget.distance_to(position) / closestAllure):
+				closestTarget = target.position
+				closestAllure = target.allure
+				currentTarget = target
+				currentTarget.on_destroyed.connect(FindTarget)
+				print(currentTarget.name)
 	
 func AttackTarget():
-	currentTarget.TakeDamage(attackDamage)
+	if currentTarget != null:
+		currentTarget.TakeDamage(attackDamage)
 	#this might end up being an animation thing but for now it good
 	#yes, because you can call functions in specific frames of an animation
