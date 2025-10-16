@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0oom0k2b8ssg"]
+
+[ext_resource type="Script" uid="uid://b1wxb56uxo5eq" path="res://scripts/enemy.gd" id="1_i8de8"]
+[ext_resource type="Texture2D" uid="uid://b7yqlarrbx0es" path="res://art/stalker enemy proto 1.png" id="2_i8de8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sq1rc"]
+atlas = ExtResource("2_i8de8")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xeo6d"]
+atlas = ExtResource("2_i8de8")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ys7ll"]
+atlas = ExtResource("2_i8de8")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3whrh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sq1rc")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xeo6d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ys7ll")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 1.5
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5hhww"]
+radius = 6.0
+height = 26.0
+
+[node name="StalkerEnemy" type="CharacterBody2D" groups=["enemy"]]
+motion_mode = 1
+safe_margin = 0.2
+script = ExtResource("1_i8de8")
+moveSpeed = 60.0
+range = 40.0
+attackSpeed = 0.5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3whrh")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_5hhww")
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="AttackTimer" to="." method="AttackTarget"]

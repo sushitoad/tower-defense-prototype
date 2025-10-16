@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cp3bno7h7a6jm"]
+[gd_scene load_steps=9 format=3 uid="uid://cp3bno7h7a6jm"]
 
 [ext_resource type="PackedScene" uid="uid://j55nalk0nn57" path="res://scenes/level_manager.tscn" id="1_3qnke"]
 [ext_resource type="PackedScene" uid="uid://3s7v6hrcvn3b" path="res://scenes/build_ui.tscn" id="1_g7g4h"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://nwxp6m1042v5" path="res://scenes/the_heartfire.tscn" id="4_7ddre"]
 [ext_resource type="PackedScene" uid="uid://d3ipy8tqa17n4" path="res://scenes/proto_tower.tscn" id="7_rnaij"]
 [ext_resource type="PackedScene" uid="uid://dncxjlgaytiy" path="res://scenes/charge_tower.tscn" id="8_h3xc6"]
+[ext_resource type="PackedScene" uid="uid://d0oom0k2b8ssg" path="res://scenes/stalker_enemy.tscn" id="8_rnaij"]
 
 [node name="Test Scene" type="Node2D"]
 
@@ -30,5 +31,8 @@ position = Vector2(705, 207)
 
 [node name="ChargeTower" parent="." instance=ExtResource("8_h3xc6")]
 position = Vector2(392, 345)
+
+[node name="StalkerEnemy" parent="." instance=ExtResource("8_rnaij")]
+position = Vector2(577, 40)
 
 [connection signal="on_destroyed" from="TheHeartfire" to="LevelManager" method="GameOver"]
