@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d3ipy8tqa17n4" path="res://scenes/proto_tower.tscn" id="2_1ur6m"]
 [ext_resource type="PackedScene" uid="uid://dncxjlgaytiy" path="res://scenes/charge_tower.tscn" id="3_k8ofr"]
 [ext_resource type="Texture2D" uid="uid://3avl1qlj0i44" path="res://art/basic tower proto 2.png" id="4_6eb6n"]
-[ext_resource type="Texture2D" uid="uid://dte7ua0we0ylg" path="res://icon.svg" id="4_vvfa4"]
+[ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="5_6eb6n"]
 
 [node name="TowerManager" type="Node2D"]
 script = ExtResource("1_n6plm")
@@ -18,6 +18,5 @@ texture = ExtResource("4_6eb6n")
 
 [node name="ChargeTowerSprite" type="Sprite2D" parent="."]
 visible = false
-modulate = Color(0.894118, 0.780392, 0.298039, 1)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_vvfa4")
+texture = ExtResource("5_6eb6n")
