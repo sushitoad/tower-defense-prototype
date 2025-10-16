@@ -4,10 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://3s7v6hrcvn3b" path="res://scenes/build_ui.tscn" id="1_g7g4h"]
 [ext_resource type="PackedScene" uid="uid://cjh8qx3046uwq" path="res://scenes/tower_manager.tscn" id="2_j8ivh"]
 [ext_resource type="PackedScene" uid="uid://ddiwxlxpx87cf" path="res://scenes/floating_orb_enemy.tscn" id="3_nd71p"]
-[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/tower.gd" id="3_qjeyg"]
 [ext_resource type="PackedScene" uid="uid://nwxp6m1042v5" path="res://scenes/the_heartfire.tscn" id="4_7ddre"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qjeyg"]
+[ext_resource type="PackedScene" uid="uid://d3ipy8tqa17n4" path="res://scenes/proto_tower.tscn" id="7_rnaij"]
+[ext_resource type="PackedScene" uid="uid://dncxjlgaytiy" path="res://scenes/charge_tower.tscn" id="8_h3xc6"]
 
 [node name="Test Scene" type="Node2D"]
 
@@ -20,23 +19,16 @@ buildUI = NodePath("../BuildUI")
 
 [node name="FloatingOrbEnemy" parent="." instance=ExtResource("3_nd71p")]
 position = Vector2(604, 43)
+attackDamage = 20
 
 [node name="TheHeartfire" parent="." instance=ExtResource("4_7ddre")]
 position = Vector2(598, 531)
 allure = 0.0
 
-[node name="dummy target 1" type="StaticBody2D" parent="." groups=["tower"]]
-position = Vector2(466, 288)
-script = ExtResource("3_qjeyg")
+[node name="ProtoTower" parent="." instance=ExtResource("7_rnaij")]
+position = Vector2(705, 207)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="dummy target 1"]
-shape = SubResource("CircleShape2D_qjeyg")
-
-[node name="dummy target 2" type="StaticBody2D" parent="." groups=["tower"]]
-position = Vector2(675, 227)
-script = ExtResource("3_qjeyg")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="dummy target 2"]
-shape = SubResource("CircleShape2D_qjeyg")
+[node name="ChargeTower" parent="." instance=ExtResource("8_h3xc6")]
+position = Vector2(392, 345)
 
 [connection signal="on_destroyed" from="TheHeartfire" to="LevelManager" method="GameOver"]

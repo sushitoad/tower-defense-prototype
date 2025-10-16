@@ -18,6 +18,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity = Vector2.ZERO
 			isInRangeOfTarget = true
+	else:
+		velocity = Vector2.ZERO
+		isInRangeOfTarget = false
 	
 	move_and_slide()
 
@@ -29,24 +32,31 @@ func _process(delta: float) -> void:
 	if isInRangeOfTarget:
 		if $AttackTimer.is_stopped():
 			$AttackTimer.start(attackSpeed)
+	elif !isInRangeOfTarget:
+		$AttackTimer.stop()
 
 func FindTarget():
-	print("finding target")
 	if currentTarget != null:
 		currentTarget.on_destroyed.disconnect(FindTarget)
-	currentTarget = null
-	isInRangeOfTarget = false
+	var newTarget
 	var closestTarget: Vector2 = Vector2(10000000000, 10000000000)
 	var closestAllure: float = 1
-	for target in get_tree().get_nodes_in_group("tower"):
-		if !target.isDestroyed:
-			if (target.position.distance_to(position) / target.allure) < (closestTarget.distance_to(position) / closestAllure):
-				closestTarget = target.position
-				closestAllure = target.allure
-				currentTarget = target
-				currentTarget.on_destroyed.connect(FindTarget)
-				print(currentTarget.name)
-	
+	var targets = get_tree().get_nodes_in_group("tower")
+	for tower in targets:
+		if tower.isDestroyed:
+			targets.remove_at(targets.find(tower))
+	for tower in targets:
+		if(tower.position.distance_to(position) / tower.allure) < (closestTarget.distance_to(position) / closestAllure):
+			newTarget = tower
+			closestTarget = tower.position
+			closestAllure = tower.allure
+	currentTarget = newTarget
+	if currentTarget != null:
+		currentTarget.on_destroyed.connect(FindTarget)
+		print(currentTarget.name)
+	else:
+		print("no more targets")
+
 func AttackTarget():
 	if currentTarget != null:
 		currentTarget.TakeDamage(attackDamage)
