@@ -38,7 +38,9 @@ buildUI = NodePath("../BuildUI")
 
 [node name="FloatingOrbEnemy" parent="." instance=ExtResource("3_nd71p")]
 position = Vector2(604, 43)
-attackDamage = 20
+
+[node name="StalkerEnemy" parent="." instance=ExtResource("8_rnaij")]
+position = Vector2(347, 62)
 
 [node name="TheHeartfire" parent="." instance=ExtResource("4_7ddre")]
 position = Vector2(598, 531)
@@ -49,7 +51,5 @@ position = Vector2(705, 207)
 
 [node name="ChargeTower" parent="." instance=ExtResource("8_h3xc6")]
 position = Vector2(392, 345)
-
-[node name="StalkerEnemy" parent="." instance=ExtResource("8_rnaij")]
 
 [connection signal="on_destroyed" from="TheHeartfire" to="LevelManager" method="GameOver"]

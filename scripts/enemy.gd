@@ -6,6 +6,7 @@ var isInRangeOfTarget: bool = false
 @export var range: float = 20
 @export var attackDamage: int = 10
 @export var attackSpeed: float = 1.2
+@export var hasFacing: bool = false
 
 func _ready() -> void:
 	FindTarget()
@@ -25,10 +26,15 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _process(delta: float) -> void:
-	if velocity.x > 0:
-		$Sprite2D.flip_h = true
-	elif velocity.x < 0:
-		$Sprite2D.flip_h = false
+	if hasFacing:
+		if velocity.x > 0:
+			$AnimatedSprite2D.flip_h = true
+		elif velocity.x < 0:
+			$AnimatedSprite2D.flip_h = false
+	if velocity != Vector2.ZERO:
+		$AnimatedSprite2D.play("walk")
+	else:
+		$AnimatedSprite2D.play("stand")
 	if isInRangeOfTarget:
 		if $AttackTimer.is_stopped():
 			$AttackTimer.start(attackSpeed)
