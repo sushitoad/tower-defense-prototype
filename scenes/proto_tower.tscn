@@ -15,3 +15,7 @@ shape = SubResource("CircleShape2D_m4352")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.95158, 0.95158, 0.95158, 1)
 texture = ExtResource("2_6myfv")
+
+[node name="DormantTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
