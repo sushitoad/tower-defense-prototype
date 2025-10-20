@@ -9,7 +9,7 @@ var ghostTower: Sprite2D
 var placingTower: bool = false
 var mousePosition: Vector2
 
-enum TowerType { BASIC, CHARGE, ADVANCED }
+enum TowerType { BASIC, CHARGE, HEARTFIRE }
 var towerTypeToPlace: TowerType
 
 func _ready() -> void:

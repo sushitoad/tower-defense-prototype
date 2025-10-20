@@ -1,12 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3ipy8tqa17n4"]
+[gd_scene load_steps=6 format=3 uid="uid://d3ipy8tqa17n4"]
 
 [ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/tower.gd" id="1_6myfv"]
 [ext_resource type="Texture2D" uid="uid://3avl1qlj0i44" path="res://art/basic tower proto 2.png" id="2_6myfv"]
+[ext_resource type="Script" uid="uid://b5fgm115ib0qt" path="res://scripts/basic_tower.gd" id="2_em1u4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c7lry"]
+radius = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m4352"]
 
 [node name="ProtoTower" type="StaticBody2D" groups=["tower"]]
 script = ExtResource("1_6myfv")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_em1u4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_c7lry")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 12)
@@ -19,3 +29,6 @@ texture = ExtResource("2_6myfv")
 [node name="DormantTimer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

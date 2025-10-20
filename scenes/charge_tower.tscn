@@ -10,6 +10,7 @@ radius = 16.0
 script = ExtResource("1_88xce")
 maxHealth = 120
 allure = 16.0
+towerType = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)
