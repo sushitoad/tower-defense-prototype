@@ -37,7 +37,7 @@ tile_set = SubResource("TileSet_6qxox")
 buildUI = NodePath("../BuildUI")
 
 [node name="FloatingOrbEnemy" parent="." instance=ExtResource("3_nd71p")]
-position = Vector2(604, 43)
+position = Vector2(604, 8)
 
 [node name="StalkerEnemy" parent="." instance=ExtResource("8_rnaij")]
 position = Vector2(347, 62)
