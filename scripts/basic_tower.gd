@@ -6,20 +6,22 @@ extends Area2D
 
 @export var attackSpeed: float = 1
 @export var attackDamage: int = 10
-@export var attackRange: float = 100
+var attackRange: float
 var currentTarget: CharacterBody2D
+
+func _ready() -> void:
+	var circleShape: Shape2D = $CollisionShape2D.shape
+	attackRange = circleShape.radius
 
 func _process(delta: float) -> void:
 	if currentTarget == null:
-		pass
-	#make an array of all enemies in range
+		var enemiesInRange = []
+		for enemy in get_tree().get_nodes_in_group("enemy"):
+			if position.distance_to(enemy.position) <= attackRange:
+				enemiesInRange.append(enemy)
+		if enemiesInRange.size() != 0:
+			print("found enemy")
 	#find the closest one and set it to current target
-
-#this wont work, it will need to check its range for something in group enemy on every frame it currently doesn't have a target
-func _on_body_entered(body: Node2D) -> void:
-	if currentTarget == null:
-		if body.is_in_group("enemy"):
-			currentTarget = body
 
 func _on_body_exited(body: Node2D) -> void:
 	if currentTarget == body:
