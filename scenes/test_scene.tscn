@@ -44,10 +44,9 @@ position = Vector2(347, 62)
 
 [node name="TheHeartfire" parent="." instance=ExtResource("4_7ddre")]
 position = Vector2(598, 531)
-allure = 0.0
 
 [node name="ProtoTower" parent="." instance=ExtResource("7_rnaij")]
-position = Vector2(705, 207)
+position = Vector2(654, 223)
 
 [node name="ChargeTower" parent="." instance=ExtResource("8_h3xc6")]
 position = Vector2(392, 345)
