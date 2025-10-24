@@ -16,7 +16,6 @@ script = ExtResource("1_6myfv")
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("bulletSpawnPos")]
 script = ExtResource("2_em1u4")
 bulletSpeed = 150.0
-attackDamage = 20
 bullet = ExtResource("3_m4352")
 bulletSpawnPos = NodePath("BulletSpawnPoint")
 
