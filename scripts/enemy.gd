@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 var currentTarget: Node2D
 var isInRangeOfTarget: bool = false
+@export var maxHealth: int = 40
+var currentHealth: int
 @export var moveSpeed: float = 10
 @export var range: float = 20
 @export var attackDamage: int = 10
@@ -9,6 +11,7 @@ var isInRangeOfTarget: bool = false
 @export var hasFacing: bool = false
 
 func _ready() -> void:
+	currentHealth = maxHealth
 	FindTarget()
 
 func _physics_process(delta: float) -> void:
@@ -68,3 +71,11 @@ func AttackTarget():
 		currentTarget.TakeDamage(attackDamage)
 	#this might end up being an animation thing but for now it good
 	#yes, because you can call functions in specific frames of an animation
+	
+func TakeDamage(damage: int):
+	currentHealth -= damage
+	print(currentHealth)
+	if currentHealth <= 0:
+		currentHealth = 0
+		queue_free()
+		#on_destroyed.emit()

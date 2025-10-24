@@ -45,6 +45,7 @@ height = 26.0
 motion_mode = 1
 safe_margin = 0.2
 script = ExtResource("1_i8de8")
+maxHealth = 60
 moveSpeed = 50.0
 range = 40.0
 attackDamage = 25

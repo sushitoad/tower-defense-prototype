@@ -1,21 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnbgnfjyhxgar"]
+[gd_scene load_steps=5 format=3 uid="uid://bagjql0mprpil"]
 
 [ext_resource type="Texture2D" uid="uid://c88a7lb4fyl3k" path="res://art/bullet proto 1.png" id="1_mkf8s"]
-[ext_resource type="Script" uid="uid://5vq2cqrqx11x" path="res://scripts/bullet.gd" id="1_y25gk"]
+[ext_resource type="Script" uid="uid://rsyyk84vcs15" path="res://scripts/bullet.gd" id="1_y25gk"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y25gk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkf8s"]
 atlas = ExtResource("1_mkf8s")
 region = Rect2(7, 6, 2, 2)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_l5glv"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_h1aey"]
 radius = 1.41421
 
-[node name="Bullet" type="RigidBody2D"]
-gravity_scale = 0.0
+[node name="Bullet" type="Area2D" groups=["bullet"]]
 script = ExtResource("1_y25gk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_y25gk")
+texture = SubResource("AtlasTexture_mkf8s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_l5glv")
+shape = SubResource("CircleShape2D_h1aey")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
