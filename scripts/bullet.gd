@@ -9,8 +9,10 @@ var towerRange: float
 func _physics_process(delta: float) -> void:
 	if target != null:
 		global_position = global_position + global_position.direction_to(target.global_position) * speed * delta
-		#if position.distance_to(parentTower.position) > towerRange:
-			#queue_free()
+		if position.distance_to(parentTower.position) > towerRange:
+			queue_free()
+	else:
+		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body == target:

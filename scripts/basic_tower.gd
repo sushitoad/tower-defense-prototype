@@ -20,11 +20,13 @@ func _process(delta: float) -> void:
 		$AttackTimer.stop()
 		if !enemiesInRange.is_empty():
 			var closestEnemy = enemiesInRange[0]
+			#enemies need to remove themselves from each towers enemiesInRange when they die or this breaks
 			for enemy in enemiesInRange:
-				if position.distance_to(enemy.position) < position.distance_to(closestEnemy.position):
-					closestEnemy = enemy
+					if position.distance_to(enemy.position) < position.distance_to(closestEnemy.position):
+						closestEnemy = enemy
 			currentTarget = closestEnemy
-			print(currentTarget)
+			currentTarget.on_death.connect(ForgetThisEnemy.bind(currentTarget))
+			#print(currentTarget)
 	elif currentTarget != null:
 		if $AttackTimer.is_stopped():
 			$AttackTimer.start(attackSpeed)
@@ -32,10 +34,7 @@ func _process(delta: float) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if currentTarget == body:
 		currentTarget = null
-	enemiesInRange.remove_at(enemiesInRange.find(body))
-	if body.is_in_group("bullet"):
-		if body.get_parent() == self:
-			body.queue_free()
+		ForgetThisEnemy(body)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
@@ -51,4 +50,7 @@ func SpawnBullet():
 	newBullet.damage = attackDamage
 	newBullet.target = currentTarget
 	newBullet.towerRange = attackRange
-	print("spawned bullet w target: " + str(newBullet.target))
+
+func ForgetThisEnemy(enemy: Node2D):
+	enemiesInRange.remove_at(enemiesInRange.find(enemy))
+	
