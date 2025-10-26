@@ -22,6 +22,9 @@ func _process(delta: float) -> void:
 			var closestEnemy = enemiesInRange[0]
 			#enemies need to remove themselves from each towers enemiesInRange when they die or this breaks
 			for enemy in enemiesInRange:
+					if enemy == null:
+						continue
+					#this is still breaking sometimes
 					if position.distance_to(enemy.position) < position.distance_to(closestEnemy.position):
 						closestEnemy = enemy
 			currentTarget = closestEnemy

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8ds7ewsgjec4"
-path="res://.godot/imported/spawner portal proto 1.png-5462e246eab48546663adf0209c2e93e.ctex"
+path="res://.godot/imported/spawner portal proto 1.png-a9a3e96fd4065cf14209a606c378d3cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aseprite files/spawner portal proto 1.png"
-dest_files=["res://.godot/imported/spawner portal proto 1.png-5462e246eab48546663adf0209c2e93e.ctex"]
+source_file="res://art/spawner portal proto 1.png"
+dest_files=["res://.godot/imported/spawner portal proto 1.png-a9a3e96fd4065cf14209a606c378d3cf.ctex"]
 
 [params]
 
