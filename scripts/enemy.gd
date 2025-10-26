@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal on_death
+
 var currentTarget: Node2D
 var isInRangeOfTarget: bool = false
 @export var maxHealth: int = 40
@@ -16,8 +18,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if currentTarget != null:
-		if position.distance_to(currentTarget.position) > range:
-			velocity = position.direction_to(currentTarget.position) * moveSpeed
+		if global_position.distance_to(currentTarget.global_position) > range:
+			velocity = global_position.direction_to(currentTarget.global_position) * moveSpeed
 			isInRangeOfTarget = false
 		else:
 			velocity = Vector2.ZERO
@@ -77,5 +79,9 @@ func TakeDamage(damage: int):
 	print(currentHealth)
 	if currentHealth <= 0:
 		currentHealth = 0
-		queue_free()
-		#on_destroyed.emit()
+		Die()
+
+func Die():
+	#emits signal that tells all targeting towers to remove this enemy
+	on_death.emit()
+	call_deferred("queue_free")
