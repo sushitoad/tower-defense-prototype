@@ -20,11 +20,7 @@ func _process(delta: float) -> void:
 		$AttackTimer.stop()
 		if !enemiesInRange.is_empty():
 			var closestEnemy = enemiesInRange[0]
-			#enemies need to remove themselves from each towers enemiesInRange when they die or this breaks
 			for enemy in enemiesInRange:
-					if enemy == null:
-						continue
-					#this is still breaking sometimes
 					if position.distance_to(enemy.position) < position.distance_to(closestEnemy.position):
 						closestEnemy = enemy
 			currentTarget = closestEnemy
@@ -35,8 +31,9 @@ func _process(delta: float) -> void:
 			$AttackTimer.start(attackSpeed)
 
 func _on_body_exited(body: Node2D) -> void:
-	if currentTarget == body:
-		currentTarget = null
+	if body.is_in_group("enemy"):
+		if currentTarget == body:
+			currentTarget = null
 		ForgetThisEnemy(body)
 
 func _on_body_entered(body: Node2D) -> void:

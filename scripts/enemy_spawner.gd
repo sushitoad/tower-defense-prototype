@@ -1,23 +1,29 @@
 extends Node2D
 
-@export var enemyToSpawn: PackedScene
-@export var timeBetweenSpawns: float = 10
-@export var numberToSpawn: int = 1
-@export var spawnDelay: float = 0.3
 
-#the best version of this can spawn enemies of multiple types based on ratios
-#multiple enemies, spaced apart initially based on their collision shape size (half size?)
+@export var enemyTypeOne: PackedScene
+@export var enemyTypeTwo: PackedScene
+@export var numberToSpawn: int = 1
+@export var enemySpawnRatio: float = 0.5
+@export var timeBetweenSpawns: float = 10
+@export var spawnDelay: float = 0.3
 
 func _ready() -> void:
 	$SpawnTimer.wait_time = timeBetweenSpawns
 
 func _on_spawn_timer_timeout() -> void:
-	SpawnEnemies()
+	SpawnAllEnemies()
 	
-func SpawnEnemies():
-	for num in numberToSpawn:
+func SpawnAllEnemies():
+	var numberOfOne: int = int(roundf(numberToSpawn * enemySpawnRatio))
+	var numberOfTwo: int = numberToSpawn - numberOfOne
+	SpawnEnemyType(numberOfOne, enemyTypeOne)
+	SpawnEnemyType(numberOfTwo, enemyTypeTwo)
+
+func SpawnEnemyType(amount: int, type: PackedScene):
+	for num in amount:
 		var newEnemy
-		newEnemy = enemyToSpawn.instantiate()
+		newEnemy = type.instantiate()
 		add_child(newEnemy)
 		newEnemy.global_position = global_position
 		await get_tree().create_timer(spawnDelay).timeout
