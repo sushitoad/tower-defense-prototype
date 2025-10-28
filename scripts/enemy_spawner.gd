@@ -3,7 +3,7 @@ extends Node2D
 
 @export var enemyTypeOne: PackedScene
 @export var enemyTypeTwo: PackedScene
-@export var numberToSpawn: int = 1
+@export var spawnNumberBase: int = 1
 @export var enemySpawnRatio: float = 0.5
 @export var timeBetweenSpawns: float = 10
 @export var spawnDelay: float = 0.3
@@ -15,6 +15,7 @@ func _on_spawn_timer_timeout() -> void:
 	SpawnAllEnemies()
 	
 func SpawnAllEnemies():
+	var numberToSpawn = spawnNumberBase #and then add the counter in level manager
 	var numberOfOne: int = int(roundf(numberToSpawn * enemySpawnRatio))
 	var numberOfTwo: int = numberToSpawn - numberOfOne
 	SpawnEnemyType(numberOfOne, enemyTypeOne)
