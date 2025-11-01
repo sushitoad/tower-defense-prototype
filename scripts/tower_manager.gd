@@ -30,8 +30,6 @@ func _process(delta: float) -> void:
 
 func SpawnTower(type: TowerType):
 	placingTower = true
-	#ghostTower = find_child("BasicTowerSprite")
-	#match statement here for the tower sprite
 	match type:
 		0:
 			ghostTower = find_child("BasicTowerSprite")
@@ -44,7 +42,6 @@ func SpawnTower(type: TowerType):
 
 func PlaceSpawnedTower():
 	ghostTower.visible = false
-	#match here for tower to instantiate
 	var newTower
 	match towerTypeToPlace:
 		0:

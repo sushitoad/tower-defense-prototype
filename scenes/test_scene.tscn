@@ -38,7 +38,6 @@ buildUI = NodePath("../BuildUI")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("5_6qxox")]
 position = Vector2(603, 44)
-numberToSpawn = 5
 
 [node name="TheHeartfire" parent="." instance=ExtResource("4_7ddre")]
 position = Vector2(598, 531)
