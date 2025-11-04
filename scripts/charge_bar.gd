@@ -1,11 +1,13 @@
 extends ProgressBar
 
+signal chargeAmountChanged
 @export var timeToCharge: float = 10
 var numberOfCharges: int = 0
 @onready var chargeTimer: Timer = $ChargeTimer
 
 func _ready() -> void:
 	max_value = timeToCharge
+	value = 0
 	chargeTimer.wait_time = timeToCharge
 	chargeTimer.start()
 
@@ -20,8 +22,7 @@ func AddCharges(chargeAmount: int):
 	if numberOfCharges < 0:
 		numberOfCharges = 0
 	print(numberOfCharges)
-	if numberOfCharges == 0:
-		pass #hide the tower buttons
+	chargeAmountChanged.emit()
 
 func _on_basic_tower_button_pressed() -> void:
 	AddCharges(-1)
