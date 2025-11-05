@@ -50,6 +50,7 @@ moveSpeed = 50.0
 range = 40.0
 attackDamage = 25
 attackSpeed = 2.0
+seeksHeartfire = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3whrh")

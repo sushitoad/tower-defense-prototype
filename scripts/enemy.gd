@@ -10,6 +10,7 @@ var currentHealth: int
 @export var range: float = 20
 @export var attackDamage: int = 10
 @export var attackSpeed: float = 1.2
+@export var seeksHeartfire: bool
 @export var hasFacing: bool = false
 
 func _ready() -> void:
@@ -50,17 +51,30 @@ func FindTarget():
 	if currentTarget != null:
 		currentTarget.on_destroyed.disconnect(FindTarget)
 	var newTarget
+	#sets up dummy tower to compare against
 	var closestTarget: Vector2 = Vector2(10000000000, 10000000000)
 	var closestAllure: float = 1
+	#creates array of towers and removes dormant ones
 	var targets = get_tree().get_nodes_in_group("tower")
 	for tower in targets:
 		if tower.isDestroyed:
 			targets.remove_at(targets.find(tower))
 	for tower in targets:
-		if(tower.position.distance_to(position) / tower.allure) < (closestTarget.distance_to(position) / closestAllure):
+		#weighs the search based on enemy personality
+		var allureMultiplier: float = 1
+		if seeksHeartfire:
+			if tower.towerType == 2:
+				allureMultiplier = 3
+			else:
+				allureMultiplier = 0.5
+		else:
+			allureMultiplier = 0.25
+			closestAllure = allureMultiplier
+		#compares tower distances divided by allure (smaller value wins)
+		if(tower.position.distance_to(position) / (tower.allure * allureMultiplier)) < (closestTarget.distance_to(position) / closestAllure):
 			newTarget = tower
 			closestTarget = tower.position
-			closestAllure = tower.allure
+			closestAllure = (tower.allure * allureMultiplier)
 	currentTarget = newTarget
 	if currentTarget != null:
 		currentTarget.on_destroyed.connect(FindTarget)
@@ -76,7 +90,6 @@ func AttackTarget():
 	
 func TakeDamage(damage: int):
 	currentHealth -= damage
-	print(currentHealth)
 	if currentHealth <= 0:
 		currentHealth = 0
 		Die()
