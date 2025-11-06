@@ -10,7 +10,7 @@ height = 42.0
 [node name="TheHeartfire" type="StaticBody2D" groups=["tower"]]
 script = ExtResource("1_nk2ah")
 maxHealth = 500
-allure = 100.0
+allure = 50.0
 towerType = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

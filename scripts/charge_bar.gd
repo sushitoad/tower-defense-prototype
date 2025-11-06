@@ -21,7 +21,7 @@ func AddCharges(chargeAmount: int):
 	numberOfCharges += chargeAmount
 	if numberOfCharges < 0:
 		numberOfCharges = 0
-	print(numberOfCharges)
+	#print(numberOfCharges)
 	chargeAmountChanged.emit()
 
 func _on_basic_tower_button_pressed() -> void:

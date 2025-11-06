@@ -19,7 +19,7 @@ func _ready() -> void:
 	
 func TakeDamage(damage: int):
 	currentHealth -= damage
-	print(currentHealth)
+	#print(currentHealth)
 	if currentHealth <= 0:
 		currentHealth = 0
 		isDestroyed = true

@@ -64,21 +64,27 @@ func FindTarget():
 		var allureMultiplier: float = 1
 		if seeksHeartfire:
 			if tower.towerType == 2:
-				allureMultiplier = 3
+				allureMultiplier = 5
 			else:
-				allureMultiplier = 0.5
+				allureMultiplier = 0.2
 		else:
-			allureMultiplier = 0.25
-			closestAllure = allureMultiplier
+			if tower.towerType == 2:
+				allureMultiplier = 0.4
+			else:
+				allureMultiplier = 1
 		#compares tower distances divided by allure (smaller value wins)
-		if(tower.position.distance_to(position) / (tower.allure * allureMultiplier)) < (closestTarget.distance_to(position) / closestAllure):
+		#right now the tower seeking personality seems to be picking based on the order of the scene tree, not distance
+		var allureToCheck: float = tower.allure * allureMultiplier
+		print(allureToCheck)
+		if(tower.global_position.distance_to(global_position) / allureToCheck) < (closestTarget.distance_to(global_position) / closestAllure):
 			newTarget = tower
-			closestTarget = tower.position
-			closestAllure = (tower.allure * allureMultiplier)
+			closestTarget = tower.global_position
+			closestAllure = allureToCheck
+			print(newTarget)
 	currentTarget = newTarget
 	if currentTarget != null:
 		currentTarget.on_destroyed.connect(FindTarget)
-		print(currentTarget.name)
+		#print(currentTarget.name)
 	else:
 		print("no more targets")
 
