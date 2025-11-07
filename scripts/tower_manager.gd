@@ -1,5 +1,7 @@
 extends Node2D
 
+signal towerPlaced
+
 @export var basicTower: PackedScene
 @export var chargeTower: PackedScene
 @export var buildUI: Control
@@ -50,4 +52,5 @@ func PlaceSpawnedTower():
 			newTower = chargeTower.instantiate()
 	add_child(newTower)
 	newTower.position = mousePosition
+	towerPlaced.emit()
 	placingTower = false

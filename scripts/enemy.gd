@@ -12,10 +12,13 @@ var currentHealth: int
 @export var attackSpeed: float = 1.2
 @export var seeksHeartfire: bool
 @export var hasFacing: bool = false
+var towerManager: Node2D
 
 func _ready() -> void:
 	currentHealth = maxHealth
 	FindTarget()
+	towerManager = get_parent().get_node("%TowerManager")
+	towerManager.towerPlaced.connect(FindTarget)
 
 func _physics_process(delta: float) -> void:
 	if currentTarget != null:
@@ -75,16 +78,16 @@ func FindTarget():
 		#compares tower distances divided by allure (smaller value wins)
 		#right now the tower seeking personality seems to be picking based on the order of the scene tree, not distance
 		var allureToCheck: float = tower.allure * allureMultiplier
-		print(allureToCheck)
+		#print(allureToCheck)
 		if(tower.global_position.distance_to(global_position) / allureToCheck) < (closestTarget.distance_to(global_position) / closestAllure):
 			newTarget = tower
 			closestTarget = tower.global_position
 			closestAllure = allureToCheck
-			print(newTarget)
+			#print(newTarget)
 	currentTarget = newTarget
 	if currentTarget != null:
 		currentTarget.on_destroyed.connect(FindTarget)
-		#print(currentTarget.name)
+		print(currentTarget.name)
 	else:
 		print("no more targets")
 

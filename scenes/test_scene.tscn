@@ -34,6 +34,7 @@ tile_set = SubResource("TileSet_6qxox")
 [node name="BuildUI" parent="." instance=ExtResource("1_g7g4h")]
 
 [node name="TowerManager" parent="." node_paths=PackedStringArray("buildUI") instance=ExtResource("2_j8ivh")]
+unique_name_in_owner = true
 buildUI = NodePath("../BuildUI")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("5_6qxox")]

@@ -16,19 +16,23 @@ func _ready() -> void:
 	tower = get_parent()
 
 func _process(delta: float) -> void:
-	if currentTarget == null:
-		$AttackTimer.stop()
-		if !enemiesInRange.is_empty():
-			var closestEnemy = enemiesInRange[0]
-			for enemy in enemiesInRange:
-					if position.distance_to(enemy.position) < position.distance_to(closestEnemy.position):
-						closestEnemy = enemy
-			currentTarget = closestEnemy
-			currentTarget.on_death.connect(ForgetThisEnemy.bind(currentTarget))
-			#print(currentTarget)
-	elif currentTarget != null:
-		if $AttackTimer.is_stopped():
-			$AttackTimer.start(attackSpeed)
+	if !tower.isDestroyed:
+		if currentTarget == null:
+			$AttackTimer.stop()
+			if !enemiesInRange.is_empty():
+				var closestEnemy = enemiesInRange[0]
+				for enemy in enemiesInRange:
+						if position.distance_to(enemy.position) < position.distance_to(closestEnemy.position):
+							closestEnemy = enemy
+				currentTarget = closestEnemy
+				currentTarget.on_death.connect(ForgetThisEnemy.bind(currentTarget))
+				#print(currentTarget)
+		elif currentTarget != null:
+			if $AttackTimer.is_stopped():
+				$AttackTimer.start(attackSpeed)
+	else:
+		if !$AttackTimer.is_stopped():
+			$AttackTimer.stop()
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
