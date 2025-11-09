@@ -72,82 +72,67 @@ grow_vertical = 0
 text = "charge tower"
 
 [node name="ChargeIcon" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
-anchors_preset = 2
-anchor_left = 0.0
+anchors_preset = 7
 anchor_top = 1.0
-anchor_right = 0.0
 anchor_bottom = 1.0
-offset_left = 411.0
-offset_top = -61.0
-offset_right = 539.0
-offset_bottom = 67.0
-grow_horizontal = 1
+offset_left = -307.0
+offset_top = -58.0
+offset_right = -179.0
+offset_bottom = 70.0
 grow_vertical = 0
 scale = Vector2(0.16, 0.16)
 size_flags_vertical = 8
 
 [node name="ChargeIcon2" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
-anchors_preset = 2
-anchor_left = 0.0
+anchors_preset = 7
 anchor_top = 1.0
-anchor_right = 0.0
 anchor_bottom = 1.0
-offset_left = 434.0
-offset_top = -61.0
-offset_right = 562.0
-offset_bottom = 67.0
-grow_horizontal = 1
+offset_left = -284.0
+offset_top = -58.0
+offset_right = -156.0
+offset_bottom = 70.0
 grow_vertical = 0
 scale = Vector2(0.16, 0.16)
 size_flags_vertical = 8
 
 [node name="ChargeIcon3" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
-anchors_preset = 2
-anchor_left = 0.0
+anchors_preset = 7
 anchor_top = 1.0
-anchor_right = 0.0
 anchor_bottom = 1.0
-offset_left = 457.0
-offset_top = -61.0
-offset_right = 585.0
-offset_bottom = 67.0
-grow_horizontal = 1
+offset_left = -261.0
+offset_top = -58.0
+offset_right = -133.0
+offset_bottom = 70.0
 grow_vertical = 0
 scale = Vector2(0.16, 0.16)
 size_flags_vertical = 8
 
 [node name="ChargeIcon4" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
-anchors_preset = 2
-anchor_left = 0.0
+anchors_preset = 7
 anchor_top = 1.0
-anchor_right = 0.0
 anchor_bottom = 1.0
-offset_left = 480.0
-offset_top = -61.0
-offset_right = 608.0
-offset_bottom = 67.0
-grow_horizontal = 1
+offset_left = -238.0
+offset_top = -58.0
+offset_right = -110.0
+offset_bottom = 70.0
 grow_vertical = 0
 scale = Vector2(0.16, 0.16)
 size_flags_vertical = 8
 
 [node name="ChargeIcon5" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
-anchors_preset = 2
-anchor_left = 0.0
+anchors_preset = 7
 anchor_top = 1.0
-anchor_right = 0.0
 anchor_bottom = 1.0
-offset_left = 503.0
-offset_top = -61.0
-offset_right = 631.0
-offset_bottom = 67.0
-grow_horizontal = 1
+offset_left = -215.0
+offset_top = -58.0
+offset_right = -87.0
+offset_bottom = 70.0
 grow_vertical = 0
 scale = Vector2(0.16, 0.16)
 size_flags_vertical = 8
 
-[connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="_on_charge_bar_charge_amount_changed"]
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="ToggleTowerButtons"]
+[connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="_on_charge_bar_charge_amount_changed"]
 [connection signal="timeout" from="CanvasLayer/ChargeBar/ChargeTimer" to="CanvasLayer/ChargeBar" method="_on_charge_timer_timeout"]
 [connection signal="mouse_entered" from="CanvasLayer/BasicTowerButton" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/BasicTowerButton" to="." method="_on_button_mouse_exited"]
