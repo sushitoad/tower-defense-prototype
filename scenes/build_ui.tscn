@@ -17,7 +17,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uej6l")
-chargeIcons = [NodePath("ChargeIcon"), NodePath("ChargeIcon2"), NodePath("ChargeIcon3"), NodePath("ChargeIcon4"), NodePath("ChargeIcon5")]
+chargeIcons = [NodePath("CanvasLayer/ChargeIcon"), NodePath("CanvasLayer/ChargeIcon2"), NodePath("CanvasLayer/ChargeIcon3"), NodePath("CanvasLayer/ChargeIcon4"), NodePath("CanvasLayer/ChargeIcon5")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -39,6 +39,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_xa1c1")
 value = 50.0
 show_percentage = false
 script = ExtResource("2_xa1c1")
+timeToCharge = 4.0
 
 [node name="ChargeTimer" type="Timer" parent="CanvasLayer/ChargeBar"]
 
@@ -70,60 +71,80 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "charge tower"
 
-[node name="ChargeIcon" parent="." instance=ExtResource("3_gkqg4")]
-layout_mode = 1
-anchors_preset = 5
-anchor_top = 0.0
-anchor_bottom = 0.0
-offset_left = -196.0
-offset_top = 267.0
-offset_right = -68.0
-offset_bottom = 395.0
-grow_vertical = 1
+[node name="ChargeIcon" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 411.0
+offset_top = -61.0
+offset_right = 539.0
+offset_bottom = 67.0
+grow_horizontal = 1
+grow_vertical = 0
+scale = Vector2(0.16, 0.16)
+size_flags_vertical = 8
 
-[node name="ChargeIcon2" parent="." instance=ExtResource("3_gkqg4")]
-layout_mode = 1
-anchors_preset = 5
-anchor_top = 0.0
-anchor_bottom = 0.0
-offset_left = -118.0
-offset_top = 267.0
-offset_right = 10.0
-offset_bottom = 395.0
-grow_vertical = 1
+[node name="ChargeIcon2" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 434.0
+offset_top = -61.0
+offset_right = 562.0
+offset_bottom = 67.0
+grow_horizontal = 1
+grow_vertical = 0
+scale = Vector2(0.16, 0.16)
+size_flags_vertical = 8
 
-[node name="ChargeIcon3" parent="." instance=ExtResource("3_gkqg4")]
-layout_mode = 1
-anchors_preset = 5
-anchor_top = 0.0
-anchor_bottom = 0.0
-offset_left = -39.0
-offset_top = 267.0
-offset_right = 89.0
-offset_bottom = 395.0
-grow_vertical = 1
+[node name="ChargeIcon3" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 457.0
+offset_top = -61.0
+offset_right = 585.0
+offset_bottom = 67.0
+grow_horizontal = 1
+grow_vertical = 0
+scale = Vector2(0.16, 0.16)
+size_flags_vertical = 8
 
-[node name="ChargeIcon4" parent="." instance=ExtResource("3_gkqg4")]
-layout_mode = 1
-anchors_preset = 5
-anchor_top = 0.0
-anchor_bottom = 0.0
-offset_left = 37.0
-offset_top = 267.0
-offset_right = 165.0
-offset_bottom = 395.0
-grow_vertical = 1
+[node name="ChargeIcon4" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 480.0
+offset_top = -61.0
+offset_right = 608.0
+offset_bottom = 67.0
+grow_horizontal = 1
+grow_vertical = 0
+scale = Vector2(0.16, 0.16)
+size_flags_vertical = 8
 
-[node name="ChargeIcon5" parent="." instance=ExtResource("3_gkqg4")]
-layout_mode = 1
-anchors_preset = 5
-anchor_top = 0.0
-anchor_bottom = 0.0
-offset_left = 109.0
-offset_top = 267.0
-offset_right = 237.0
-offset_bottom = 395.0
-grow_vertical = 1
+[node name="ChargeIcon5" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 503.0
+offset_top = -61.0
+offset_right = 631.0
+offset_bottom = 67.0
+grow_horizontal = 1
+grow_vertical = 0
+scale = Vector2(0.16, 0.16)
+size_flags_vertical = 8
 
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="_on_charge_bar_charge_amount_changed"]
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="ToggleTowerButtons"]
