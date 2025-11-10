@@ -60,7 +60,7 @@ func FindTarget():
 	#creates array of towers and removes dormant ones
 	var targets = get_tree().get_nodes_in_group("tower")
 	for tower in targets:
-		if tower.isDestroyed:
+		if tower.isDestroyed or tower.isBeingPlaced:
 			targets.remove_at(targets.find(tower))
 	for tower in targets:
 		#weighs the search based on enemy personality
@@ -87,7 +87,7 @@ func FindTarget():
 	currentTarget = newTarget
 	if currentTarget != null:
 		currentTarget.on_destroyed.connect(FindTarget)
-		print(currentTarget.name)
+		#print(currentTarget.name)
 	else:
 		print("no more targets")
 

@@ -19,7 +19,7 @@ bulletSpeed = 150.0
 bullet = ExtResource("3_m4352")
 bulletSpawnPos = NodePath("BulletSpawnPoint")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="RangeShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_c7lry")
 
 [node name="AttackTimer" type="Timer" parent="Area2D"]

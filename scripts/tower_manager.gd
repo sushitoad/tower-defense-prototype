@@ -6,13 +6,14 @@ signal towerPlaced
 @export var chargeTower: PackedScene
 @export var buildUI: Control
 
-var ghostTower: Sprite2D
+#var ghostTower: Sprite2D
 
-var placingTower: bool = false
+#var placingTower: bool = false
 var mousePosition: Vector2
 
 enum TowerType { BASIC, CHARGE, HEARTFIRE }
 var towerTypeToPlace: TowerType
+var newTower: StaticBody2D
 
 func _ready() -> void:
 	#for button in buildUI.find_children("*", "Button"):
@@ -24,33 +25,26 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	mousePosition = get_global_mouse_position()
-	if ghostTower != null:
-		ghostTower.position = mousePosition
+	if newTower != null:
+		newTower.position = mousePosition
 	if Input.is_action_just_pressed("LeftClick") and buildUI.isMouseOverButton == false:
-		if placingTower:
+		if newTower.isBeingPlaced and !newTower.tooCloseToOthers:
 			PlaceSpawnedTower()
 
 func SpawnTower(type: TowerType):
-	placingTower = true
 	match type:
-		0:
-			ghostTower = find_child("BasicTowerSprite")
-		1:
-			ghostTower = find_child("ChargeTowerSprite")
-		_:
-			print("other")
-	towerTypeToPlace = type
-	ghostTower.visible = true
-
-func PlaceSpawnedTower():
-	ghostTower.visible = false
-	var newTower
-	match towerTypeToPlace:
 		0:
 			newTower = basicTower.instantiate()
 		1:
 			newTower = chargeTower.instantiate()
+		_:
+			print("error- TowerType mismatch")
 	add_child(newTower)
-	newTower.position = mousePosition
+	newTower.isBeingPlaced = true
+	newTower.get_node("CollisionShape2D").disabled = true
+
+func PlaceSpawnedTower():
+	newTower.isBeingPlaced = false
 	towerPlaced.emit()
-	placingTower = false
+	newTower.get_node("CollisionShape2D").disabled = false
+	newTower = null

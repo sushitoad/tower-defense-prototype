@@ -11,12 +11,12 @@ var currentTarget: CharacterBody2D
 var tower: StaticBody2D
 
 func _ready() -> void:
-	var circleShape: Shape2D = $CollisionShape2D.shape
+	var circleShape: Shape2D = $RangeShape2D.shape
 	attackRange = circleShape.radius
 	tower = get_parent()
 
 func _process(delta: float) -> void:
-	if !tower.isDestroyed:
+	if !tower.isDestroyed and !tower.isBeingPlaced:
 		if currentTarget == null:
 			$AttackTimer.stop()
 			if !enemiesInRange.is_empty():

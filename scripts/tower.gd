@@ -7,16 +7,34 @@ signal on_destroyed
 @export var allure: float = 10
 @export var dormantTime: float = 10
 @export var dormantColor: Color = Color(1, 1, 1, 0.5)
+@export var distanceNeededToPlace: float = 40
 @export var towerType: TowerType
 var currentHealth: int
 var isDestroyed: bool = false
+var isBeingPlaced: bool = false
+var tooCloseToOthers: bool = false
 
 func _ready() -> void:
 	currentHealth = maxHealth
 	isDestroyed = false
 	if towerType != TowerType.HEARTFIRE:
 		$DormantTimer.timeout.connect(WakeThisTower)
-	
+
+func _process(delta: float) -> void:
+	if isBeingPlaced:
+		var allOtherTowers = get_tree().get_nodes_in_group("tower")
+		allOtherTowers.remove_at(allOtherTowers.find(self))
+		var noneTooClose: bool = true
+		for tower in allOtherTowers:
+			#if distance to is less than distanceNeededToPlace
+			if global_position.distance_to(tower.global_position) < distanceNeededToPlace:
+				tooCloseToOthers = true
+				$Sprite2D.modulate = dormantColor
+				noneTooClose = false
+		if noneTooClose:
+			tooCloseToOthers = false
+			$Sprite2D.modulate = Color(1, 1, 1, 1)
+
 func TakeDamage(damage: int):
 	currentHealth -= damage
 	#print(currentHealth)
