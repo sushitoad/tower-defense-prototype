@@ -56,7 +56,7 @@ offset_right = -7.0
 offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "basic tower"
+text = "Spire Candle"
 
 [node name="ChargeTowerButton" type="Button" parent="CanvasLayer"]
 anchors_preset = 7
@@ -70,7 +70,7 @@ offset_right = 116.5
 offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "charge tower"
+text = "Round Candle"
 
 [node name="ChargeIcon" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
 anchors_preset = 7
@@ -132,8 +132,8 @@ grow_vertical = 0
 scale = Vector2(0.16, 0.16)
 size_flags_vertical = 8
 
-[connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="_on_charge_bar_charge_amount_changed"]
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="ToggleTowerButtons"]
+[connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="_on_charge_bar_charge_amount_changed"]
 [connection signal="timeout" from="CanvasLayer/ChargeBar/ChargeTimer" to="CanvasLayer/ChargeBar" method="_on_charge_timer_timeout"]
 [connection signal="mouse_entered" from="CanvasLayer/BasicTowerButton" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/BasicTowerButton" to="." method="_on_button_mouse_exited"]
