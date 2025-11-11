@@ -1,7 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://dncxjlgaytiy"]
+[gd_scene load_steps=7 format=3 uid="uid://dncxjlgaytiy"]
 
 [ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="1_3lh4g"]
 [ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/tower.gd" id="1_88xce"]
+[ext_resource type="Script" uid="uid://b406orvvjlixj" path="res://scripts/charge_tower.gd" id="2_6xbv0"]
+[ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="3_ljo3c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6xbv0"]
+radius = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88xce"]
 radius = 16.0
@@ -10,6 +15,19 @@ radius = 16.0
 script = ExtResource("1_88xce")
 maxHealth = 120
 towerType = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_6xbv0")
+
+[node name="RangeShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_6xbv0")
+
+[node name="RangeSprite2D" type="Sprite2D" parent="Area2D"]
+visible = false
+modulate = Color(1, 1, 1, 0.196078)
+position = Vector2(3.21865e-06, -5.24521e-06)
+scale = Vector2(3.0625, 3.0625)
+texture = ExtResource("3_ljo3c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)

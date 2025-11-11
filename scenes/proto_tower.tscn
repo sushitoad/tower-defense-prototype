@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3ipy8tqa17n4"]
+[gd_scene load_steps=8 format=3 uid="uid://d3ipy8tqa17n4"]
 
 [ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/tower.gd" id="1_6myfv"]
 [ext_resource type="Texture2D" uid="uid://3avl1qlj0i44" path="res://art/basic tower proto 2.png" id="2_6myfv"]
 [ext_resource type="Script" uid="uid://b5fgm115ib0qt" path="res://scripts/basic_tower.gd" id="2_em1u4"]
 [ext_resource type="PackedScene" uid="uid://bagjql0mprpil" path="res://scenes/bullet.tscn" id="3_m4352"]
+[ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="4_c7lry"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c7lry"]
 radius = 100.0
@@ -21,6 +22,13 @@ bulletSpawnPos = NodePath("BulletSpawnPoint")
 
 [node name="RangeShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_c7lry")
+
+[node name="RangeSprite2D" type="Sprite2D" parent="Area2D/RangeShape2D"]
+visible = false
+modulate = Color(1, 1, 1, 0.196078)
+position = Vector2(7.89762e-06, 0.500004)
+scale = Vector2(3.0625, 3.07812)
+texture = ExtResource("4_c7lry")
 
 [node name="AttackTimer" type="Timer" parent="Area2D"]
 
