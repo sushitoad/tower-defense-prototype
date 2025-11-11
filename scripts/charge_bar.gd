@@ -5,6 +5,9 @@ signal chargeAmountChanged
 @export var chargeCap: int = 5
 var numberOfCharges: int = 0
 @onready var chargeTimer: Timer = $ChargeTimer
+var chargeTowerBoost: float = 1
+#i think I just need to not use a timer for this so I can edit the speed in real time
+var currentCharge: float = 0
 
 func _ready() -> void:
 	max_value = timeToCharge
@@ -13,7 +16,11 @@ func _ready() -> void:
 	chargeTimer.start()
 
 func _process(delta: float) -> void:
-	value = timeToCharge - chargeTimer.time_left
+	#value = timeToCharge - chargeTimer.time_left
+	if chargeTowerBoost < 1:
+		chargeTowerBoost = 1
+	currentCharge += delta * chargeTowerBoost
+	value = currentCharge
 
 func _on_charge_timer_timeout() -> void:
 	AddCharges(1)
