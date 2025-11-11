@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://divrvuwe2ftlx"]
 
-[ext_resource type="Texture2D" uid="uid://dte7ua0we0ylg" path="res://icon.svg" id="1_p75hl"]
+[ext_resource type="Texture2D" uid="uid://xkt4vf5dygnt" path="res://art/charge icon proto 1.png" id="1_p75hl"]
 
 [node name="ChargeIcon" type="TextureRect"]
 anchors_preset = 8
@@ -14,5 +14,4 @@ offset_right = 64.0
 offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_p75hl")
