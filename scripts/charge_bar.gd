@@ -4,9 +4,7 @@ signal chargeAmountChanged
 @export var timeToCharge: float = 10
 @export var chargeCap: int = 5
 var numberOfCharges: int = 0
-@onready var chargeTimer: Timer = $ChargeTimer
 var chargeTowerBoost: float = 1
-#i think I just need to not use a timer for this so I can edit the speed in real time
 var currentCharge: float = 0
 
 func _ready() -> void:
@@ -14,9 +12,6 @@ func _ready() -> void:
 	value = 0
 
 func _process(delta: float) -> void:
-	#value = timeToCharge - chargeTimer.time_left
-	
-	#this breaks when you reach max charges, I think it keeps giving you a 5th again immediately
 	if chargeTowerBoost < 1:
 		chargeTowerBoost = 1
 	if currentCharge >= max_value:
@@ -27,24 +22,23 @@ func _process(delta: float) -> void:
 		currentCharge += delta * chargeTowerBoost
 	value = currentCharge
 
-func _on_charge_timer_timeout() -> void:
-	pass #AddCharges(1)
-
 func AddCharges(chargeAmount: int):
 	var chargesBefore: int = numberOfCharges
 	numberOfCharges += chargeAmount
-	if numberOfCharges == chargeCap:
-		#chargeTimer.stop()
+	#freezing charge bar at charge cap
+	if numberOfCharges >= chargeCap:
 		currentCharge = max_value
+	#clamping the charge count from 0 to charge cap
 	if numberOfCharges < 0:
 		numberOfCharges = 0
 	elif numberOfCharges > chargeCap:
 		numberOfCharges = chargeCap
-	#if numberOfCharges < chargeCap and chargeTimer.is_stopped():
-	#	chargeTimer.start()
+	#emitting signal (mainly for build UI to change charge icons)
 	if chargesBefore != numberOfCharges:
 		chargeAmountChanged.emit()
-	print(str(numberOfCharges) + " charges")
+	#starting the count again if it was frozen and a charge is spent
+	if chargesBefore >= chargeCap and chargesBefore > numberOfCharges:
+		currentCharge = 0
 
 func _on_basic_tower_button_pressed() -> void:
 	AddCharges(-1)
