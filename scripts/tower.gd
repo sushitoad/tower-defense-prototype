@@ -2,6 +2,7 @@ extends StaticBody2D
 
 enum TowerType { BASIC, CHARGE, HEARTFIRE }
 signal on_destroyed
+signal on_awoke
 
 @export var maxHealth: int = 100
 @export var allure: float = 10
@@ -48,5 +49,6 @@ func TakeDamage(damage: int):
 
 func WakeThisTower():
 	isDestroyed = false
+	on_awoke.emit()
 	currentHealth = maxHealth
 	$Sprite2D.modulate = Color(1, 1, 1, 1)

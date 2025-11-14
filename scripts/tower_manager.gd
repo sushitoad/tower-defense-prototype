@@ -47,6 +47,7 @@ func SpawnTower(type: TowerType):
 func PlaceSpawnedTower():
 	newTower.isBeingPlaced = false
 	towerPlaced.emit()
+	newTower.WakeThisTower()
 	newTower.get_node("CollisionShape2D").disabled = false
 	newTower.find_child("RangeSprite2D").visible = false
 	newTower = null

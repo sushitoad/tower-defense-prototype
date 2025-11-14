@@ -9,7 +9,7 @@ bg_color = Color(0, 0, 0, 0.309804)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xa1c1"]
 
-[node name="BuildUI" type="Control" node_paths=PackedStringArray("chargeIcons")]
+[node name="BuildUI" type="Control" node_paths=PackedStringArray("chargeIcons") groups=["UI"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,8 +131,8 @@ grow_vertical = 0
 scale = Vector2(0.16, 0.16)
 size_flags_vertical = 8
 
-[connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="_on_charge_bar_charge_amount_changed"]
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="ToggleTowerButtons"]
+[connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="_on_charge_bar_charge_amount_changed"]
 [connection signal="mouse_entered" from="CanvasLayer/BasicTowerButton" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/BasicTowerButton" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/BasicTowerButton" to="CanvasLayer/ChargeBar" method="_on_basic_tower_button_pressed"]
