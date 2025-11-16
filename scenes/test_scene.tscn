@@ -47,7 +47,7 @@ position = Vector2(598, 531)
 position = Vector2(654, 223)
 
 [node name="ChargeTower" parent="." instance=ExtResource("8_h3xc6")]
-position = Vector2(598, 171)
+position = Vector2(421, 235)
 
 [node name="Camera2D" parent="." instance=ExtResource("10_s36qc")]
 

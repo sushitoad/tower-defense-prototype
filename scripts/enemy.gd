@@ -7,6 +7,7 @@ var isInRangeOfTarget: bool = false
 @export var maxHealth: int = 40
 var currentHealth: int
 @export var moveSpeed: float = 10
+var speedReduction: float = 0
 @export var range: float = 20
 @export var attackDamage: int = 10
 @export var attackSpeed: float = 1.2
@@ -21,9 +22,12 @@ func _ready() -> void:
 	towerManager.towerPlaced.connect(FindTarget)
 
 func _physics_process(delta: float) -> void:
+	var totalSpeed: float = moveSpeed - speedReduction
+	if totalSpeed < moveSpeed / 3:
+		totalSpeed = moveSpeed / 3
 	if currentTarget != null:
 		if global_position.distance_to(currentTarget.global_position) > range:
-			velocity = global_position.direction_to(currentTarget.global_position) * moveSpeed
+			velocity = global_position.direction_to(currentTarget.global_position) * totalSpeed
 			isInRangeOfTarget = false
 		else:
 			velocity = Vector2.ZERO

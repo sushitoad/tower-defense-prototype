@@ -13,7 +13,8 @@ radius = 16.0
 
 [node name="ChargeTower" type="StaticBody2D" groups=["tower"]]
 script = ExtResource("1_88xce")
-maxHealth = 120
+maxHealth = 60
+allure = 25.0
 towerType = 1
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -39,3 +40,6 @@ texture = ExtResource("1_3lh4g")
 [node name="DormantTimer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
