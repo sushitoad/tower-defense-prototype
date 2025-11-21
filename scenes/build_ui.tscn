@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://3s7v6hrcvn3b"]
+[gd_scene load_steps=8 format=3 uid="uid://3s7v6hrcvn3b"]
 
 [ext_resource type="Script" uid="uid://3jdwqtai60f7" path="res://scripts/build_ui.gd" id="1_uej6l"]
 [ext_resource type="Script" uid="uid://yaquu6i5b8mf" path="res://scripts/charge_bar.gd" id="2_xa1c1"]
@@ -8,6 +8,19 @@
 bg_color = Color(0, 0, 0, 0.309804)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xa1c1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkqg4"]
+bg_color = Color(0, 0, 0, 0.352941)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_r2a2q"]
+line_spacing = 0.0
+font_size = 10
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
 
 [node name="BuildUI" type="Control" node_paths=PackedStringArray("chargeIcons") groups=["UI"]]
 layout_mode = 3
@@ -57,6 +70,18 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Spire Candle"
 
+[node name="BasicTowerTooltip" type="Label" parent="CanvasLayer/BasicTowerButton"]
+layout_mode = 0
+offset_top = -39.0
+offset_right = 105.0
+offset_bottom = -6.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_gkqg4")
+text = "Damages the Despair"
+label_settings = SubResource("LabelSettings_r2a2q")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
 [node name="ChargeTowerButton" type="Button" parent="CanvasLayer"]
 anchors_preset = 7
 anchor_left = 0.5
@@ -70,6 +95,19 @@ offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Round Candle"
+
+[node name="ChargeTowerTooltip" type="Label" parent="CanvasLayer/ChargeTowerButton"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -39.0
+offset_right = 115.0
+offset_bottom = -6.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_gkqg4")
+text = "Increases light charge and slows the Despair"
+label_settings = SubResource("LabelSettings_r2a2q")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
 
 [node name="ChargeIcon" parent="CanvasLayer" instance=ExtResource("3_gkqg4")]
 anchors_preset = 7
