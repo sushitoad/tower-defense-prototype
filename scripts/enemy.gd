@@ -8,14 +8,13 @@ var isInRangeOfTarget: bool = false
 var currentHealth: int
 @export var moveSpeed: float = 10
 @export var minimumSpeed: float = 0.2
-var slowMultiplier: float = 2.5
+var speedReduction: float = 0
 @export var range: float = 20
 @export var attackDamage: int = 10
 @export var attackSpeed: float = 1.2
 @export var seeksHeartfire: bool
 @export var hasFacing: bool = false
 var towerManager: Node2D
-var slowingTowers: Array[Area2D]
 
 func _ready() -> void:
 	currentHealth = maxHealth
@@ -24,7 +23,6 @@ func _ready() -> void:
 	towerManager.towerPlaced.connect(FindTarget)
 
 func _physics_process(delta: float) -> void:
-	var speedReduction: float = slowingTowers.size() * slowMultiplier
 	var totalSpeed: float = moveSpeed - speedReduction
 	if totalSpeed < minimumSpeed:
 		totalSpeed = minimumSpeed
