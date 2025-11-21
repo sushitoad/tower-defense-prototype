@@ -27,4 +27,9 @@ func _on_charge_bar_charge_amount_changed() -> void:
 			chargeIcons[iconIndex].visible = true
 		else:
 			chargeIcons[iconIndex].visible = false
-		
+
+func ShowHideBasicTowerTooltip():
+	$CanvasLayer/BasicTowerButton/BasicTowerTooltip.visible = !$CanvasLayer/BasicTowerButton/BasicTowerTooltip.visible
+
+func ShowHideChargeTowerTooltip():
+	$CanvasLayer/ChargeTowerButton/ChargeTowerTooltip.visible = !$CanvasLayer/ChargeTowerButton/ChargeTowerTooltip.visible

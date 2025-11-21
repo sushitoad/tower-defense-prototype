@@ -71,6 +71,7 @@ grow_vertical = 0
 text = "Spire Candle"
 
 [node name="BasicTowerTooltip" type="Label" parent="CanvasLayer/BasicTowerButton"]
+visible = false
 layout_mode = 0
 offset_top = -39.0
 offset_right = 105.0
@@ -97,6 +98,7 @@ grow_vertical = 0
 text = "Round Candle"
 
 [node name="ChargeTowerTooltip" type="Label" parent="CanvasLayer/ChargeTowerButton"]
+visible = false
 layout_mode = 0
 offset_left = 2.0
 offset_top = -39.0
@@ -171,9 +173,13 @@ size_flags_vertical = 8
 
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="_on_charge_bar_charge_amount_changed"]
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="ToggleTowerButtons"]
+[connection signal="mouse_entered" from="CanvasLayer/BasicTowerButton" to="." method="ShowHideBasicTowerTooltip"]
 [connection signal="mouse_entered" from="CanvasLayer/BasicTowerButton" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/BasicTowerButton" to="." method="ShowHideBasicTowerTooltip"]
 [connection signal="mouse_exited" from="CanvasLayer/BasicTowerButton" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/BasicTowerButton" to="CanvasLayer/ChargeBar" method="_on_basic_tower_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/ChargeTowerButton" to="." method="ShowHideChargeTowerTooltip"]
 [connection signal="mouse_entered" from="CanvasLayer/ChargeTowerButton" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/ChargeTowerButton" to="." method="ShowHideChargeTowerTooltip"]
 [connection signal="mouse_exited" from="CanvasLayer/ChargeTowerButton" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/ChargeTowerButton" to="CanvasLayer/ChargeBar" method="_on_charge_tower_button_pressed"]
