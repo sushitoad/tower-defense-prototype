@@ -1,8 +1,8 @@
 extends ProgressBar
 
 signal chargeAmountChanged
-@export var timeToCharge: float = 10
-@export var chargeCap: int = 5
+var timeToCharge: float = 10
+var chargeCap: int = 5
 var numberOfCharges: int = 0
 var chargeTowerBoost: float = 1
 var currentCharge: float = 0
@@ -10,6 +10,8 @@ var currentCharge: float = 0
 func _ready() -> void:
 	max_value = timeToCharge
 	value = 0
+	timeToCharge = $"../..".timeToFullCharge
+	chargeCap = $"../..".chargeMaxNumber
 
 func _process(delta: float) -> void:
 	if chargeTowerBoost < 1:

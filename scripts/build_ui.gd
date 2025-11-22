@@ -1,6 +1,8 @@
 extends Control
 
 var isMouseOverButton: bool = false
+@export var timeToFullCharge: float = 10
+@export var chargeMaxNumber: int = 5
 @export var chargeIcons: Array[TextureRect]
 
 func _ready() -> void:
