@@ -8,7 +8,7 @@ signal towerPlaced
 
 #var ghostTower: Sprite2D
 
-#var placingTower: bool = false
+var placingTower: bool = false
 var mousePosition: Vector2
 
 enum TowerType { BASIC, CHARGE, HEARTFIRE }
@@ -28,10 +28,12 @@ func _process(delta: float) -> void:
 	if newTower != null:
 		newTower.position = mousePosition
 	if Input.is_action_just_pressed("LeftClick") and buildUI.isMouseOverButton == false:
-		if newTower.isBeingPlaced and !newTower.tooCloseToOthers:
-			PlaceSpawnedTower()
+		if placingTower:
+			if newTower.isBeingPlaced and !newTower.tooCloseToOthers:
+				PlaceSpawnedTower()
 
 func SpawnTower(type: TowerType):
+	placingTower = true
 	match type:
 		0:
 			newTower = basicTower.instantiate()
@@ -51,3 +53,4 @@ func PlaceSpawnedTower():
 	newTower.get_node("CollisionShape2D").disabled = false
 	newTower.find_child("RangeSprite2D").visible = false
 	newTower = null
+	placingTower = false

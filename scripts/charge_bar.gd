@@ -8,10 +8,10 @@ var chargeTowerBoost: float = 1
 var currentCharge: float = 0
 
 func _ready() -> void:
-	max_value = timeToCharge
-	value = 0
 	timeToCharge = $"../..".timeToFullCharge
 	chargeCap = $"../..".chargeMaxNumber
+	max_value = timeToCharge
+	value = 0
 
 func _process(delta: float) -> void:
 	if chargeTowerBoost < 1:
@@ -23,6 +23,7 @@ func _process(delta: float) -> void:
 	else:
 		currentCharge += delta * chargeTowerBoost
 	value = currentCharge
+	print(chargeTowerBoost)
 
 func AddCharges(chargeAmount: int):
 	var chargesBefore: int = numberOfCharges
