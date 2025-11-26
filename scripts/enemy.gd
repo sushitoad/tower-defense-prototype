@@ -15,6 +15,7 @@ var speedReduction: float = 0
 @export var seeksHeartfire: bool
 @export var hasFacing: bool = false
 var towerManager: Node2D
+var targetableBeacons: Array[StaticBody2D]
 
 func _ready() -> void:
 	currentHealth = maxHealth
@@ -54,6 +55,9 @@ func _process(delta: float) -> void:
 			$AttackTimer.start(attackSpeed)
 	elif !isInRangeOfTarget:
 		$AttackTimer.stop()
+	#I think I need a find target behavior in the process function
+		#I want it to update when a beacon wakes up nearby, they need to react in real time
+		#the trick is making this lightweight in the process function
 
 func FindTarget():
 	if currentTarget != null:
@@ -67,6 +71,7 @@ func FindTarget():
 	for tower in targets:
 		if tower.isDestroyed or tower.isBeingPlaced:
 			targets.remove_at(targets.find(tower))
+			print(targets)
 	for tower in targets:
 		#weighs the search based on enemy personality
 		var allureMultiplier: float = 1
@@ -81,13 +86,13 @@ func FindTarget():
 			else:
 				allureMultiplier = 1
 		#compares tower distances divided by allure (smaller value wins)
-		#right now the tower seeking personality seems to be picking based on the order of the scene tree, not distance
 		var allureToCheck: float = tower.allure * allureMultiplier
 		#print(allureToCheck)
 		if(tower.global_position.distance_to(global_position) / allureToCheck) < (closestTarget.distance_to(global_position) / closestAllure):
-			newTarget = tower
-			closestTarget = tower.global_position
-			closestAllure = allureToCheck
+			if !tower.isDestroyed:
+				newTarget = tower
+				closestTarget = tower.global_position
+				closestAllure = allureToCheck
 			#print(newTarget)
 	currentTarget = newTarget
 	if currentTarget != null:
@@ -95,6 +100,13 @@ func FindTarget():
 		#print(currentTarget.name)
 	else:
 		print("no more targets")
+
+func UpdateTargetableBeacons():
+	pass #this will update the array targetableBeacons
+	#get all beacons
+	#if its not destroyed or being placed
+	#if its not too far except heartfire
+	#add it to targetable beacons
 
 func AttackTarget():
 	if currentTarget != null:
