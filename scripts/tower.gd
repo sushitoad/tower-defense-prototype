@@ -27,7 +27,6 @@ func _process(delta: float) -> void:
 		allOtherTowers.remove_at(allOtherTowers.find(self))
 		var noneTooClose: bool = true
 		for tower in allOtherTowers:
-			#if distance to is less than distanceNeededToPlace
 			if global_position.distance_to(tower.global_position) < distanceNeededToPlace:
 				tooCloseToOthers = true
 				$Sprite2D.modulate = dormantColor
@@ -38,7 +37,6 @@ func _process(delta: float) -> void:
 
 func TakeDamage(damage: int):
 	currentHealth -= damage
-	#print(currentHealth)
 	if currentHealth <= 0:
 		currentHealth = 0
 		isDestroyed = true

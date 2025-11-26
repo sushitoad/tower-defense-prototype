@@ -2,6 +2,7 @@ extends Area2D
 
 @export var chargeBoostPercent: float = 5
 @export var enemySlowAmount: float = 4
+@export var startsOnMap: bool = false
 var buildUI: Control
 var chargeBar: ProgressBar
 @onready var tower: StaticBody2D = get_parent()
@@ -22,32 +23,15 @@ func _ready() -> void:
 	tower.on_destroyed.connect(StopSlowOnDormant)
 	tower.on_awoke.connect(AdjustChargeRate)
 	tower.on_awoke.connect(StartSlowOnAwoke)
-	if !tower.isDestroyed and !tower.isBeingPlaced:
+	if Time.get_ticks_msec() < 2000:
 		AdjustChargeRate()
 
-#in process, if not destroyed, find each enemy in range and apply slow
-#how does is not add an additional charge each frame?
-
-#this needs to have a function attached to on_destroyed signal that removes itself from all slowingTowers arrays
-#func _process(delta: float) -> void:
-#	if !tower.isDestroyed and !tower.isBeingPlaced:
-#		var enemies: Array[Node] = get_tree().get_nodes_in_group("enemy")
-#		for enemy in enemies:
-#			if enemy.slowingTowers.find(self) == -1:
-#				if global_position.distance_to(enemy.global_position) <= circleShape.radius:
-#					enemy.slowingTowers.append(self)
-#			else:
-#				if global_position.distance_to(enemy.global_position) > circleShape.radius:
-#					enemy.slowingTowers.remove_at(enemy.slowingTowers.find(enemy))
-
-#i wonder if there's a more elegant solution not in process, something still using on_body_entered?
-
 func AdjustChargeRate():
-	if !tower.isDestroyed and !tower.isBeingPlaced:
+	if !tower.isDestroyed:
 		chargeBar.chargeTowerBoost += (chargeBoostPercent / 100)
 	else:
 		chargeBar.chargeTowerBoost -= (chargeBoostPercent / 100)
-	#print("charge rate is: " + str(chargeBar.chargeTowerBoost))
+	print("charge rate is: " + str(chargeBar.chargeTowerBoost))
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
@@ -62,12 +46,10 @@ func _on_body_exited(body: Node2D) -> void:
 			UnslowEnemy(body)
 
 func StopSlowOnDormant():
-	#this will be connected to the on_destroyed signal
 	for enemy in slowedEnemies:
 		UnslowEnemy(enemy)
 
 func StartSlowOnAwoke():
-	#this will be connected to the on_awoke signal
 	for enemy in enemiesInRangeToSlow:
 		if slowedEnemies.find(enemy) == -1:
 			SlowEnemy(enemy)

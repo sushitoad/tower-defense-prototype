@@ -47,6 +47,7 @@ tile_map_data = PackedByteArray("AAAwABgAAAACAAAAAAAxABcAAAACAAAAAAAxABgAAAACAAA
 tile_set = SubResource("TileSet_h3xc6")
 
 [node name="LevelManager" parent="." instance=ExtResource("1_3qnke")]
+unique_name_in_owner = true
 
 [node name="BuildUI" parent="." instance=ExtResource("1_g7g4h")]
 

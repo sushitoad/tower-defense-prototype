@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	else:
 		currentCharge += delta * chargeTowerBoost
 	value = currentCharge
-	print(chargeTowerBoost)
+	#print(chargeTowerBoost)
 
 func AddCharges(chargeAmount: int):
 	var chargesBefore: int = numberOfCharges
