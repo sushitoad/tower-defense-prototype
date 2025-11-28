@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var chargeBoostPercent: float = 5
-@export var enemySlowAmount: float = 4
+@export var enemySlowAmount: float = 15
 @export var startsOnMap: bool = false
 var buildUI: Control
 var chargeBar: ProgressBar

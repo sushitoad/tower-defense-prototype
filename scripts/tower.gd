@@ -27,7 +27,10 @@ func _process(delta: float) -> void:
 		allOtherTowers.remove_at(allOtherTowers.find(self))
 		var noneTooClose: bool = true
 		for tower in allOtherTowers:
-			if global_position.distance_to(tower.global_position) < distanceNeededToPlace:
+			var distanceNeeded: float = distanceNeededToPlace
+			if tower.name == "TheHeartfire":
+				distanceNeeded = distanceNeededToPlace * 2
+			if global_position.distance_to(tower.global_position) < distanceNeeded:
 				tooCloseToOthers = true
 				$Sprite2D.modulate = dormantColor
 				noneTooClose = false

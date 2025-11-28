@@ -7,7 +7,7 @@ var isInRangeOfTarget: bool = false
 @export var maxHealth: int = 40
 var currentHealth: int
 @export var moveSpeed: float = 10
-@export var minimumSpeed: float = 0.2
+@export var minimumSpeed: float = 5
 var speedReduction: float = 0
 @export var range: float = 20
 @export var attackDamage: int = 10
@@ -27,6 +27,7 @@ func _physics_process(delta: float) -> void:
 	var totalSpeed: float = moveSpeed - speedReduction
 	if totalSpeed < minimumSpeed:
 		totalSpeed = minimumSpeed
+	print(str(self.name) + " speed is " + str(totalSpeed))
 	if currentTarget != null:
 		if global_position.distance_to(currentTarget.global_position) > range:
 			velocity = global_position.direction_to(currentTarget.global_position) * totalSpeed
@@ -71,7 +72,6 @@ func FindTarget():
 	for tower in targets:
 		if tower.isDestroyed or tower.isBeingPlaced:
 			targets.remove_at(targets.find(tower))
-			print(targets)
 	for tower in targets:
 		#weighs the search based on enemy personality
 		var allureMultiplier: float = 1
@@ -87,17 +87,14 @@ func FindTarget():
 				allureMultiplier = 1
 		#compares tower distances divided by allure (smaller value wins)
 		var allureToCheck: float = tower.allure * allureMultiplier
-		#print(allureToCheck)
 		if(tower.global_position.distance_to(global_position) / allureToCheck) < (closestTarget.distance_to(global_position) / closestAllure):
 			if !tower.isDestroyed:
 				newTarget = tower
 				closestTarget = tower.global_position
 				closestAllure = allureToCheck
-			#print(newTarget)
 	currentTarget = newTarget
 	if currentTarget != null:
 		currentTarget.on_destroyed.connect(FindTarget)
-		#print(currentTarget.name)
 	else:
 		print("no more targets")
 
