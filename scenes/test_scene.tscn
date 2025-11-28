@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://cp3bno7h7a6jm"]
+[gd_scene load_steps=13 format=4 uid="uid://cp3bno7h7a6jm"]
 
 [ext_resource type="PackedScene" uid="uid://j55nalk0nn57" path="res://scenes/level_manager.tscn" id="1_3qnke"]
 [ext_resource type="PackedScene" uid="uid://3s7v6hrcvn3b" path="res://scenes/build_ui.tscn" id="1_g7g4h"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://nwxp6m1042v5" path="res://scenes/the_heartfire.tscn" id="4_7ddre"]
 [ext_resource type="PackedScene" uid="uid://c3ly8m2djtyo2" path="res://scenes/enemy_spawner.tscn" id="5_6qxox"]
 [ext_resource type="PackedScene" uid="uid://dncxjlgaytiy" path="res://scenes/charge_tower.tscn" id="8_h3xc6"]
-[ext_resource type="PackedScene" uid="uid://ddiwxlxpx87cf" path="res://scenes/floating_orb_enemy.tscn" id="9_h3xc6"]
 [ext_resource type="PackedScene" uid="uid://bke6wmd6gbbnp" path="res://scenes/camera.tscn" id="10_s36qc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s36qc"]
@@ -62,22 +61,19 @@ enemySpawnRatio = 0.75
 timeBetweenSpawns = 15.0
 timeToIncreaseSpawns = 50.0
 activatesLater = true
-activationTime = 500.0
 
 [node name="EnemySpawner2" parent="." instance=ExtResource("5_6qxox")]
 position = Vector2(1441, 9)
 enemySpawnRatio = 0.25
 timeBetweenSpawns = 15.0
 timeToIncreaseSpawns = 45.0
-activatesLater = true
-activationTime = 500.0
 
 [node name="EnemySpawner3" parent="." instance=ExtResource("5_6qxox")]
 position = Vector2(-97, 985)
 spawnNumberBase = 2
 timeBetweenSpawns = 20.0
 activatesLater = true
-activationTime = 500.0
+activationTime = 80.0
 
 [node name="EnemySpawner4" parent="." instance=ExtResource("5_6qxox")]
 position = Vector2(948, 853)
@@ -86,7 +82,7 @@ enemySpawnRatio = 0.0
 timeBetweenSpawns = 20.0
 spawnDelay = 0.4
 activatesLater = true
-activationTime = 500.0
+activationTime = 160.0
 
 [node name="TheHeartfire" parent="." instance=ExtResource("4_7ddre")]
 position = Vector2(598, 531)
@@ -98,8 +94,5 @@ position = Vector2(534, 236)
 position = Vector2(617, 207)
 
 [node name="Camera2D" parent="." instance=ExtResource("10_s36qc")]
-
-[node name="FloatingOrbEnemy" parent="." instance=ExtResource("9_h3xc6")]
-position = Vector2(534, 71)
 
 [connection signal="on_destroyed" from="TheHeartfire" to="LevelManager" method="GameOver"]

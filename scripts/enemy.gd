@@ -4,6 +4,9 @@ signal on_death
 
 var currentTarget: Node2D
 var isInRangeOfTarget: bool = false
+var isCollidingWithTower: bool = false
+var towerInTheWay: StaticBody2D = null
+var collisionPatienceTimer: SceneTreeTimer = null
 @export var maxHealth: int = 40
 var currentHealth: int
 @export var moveSpeed: float = 10
@@ -14,6 +17,7 @@ var speedReduction: float = 0
 @export var attackSpeed: float = 1.2
 @export var seeksHeartfire: bool
 @export var hasFacing: bool = false
+@export var collisionPatience: float = 3
 var towerManager: Node2D
 var targetableBeacons: Array[StaticBody2D]
 
@@ -27,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	var totalSpeed: float = moveSpeed - speedReduction
 	if totalSpeed < minimumSpeed:
 		totalSpeed = minimumSpeed
-	print(str(self.name) + " speed is " + str(totalSpeed))
+	#print(str(self.name) + " speed is " + str(totalSpeed))
 	if currentTarget != null:
 		if global_position.distance_to(currentTarget.global_position) > range:
 			velocity = global_position.direction_to(currentTarget.global_position) * totalSpeed
@@ -39,7 +43,22 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		isInRangeOfTarget = false
 	
-	move_and_slide()
+	var collided: bool = move_and_slide()
+	var movement: Vector2 = abs(velocity)
+	print(movement)
+	#needs to know if it's actually still moving, even though its colliding
+	#that way it can differentiate between running into a tower and being fully stuck
+	#velocity doesn't work for this, will need to use transform
+	if collided:
+		if velocity < Vector2(0.5, 0.5):
+			var collision = get_last_slide_collision()
+			if collision.get_collider().is_in_group("tower"):
+				#print("there's a tower in front of me!")
+				if !isCollidingWithTower and collisionPatienceTimer == null:
+					collisionPatienceTimer = get_tree().create_timer(collisionPatience)
+					collisionPatienceTimer.timeout.connect(CollisionPatienceTimeout)
+				isCollidingWithTower = true
+				towerInTheWay = collision.get_collider()
 
 func _process(delta: float) -> void:
 	if hasFacing:
@@ -97,6 +116,14 @@ func FindTarget():
 		currentTarget.on_destroyed.connect(FindTarget)
 	else:
 		print("no more targets")
+
+func CollisionPatienceTimeout():
+	if isCollidingWithTower:
+		currentTarget.on_destroyed.disconnect(FindTarget)
+		currentTarget = towerInTheWay
+		currentTarget.on_destroyed.connect(FindTarget)
+		#print("fuck this tower!")
+	else: towerInTheWay = null
 
 func UpdateTargetableBeacons():
 	pass #this will update the array targetableBeacons

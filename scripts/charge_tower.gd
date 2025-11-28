@@ -31,7 +31,7 @@ func AdjustChargeRate():
 		chargeBar.chargeTowerBoost += (chargeBoostPercent / 100)
 	else:
 		chargeBar.chargeTowerBoost -= (chargeBoostPercent / 100)
-	print("charge rate is: " + str(chargeBar.chargeTowerBoost))
+	#print("charge rate is: " + str(chargeBar.chargeTowerBoost))
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):

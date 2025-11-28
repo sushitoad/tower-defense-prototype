@@ -43,6 +43,7 @@ func TakeDamage(damage: int):
 	if currentHealth <= 0:
 		currentHealth = 0
 		isDestroyed = true
+		$CollisionShape2D.disabled = true
 		on_destroyed.emit()
 		if towerType != TowerType.HEARTFIRE:
 			$DormantTimer.start(dormantTime)
@@ -50,6 +51,7 @@ func TakeDamage(damage: int):
 
 func WakeThisTower():
 	isDestroyed = false
+	$CollisionShape2D.disabled = false
 	on_awoke.emit()
 	currentHealth = maxHealth
 	$Sprite2D.modulate = Color(1, 1, 1, 1)
