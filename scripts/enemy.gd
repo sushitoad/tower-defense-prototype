@@ -53,14 +53,19 @@ func _physics_process(delta: float) -> void:
 	if collided:
 		var collision = get_last_slide_collision()
 		if collision.get_collider().is_in_group("tower"):
-			#print("there's a tower in front of me!")
+			towerInTheWay = collision.get_collider()
 			if !isCollidingWithTower and collisionPatienceTimer == null:
 				collisionPatienceTimer = get_tree().create_timer(collisionPatience)
 				collisionPatienceTimer.timeout.connect(CollisionPatienceTimeout)
 				stuckPosition = global_position
 			isCollidingWithTower = true
-			print(str(global_position.distance_to(stuckPosition)) + " away from stuckPosition")
-			towerInTheWay = collision.get_collider()
+			#print(str(global_position.distance_to(stuckPosition)) + " away from stuckPosition")
+	else:
+		if isCollidingWithTower:
+			isCollidingWithTower = false
+			towerInTheWay = null
+	#print(self.name + " " + str(isCollidingWithTower))
+
 
 func _process(delta: float) -> void:
 	if hasFacing:
@@ -106,6 +111,8 @@ func FindTarget():
 				allureMultiplier = 0.4
 			else:
 				allureMultiplier = 1
+		if tower == towerInTheWay and tower == currentTarget:
+			allureMultiplier = 200
 		#compares tower distances divided by allure (smaller value wins)
 		var allureToCheck: float = tower.allure * allureMultiplier
 		if(tower.global_position.distance_to(global_position) / allureToCheck) < (closestTarget.distance_to(global_position) / closestAllure):
