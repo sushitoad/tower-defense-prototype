@@ -1,0 +1,121 @@
+[gd_scene load_steps=5 format=3 uid="uid://be5pwlhm677p8"]
+
+[ext_resource type="Script" uid="uid://bsqr7aav537r" path="res://scripts/menu.gd" id="1_n87rw"]
+[ext_resource type="PackedScene" uid="uid://cp3bno7h7a6jm" path="res://scenes/test_scene.tscn" id="2_myx47"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_myx47"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uahpa"]
+font_size = 24
+font_color = Color(1, 1, 1, 0.784314)
+outline_size = 2
+outline_color = Color(0, 0, 0, 0.784314)
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n87rw")
+gameSceneToLoad = ExtResource("2_myx47")
+isPauseMenu = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+modulate = Color(0, 0, 0, 0.392157)
+show_behind_parent = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -932.0
+offset_top = -578.5
+offset_right = 932.0
+offset_bottom = 578.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_myx47")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -132.0
+offset_right = 176.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Time is frozen for the moment"
+label_settings = SubResource("LabelSettings_uahpa")
+
+[node name="continue" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -138.025
+offset_top = -38.0
+offset_right = -61.025
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "continue"
+
+[node name="restart" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 28.0
+offset_top = -38.0
+offset_right = 173.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "light thyself anew"
+
+[node name="settings" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.0
+offset_top = 52.0
+offset_right = -35.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "alter the dream"
+
+[node name="to main menu" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 32.0
+offset_top = 52.0
+offset_right = 169.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "leave this dream"
+
+[connection signal="pressed" from="CanvasLayer/continue" to="." method="ResumeGame"]
+[connection signal="pressed" from="CanvasLayer/restart" to="." method="StartNewGame"]
+[connection signal="pressed" from="CanvasLayer/settings" to="." method="OpenSettings"]
+[connection signal="pressed" from="CanvasLayer/to main menu" to="." method="LoadMainMenu"]

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cp3bno7h7a6jm" path="res://scenes/test_scene.tscn" id="2_ekxnf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ekxnf"]
-font_size = 96
+font_size = 64
 font_color = Color(0.787061, 0.502019, 0.243207, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
@@ -30,10 +30,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -105.0
-offset_top = -235.0
-offset_right = 105.0
-offset_bottom = -168.0
+offset_left = -140.0
+offset_top = -177.0
+offset_right = 140.0
+offset_bottom = -89.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 0
@@ -46,14 +46,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -114.0
-offset_top = -78.0
-offset_right = 114.0
-offset_bottom = 34.0
+offset_left = -59.0
+offset_top = -59.0
+offset_right = 59.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 8
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 32
 text = "Start"
 
 [node name="Quit" type="Button" parent="CanvasLayer"]
@@ -62,14 +62,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -114.0
-offset_top = 228.0
-offset_right = 114.0
-offset_bottom = 340.0
+offset_left = -59.0
+offset_top = 110.5
+offset_right = 59.0
+offset_bottom = 167.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 8
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 32
 text = "Quit"
 
 [node name="Settings" type="Button" parent="CanvasLayer"]
@@ -78,14 +78,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -114.0
-offset_top = 77.0
-offset_right = 114.0
-offset_bottom = 189.0
+offset_left = -66.0
+offset_top = 26.5
+offset_right = 66.0
+offset_bottom = 83.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 8
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 32
 text = "Settings"
 
 [connection signal="pressed" from="CanvasLayer/Start" to="." method="StartNewGame"]
