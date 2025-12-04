@@ -90,3 +90,4 @@ text = "Settings"
 
 [connection signal="pressed" from="CanvasLayer/Start" to="." method="StartNewGame"]
 [connection signal="pressed" from="CanvasLayer/Quit" to="." method="ExitGame"]
+[connection signal="pressed" from="CanvasLayer/Settings" to="." method="OpenSettings"]

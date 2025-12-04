@@ -12,8 +12,10 @@ var mainMenuScene: String = "res://scenes/title_scene.tscn"
 func _ready() -> void:
 	if isPauseMenu:
 		isPaused.emit()
+		get_tree().paused = true
 
 func StartNewGame():
+	FreePauseMenu()
 	if gameSceneToLoad != null and !isPauseMenu:
 		get_tree().change_scene_to_packed(gameSceneToLoad)
 	#this functionality for pause menus is a little suspect
@@ -23,6 +25,7 @@ func StartNewGame():
 		print("Pick a game scene and add it to the gameSceneToLoad var in the menu script!")
 
 func LoadMainMenu():
+	FreePauseMenu()
 	if mainMenuScene != null:
 		get_tree().change_scene_to_file(mainMenuScene)
 	else:
@@ -30,10 +33,16 @@ func LoadMainMenu():
 
 func ResumeGame():
 	isUnpaused.emit()
-	call_deferred("queue_free")
+	FreePauseMenu()
 
 func OpenSettings():
 	print("I'm jusd a widdle seddings buddon")
 
 func ExitGame():
+	FreePauseMenu()
 	get_tree().quit()
+
+func FreePauseMenu():
+	get_tree().paused = false
+	if isPauseMenu:
+		queue_free()
