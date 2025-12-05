@@ -60,7 +60,6 @@ position = Vector2(-119, 28)
 enemySpawnRatio = 0.75
 timeBetweenSpawns = 15.0
 timeToIncreaseSpawns = 50.0
-activatesLater = true
 
 [node name="EnemySpawner2" parent="." instance=ExtResource("5_6qxox")]
 position = Vector2(1441, 9)

@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcuw8yapdi66"]
+
+[ext_resource type="Script" uid="uid://bsqr7aav537r" path="res://scripts/menu.gd" id="1_dxkce"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dxkce"]
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.501961)
+shadow_offset = Vector2(4, 4)
+
+[node name="GameEndMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dxkce")
+isPauseMenu = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameEndLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -146.0
+offset_right = 44.0
+offset_bottom = -123.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_dxkce")
+
+[node name="try again" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.0
+offset_top = -55.0
+offset_right = 87.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "light thyself anew"
+
+[node name="main menu" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -237.0
+offset_top = 49.0
+offset_right = -63.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "return to the aether"
+
+[node name="quit" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 63.0
+offset_top = 45.0
+offset_right = 237.0
+offset_bottom = 87.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "leave this dream"
+
+[connection signal="pressed" from="CanvasLayer/try again" to="." method="StartNewGame"]
+[connection signal="pressed" from="CanvasLayer/main menu" to="." method="LoadMainMenu"]
+[connection signal="pressed" from="CanvasLayer/quit" to="." method="ExitGame"]

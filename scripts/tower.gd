@@ -48,6 +48,8 @@ func TakeDamage(damage: int):
 		if towerType != TowerType.HEARTFIRE:
 			$DormantTimer.start(dormantTime)
 			$Sprite2D.modulate = dormantColor
+		else:
+			get_node("%LevelManager").GameEnd(false)
 
 func WakeThisTower():
 	isDestroyed = false

@@ -69,7 +69,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 16
 text = "continue"
 
-[node name="restart" type="Button" parent="CanvasLayer"]
+[node name="main menu" type="Button" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -82,7 +82,7 @@ offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 16
-text = "light thyself anew"
+text = "abandon the Heartfire"
 
 [node name="settings" type="Button" parent="CanvasLayer"]
 anchors_preset = 8
@@ -99,7 +99,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 16
 text = "alter the dream"
 
-[node name="to main menu" type="Button" parent="CanvasLayer"]
+[node name="quit game" type="Button" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -115,6 +115,6 @@ theme_override_font_sizes/font_size = 16
 text = "leave this dream"
 
 [connection signal="pressed" from="CanvasLayer/continue" to="." method="ResumeGame"]
-[connection signal="pressed" from="CanvasLayer/restart" to="." method="StartNewGame"]
+[connection signal="pressed" from="CanvasLayer/main menu" to="." method="LoadMainMenu"]
 [connection signal="pressed" from="CanvasLayer/settings" to="." method="OpenSettings"]
-[connection signal="pressed" from="CanvasLayer/to main menu" to="." method="LoadMainMenu"]
+[connection signal="pressed" from="CanvasLayer/quit game" to="." method="ExitGame"]

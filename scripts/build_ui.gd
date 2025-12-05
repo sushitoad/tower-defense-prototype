@@ -17,11 +17,13 @@ func _on_button_mouse_exited() -> void:
 
 func ToggleTowerButtons():
 	if $CanvasLayer/ChargeBar.numberOfCharges <= 0:
-		$CanvasLayer/BasicTowerButton.visible = false
-		$CanvasLayer/ChargeTowerButton.visible = false
+		$CanvasLayer/DraftButtonManager.visible = false
+		print("Toggle tower buttons off")
 	else:
-		$CanvasLayer/BasicTowerButton.visible = true
-		$CanvasLayer/ChargeTowerButton.visible = true
+		$CanvasLayer/DraftButtonManager.visible = true
+		$CanvasLayer/DraftButtonManager/BasicTowerButton.visible = true
+		$CanvasLayer/DraftButtonManager/ChargeTowerButton.visible = true
+		print("Toggle tower buttons on")
 
 func _on_charge_bar_charge_amount_changed() -> void:
 	for iconIndex in chargeIcons.size():
@@ -31,7 +33,7 @@ func _on_charge_bar_charge_amount_changed() -> void:
 			chargeIcons[iconIndex].visible = false
 
 func ShowHideBasicTowerTooltip():
-	$CanvasLayer/BasicTowerButton/BasicTowerTooltip.visible = !$CanvasLayer/BasicTowerButton/BasicTowerTooltip.visible
+	$CanvasLayer/DraftButtonManager/BasicTowerButton/BasicTowerTooltip.visible = !$CanvasLayer/DraftButtonManager/BasicTowerButton/BasicTowerTooltip.visible
 
 func ShowHideChargeTowerTooltip():
-	$CanvasLayer/ChargeTowerButton/ChargeTowerTooltip.visible = !$CanvasLayer/ChargeTowerButton/ChargeTowerTooltip.visible
+	$CanvasLayer/DraftButtonManager/ChargeTowerButton/ChargeTowerTooltip.visible = !$CanvasLayer/DraftButtonManager/ChargeTowerButton/ChargeTowerTooltip.visible
