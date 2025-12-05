@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://3s7v6hrcvn3b"]
+[gd_scene load_steps=9 format=3 uid="uid://3s7v6hrcvn3b"]
 
 [ext_resource type="Script" uid="uid://3jdwqtai60f7" path="res://scripts/build_ui.gd" id="1_uej6l"]
+[ext_resource type="Script" uid="uid://bgpr5f4gvybwt" path="res://scripts/draft_button_manager.gd" id="2_r2a2q"]
 [ext_resource type="Script" uid="uid://yaquu6i5b8mf" path="res://scripts/charge_bar.gd" id="2_xa1c1"]
 [ext_resource type="PackedScene" uid="uid://divrvuwe2ftlx" path="res://scenes/charge_icon.tscn" id="3_gkqg4"]
 
@@ -34,11 +35,16 @@ chargeIcons = [NodePath("CanvasLayer/ChargeIcon"), NodePath("CanvasLayer/ChargeI
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="DraftButtonManager" type="Control" parent="CanvasLayer"]
+[node name="DraftButtonManager" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("draftButtons")]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_r2a2q")
+draftButtons = [NodePath("BasicTowerButton"), NodePath("ChargeTowerButton")]
+metadata/_edit_use_anchors_ = true
 
 [node name="BasicTowerButton" type="Button" parent="CanvasLayer/DraftButtonManager"]
 layout_mode = 1
@@ -47,10 +53,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 590.0
-offset_top = 705.0
-offset_right = 695.0
-offset_bottom = 736.0
+offset_left = -112.5
+offset_top = -66.0
+offset_right = -7.5
+offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Spire Candle"
@@ -75,10 +81,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 703.5
-offset_top = 705.0
-offset_right = 819.5
-offset_bottom = 736.0
+offset_left = 2.0
+offset_top = -66.0
+offset_right = 118.0
+offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Round Candle"

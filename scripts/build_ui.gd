@@ -17,12 +17,10 @@ func _on_button_mouse_exited() -> void:
 
 func ToggleTowerButtons():
 	if $CanvasLayer/ChargeBar.numberOfCharges <= 0:
-		$CanvasLayer/DraftButtonManager.visible = false
+		$CanvasLayer/DraftButtonManager.HideDraftButtons()
 		print("Toggle tower buttons off")
 	else:
-		$CanvasLayer/DraftButtonManager.visible = true
-		$CanvasLayer/DraftButtonManager/BasicTowerButton.visible = true
-		$CanvasLayer/DraftButtonManager/ChargeTowerButton.visible = true
+		$CanvasLayer/DraftButtonManager.ShowDraftButtons()
 		print("Toggle tower buttons on")
 
 func _on_charge_bar_charge_amount_changed() -> void:
