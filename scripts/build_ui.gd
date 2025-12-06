@@ -6,8 +6,7 @@ var isMouseOverButton: bool = false
 @export var chargeIcons: Array[TextureRect]
 
 func _ready() -> void:
-	ToggleTowerButtons()
-	_on_charge_bar_charge_amount_changed()
+	$CanvasLayer/ChargeBar.chargeAmountChanged.connect($CanvasLayer/DraftButtonManager.ToggleDraftButton)
 
 func _on_button_mouse_entered() -> void:
 	isMouseOverButton = true
@@ -15,23 +14,17 @@ func _on_button_mouse_entered() -> void:
 func _on_button_mouse_exited() -> void:
 	isMouseOverButton = false
 
-func ToggleTowerButtons():
-	if $CanvasLayer/ChargeBar.numberOfCharges <= 0:
-		$CanvasLayer/DraftButtonManager.HideDraftButtons()
-		print("Toggle tower buttons off")
-	else:
-		$CanvasLayer/DraftButtonManager.ShowDraftButtons()
-		print("Toggle tower buttons on")
-
-func _on_charge_bar_charge_amount_changed() -> void:
+func _on_charge_bar_charge_amount_changed(charges: int) -> void:
 	for iconIndex in chargeIcons.size():
-		if ($CanvasLayer/ChargeBar.numberOfCharges - 1) >= iconIndex:
+		if (charges - 1) >= iconIndex:
 			chargeIcons[iconIndex].visible = true
 		else:
 			chargeIcons[iconIndex].visible = false
 
 func ShowHideBasicTowerTooltip():
-	$CanvasLayer/DraftButtonManager/BasicTowerButton/BasicTowerTooltip.visible = !$CanvasLayer/DraftButtonManager/BasicTowerButton/BasicTowerTooltip.visible
+	var tooltipLabel: Label = $CanvasLayer/DraftButtonManager/BasicTowerButton/BasicTowerTooltip
+	tooltipLabel.visible = !tooltipLabel.visible
 
 func ShowHideChargeTowerTooltip():
-	$CanvasLayer/DraftButtonManager/ChargeTowerButton/ChargeTowerTooltip.visible = !$CanvasLayer/DraftButtonManager/ChargeTowerButton/ChargeTowerTooltip.visible
+	var tooltipLabel: Label = $CanvasLayer/DraftButtonManager/ChargeTowerButton/ChargeTowerTooltip
+	tooltipLabel.visible = !tooltipLabel.visible

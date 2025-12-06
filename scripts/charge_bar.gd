@@ -1,6 +1,6 @@
 extends ProgressBar
 
-signal chargeAmountChanged
+signal chargeAmountChanged(charges: int)
 var timeToCharge: float = 10
 var chargeCap: int = 5
 var numberOfCharges: int = 0
@@ -12,6 +12,7 @@ func _ready() -> void:
 	chargeCap = $"../..".chargeMaxNumber
 	max_value = timeToCharge
 	value = 0
+	chargeAmountChanged.emit(numberOfCharges)
 
 func _process(delta: float) -> void:
 	if chargeTowerBoost < 1:
@@ -38,7 +39,7 @@ func AddCharges(chargeAmount: int):
 		numberOfCharges = chargeCap
 	#emitting signal (mainly for build UI to change charge icons)
 	if chargesBefore != numberOfCharges:
-		chargeAmountChanged.emit()
+		chargeAmountChanged.emit(numberOfCharges)
 	#starting the count again if it was frozen and a charge is spent
 	if chargesBefore >= chargeCap and chargesBefore > numberOfCharges:
 		currentCharge = 0

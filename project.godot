@@ -41,6 +41,7 @@ tower=""
 enemy=""
 bullet=""
 UI=""
+beacon_button=""
 
 [input]
 
