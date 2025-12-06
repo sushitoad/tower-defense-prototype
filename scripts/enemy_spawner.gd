@@ -1,6 +1,5 @@
 extends Node2D
 
-
 @export var enemyTypeOne: PackedScene
 @export var enemyTypeTwo: PackedScene
 @export var spawnNumberBase: int = 1
@@ -9,37 +8,37 @@ extends Node2D
 @export var timeToIncreaseSpawns: float = 30
 @export var spawnDelay: float = 0.3
 @export var activatesLater: bool = false
-@export var activationTime: float = 120
+@export var timeToActivate: float = 120
 var activated: bool = false
-var timeOfActivation: float
-var levelManager: Node
+var timeThisWasActivated: float
+var timeManager: Node
 
 func _ready() -> void:
 	$SpawnTimer.wait_time = timeBetweenSpawns
-	levelManager = get_parent().get_node("LevelManager")
+	timeManager = get_node("%TimeManager")
 	if activatesLater:
 		$SpawnTimer.stop()
 		$Sprite2D.visible = false
 		activated = false
 	else:
 		activated = true
-		timeOfActivation = levelManager.timeSinceLevelLoad
+		timeThisWasActivated = timeManager.timeSinceLevelLoad
 
 func _process(delta: float) -> void:
 	if activatesLater:
 		if !activated:
-			if levelManager.timeSinceLevelLoad >= activationTime:
+			if timeManager.timeSinceLevelLoad >= timeToActivate:
 				$SpawnTimer.start()
 				$Sprite2D.visible = true
 				activated = true
-				timeOfActivation = levelManager.timeSinceLevelLoad
+				timeThisWasActivated = timeManager.timeSinceLevelLoad
 				print(self.name + " activated")
 
 func _on_spawn_timer_timeout() -> void:
 	SpawnAllEnemies()
 	
 func SpawnAllEnemies():
-	var numberToSpawn = spawnNumberBase + roundi((levelManager.timeSinceLevelLoad - timeOfActivation) / timeToIncreaseSpawns)
+	var numberToSpawn = spawnNumberBase + roundi((timeManager.timeSinceLevelLoad - timeThisWasActivated) / timeToIncreaseSpawns)
 	var numberOfOne: int = roundi(numberToSpawn * enemySpawnRatio)
 	var numberOfTwo: int = numberToSpawn - numberOfOne
 	SpawnEnemyType(numberOfOne, enemyTypeOne)

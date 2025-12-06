@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://blkwgp5ucujp6"]
+
+[ext_resource type="Script" uid="uid://bbin2gbha3omo" path="res://scripts/time_manager.gd" id="1_ebsuv"]
+
+[node name="TimeManager" type="Node"]
+process_mode = 1
+script = ExtResource("1_ebsuv")
+timeToVictory = 300.0
