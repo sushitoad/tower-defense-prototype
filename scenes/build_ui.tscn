@@ -25,11 +25,13 @@ bg_color = Color(0, 0, 0, 0.309804)
 
 [node name="BuildUI" type="Control" node_paths=PackedStringArray("chargeIcons") groups=["UI"]]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 script = ExtResource("1_uej6l")
 chargeIcons = [NodePath("CanvasLayer/ChargeIcon"), NodePath("CanvasLayer/ChargeIcon2"), NodePath("CanvasLayer/ChargeIcon3"), NodePath("CanvasLayer/ChargeIcon4"), NodePath("CanvasLayer/ChargeIcon5")]
 
@@ -37,11 +39,13 @@ chargeIcons = [NodePath("CanvasLayer/ChargeIcon"), NodePath("CanvasLayer/ChargeI
 
 [node name="DraftButtonManager" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 script = ExtResource("2_r2a2q")
 metadata/_edit_use_anchors_ = true
 
@@ -200,8 +204,8 @@ scale = Vector2(0.16, 0.16)
 size_flags_vertical = 8
 
 [connection signal="pressed" from="CanvasLayer/DraftButtonManager/DraftButton" to="CanvasLayer/DraftButtonManager" method="_on_draft_button_pressed"]
-[connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="ShowHideBasicTowerTooltip"]
 [connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="ShowHideBasicTowerTooltip"]
 [connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="_on_button_mouse_exited"]
 [connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="ShowHideBasicTowerTooltip"]
 [connection signal="pressed" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="CanvasLayer/ChargeBar" method="_on_basic_tower_button_pressed"]

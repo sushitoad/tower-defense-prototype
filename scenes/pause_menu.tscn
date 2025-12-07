@@ -1,8 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://be5pwlhm677p8"]
+[gd_scene load_steps=3 format=3 uid="uid://be5pwlhm677p8"]
 
 [ext_resource type="Script" uid="uid://bsqr7aav537r" path="res://scripts/menu.gd" id="1_n87rw"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_myx47"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uahpa"]
 font_size = 24
@@ -25,7 +23,6 @@ isPauseMenu = true
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 0.392157)
-show_behind_parent = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -37,7 +34,6 @@ offset_right = 932.0
 offset_bottom = 578.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_myx47")
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 anchors_preset = 8
@@ -51,11 +47,20 @@ offset_right = 176.0
 offset_bottom = -98.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Time is frozen for the moment"
+text = "Time is frozen"
 label_settings = SubResource("LabelSettings_uahpa")
+horizontal_alignment = 1
 
-[node name="continue" type="Button" parent="CanvasLayer"]
-process_mode = 3
+[node name="ButtonHolder" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="continue" type="Button" parent="CanvasLayer/ButtonHolder"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -67,27 +72,25 @@ offset_right = -61.025
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 16
 text = "continue"
 
-[node name="main menu" type="Button" parent="CanvasLayer"]
-process_mode = 3
+[node name="main menu" type="Button" parent="CanvasLayer/ButtonHolder"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 28.0
+offset_left = 10.0
 offset_top = -38.0
-offset_right = 173.0
+offset_right = 191.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 16
 text = "abandon the Heartfire"
 
-[node name="settings" type="Button" parent="CanvasLayer"]
-process_mode = 3
+[node name="settings" type="Button" parent="CanvasLayer/ButtonHolder"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -99,11 +102,10 @@ offset_right = -35.0
 offset_bottom = 83.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 16
 text = "alter the dream"
 
-[node name="quit game" type="Button" parent="CanvasLayer"]
-process_mode = 3
+[node name="quit game" type="Button" parent="CanvasLayer/ButtonHolder"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -115,10 +117,9 @@ offset_right = 169.0
 offset_bottom = 83.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 16
 text = "leave this dream"
 
-[connection signal="pressed" from="CanvasLayer/continue" to="." method="ResumeGame"]
-[connection signal="pressed" from="CanvasLayer/main menu" to="." method="LoadMainMenu"]
-[connection signal="pressed" from="CanvasLayer/settings" to="." method="OpenSettings"]
-[connection signal="pressed" from="CanvasLayer/quit game" to="." method="ExitGame"]
+[connection signal="pressed" from="CanvasLayer/ButtonHolder/continue" to="." method="ResumeGame"]
+[connection signal="pressed" from="CanvasLayer/ButtonHolder/main menu" to="." method="LoadMainMenu"]
+[connection signal="pressed" from="CanvasLayer/ButtonHolder/settings" to="." method="OpenSettings"]
+[connection signal="pressed" from="CanvasLayer/ButtonHolder/quit game" to="." method="ExitGame"]

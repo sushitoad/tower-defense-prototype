@@ -8,7 +8,6 @@ var mainMenuScene: String = "res://scenes/title_scene.tscn"
 
 #this is set up so that if the menu is used for a pause menu
 #the level manager needs to instantiate a pause menu scene each time the game is paused
-#and set the "isPaused" bool to true. The node will free itself upon resume
 func _ready() -> void:
 	if isPauseMenu:
 		isPaused.emit()

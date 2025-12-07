@@ -12,7 +12,7 @@ func _ready() -> void:
 	%TimeManager.victoryTimeReached.connect(GameEnd.bind(true))
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("Escape"):
+	if Input.is_action_just_pressed("Escape") and gameEndMenu == null:
 		if pauseMenu == null:
 			PauseGame()
 		else:
@@ -29,11 +29,9 @@ func GameEnd(isVictory: bool):
 func PauseGame():
 	pauseMenu = pauseMenuScene.instantiate()
 	add_child(pauseMenu)
-	print(get_tree().paused)
 
 func UnpauseGame():
 	if pauseMenu != null:
 		pauseMenu.ResumeGame()
-		print(pauseMenu)
 	else:
 		get_tree().paused = false
