@@ -41,4 +41,13 @@ func SetIsPlacingBeacon(isPlacing: bool):
 func _on_draft_button_pressed() -> void:
 	startDraft.emit()
 	isDrafting = true
+	ChooseBeaconsToDraft()
 	ShowBeaconButtons()
+
+func ChooseBeaconsToDraft():
+	var draftPool: Array[Node] = get_tree().get_nodes_in_group("beacon_button")
+	var beaconOne: int = randi_range(0, (draftPool.size() - 1))
+	draftPool.remove_at(beaconOne)
+	var beaconTwo: int = randi_range(0, (draftPool.size() - 1))
+	print(draftButtons[beaconOne].name)
+	print(draftButtons[beaconTwo].name)
