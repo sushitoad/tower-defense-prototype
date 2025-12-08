@@ -37,7 +37,7 @@ chargeIcons = [NodePath("CanvasLayer/ChargeIcon"), NodePath("CanvasLayer/ChargeI
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="DraftButtonManager" type="Control" parent="CanvasLayer"]
+[node name="DraftButtonManager" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("buttonOnePosition", "buttonTwoPosition")]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -47,6 +47,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("2_r2a2q")
+buttonOnePosition = NodePath("BasicTowerButton")
+buttonTwoPosition = NodePath("ChargeTowerButton")
 metadata/_edit_use_anchors_ = true
 
 [node name="DraftButton" type="Button" parent="CanvasLayer/DraftButtonManager"]
@@ -214,5 +216,5 @@ size_flags_vertical = 8
 [connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="." method="_on_button_mouse_exited"]
 [connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="." method="ShowHideChargeTowerTooltip"]
 [connection signal="pressed" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="CanvasLayer/ChargeBar" method="_on_charge_tower_button_pressed"]
-[connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="ToggleDraftButton"]
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="_on_charge_bar_charge_amount_changed"]
+[connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="ToggleDraftButton"]
