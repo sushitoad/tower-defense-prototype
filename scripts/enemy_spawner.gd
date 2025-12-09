@@ -12,10 +12,12 @@ extends Node2D
 var activated: bool = false
 var timeThisWasActivated: float
 var timeManager: Node
+var beaconManager: Node2D
 
 func _ready() -> void:
 	$SpawnTimer.wait_time = timeBetweenSpawns
 	timeManager = get_node("%TimeManager")
+	beaconManager = get_node("%BeaconManager")
 	if activatesLater:
 		$SpawnTimer.stop()
 		$Sprite2D.visible = false
@@ -49,5 +51,6 @@ func SpawnEnemyType(amount: int, type: PackedScene):
 		var newEnemy
 		newEnemy = type.instantiate()
 		add_child(newEnemy)
+		beaconManager.beaconPlaced.connect(newEnemy.FindTarget)
 		newEnemy.global_position = global_position
 		await get_tree().create_timer(spawnDelay).timeout

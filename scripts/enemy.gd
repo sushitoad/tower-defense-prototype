@@ -19,7 +19,6 @@ var speedReduction: float = 0
 @export var seeksHeartfire: bool
 @export var hasFacing: bool = false
 @export var collisionPatience: float = 3
-var towerManager: Node2D
 var targetableBeacons: Array[StaticBody2D]
 
 @onready var collisionShape = $CollisionShape2D.shape
@@ -27,8 +26,6 @@ var targetableBeacons: Array[StaticBody2D]
 func _ready() -> void:
 	currentHealth = maxHealth
 	FindTarget()
-	towerManager = get_parent().get_node("%TowerManager")
-	towerManager.towerPlaced.connect(FindTarget)
 
 func _physics_process(delta: float) -> void:
 	var totalSpeed: float = moveSpeed - speedReduction

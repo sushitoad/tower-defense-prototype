@@ -17,8 +17,6 @@ func _ready() -> void:
 	HideBeaconButtons()
 
 func ToggleDraftButton(numberOfCharges: int):
-	#this is now being called on towerPlaced but unfortunately is always hidden?
-	#maybe it's being called before isPlacingBeacon is set to false?
 	if numberOfCharges <= 0 or isDrafting or isPlacingBeacon:
 		$DraftButton.visible = false
 	else:
@@ -45,9 +43,5 @@ func _on_draft_button_pressed() -> void:
 	ShowBeaconButtons()
 
 func ChooseBeaconsToDraft():
-	var draftPool: Array[Node] = get_tree().get_nodes_in_group("beacon_button")
-	var beaconOne: int = randi_range(0, (draftPool.size() - 1))
-	draftPool.remove_at(beaconOne)
-	var beaconTwo: int = randi_range(0, (draftPool.size() - 1))
-	print(draftButtons[beaconOne].name)
-	print(draftButtons[beaconTwo].name)
+	var beaconNumber: int = randi_range(0, (draftButtons.size() - 1))
+	print(draftButtons[beaconNumber].name)

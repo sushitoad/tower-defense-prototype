@@ -7,7 +7,7 @@ var isMouseOverButton: bool = false
 
 func _ready() -> void:
 	$CanvasLayer/ChargeBar.chargeAmountChanged.connect($CanvasLayer/DraftButtonManager.ToggleDraftButton)
-	%TowerManager.towerPlaced.connect($CanvasLayer/DraftButtonManager.SetIsPlacingBeacon.bind(false))
+	%BeaconManager.beaconPlaced.connect($CanvasLayer/DraftButtonManager.SetIsPlacingBeacon.bind(false))
 
 func _on_button_mouse_entered() -> void:
 	isMouseOverButton = true
