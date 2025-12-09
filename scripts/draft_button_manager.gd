@@ -4,13 +4,13 @@ signal startDraft
 var isDrafting: bool = false
 var isPlacingBeacon: bool = false
 var draftButtons: Array[Node]
-@export var buttonOnePosition: Button
-@export var buttonTwoPosition: Button
-
-#this needs to hide all the buttons if a player is currently placing a beacon
+var currentBeaconButtonSet: Array[Button]
+@export var numberOfBeaconsToDraft: int = 2
+@export var draftedButtonPositons: Array[Control]
 
 func _ready() -> void:
 	draftButtons = get_tree().get_nodes_in_group("beacon_button")
+	draftedButtonPositons.resize(numberOfBeaconsToDraft)
 	for button in draftButtons:
 		button.pressed.connect(HideBeaconButtons)
 		button.pressed.connect(SetIsPlacingBeacon.bind(true))
@@ -23,8 +23,13 @@ func ToggleDraftButton(numberOfCharges: int):
 		$DraftButton.visible = true
 
 func ShowBeaconButtons():
-	for button in draftButtons:
+	var count: int = 0
+	for button in currentBeaconButtonSet:
+		button.position = draftedButtonPositons[count].position
 		button.visible = true
+		count += 1
+		#this part isn't working, check the formatting of the ui elements and see if
+		#the same thing happens when they're way more spread out
 	$DraftButton.visible = false
 
 func HideBeaconButtons():
@@ -43,5 +48,17 @@ func _on_draft_button_pressed() -> void:
 	ShowBeaconButtons()
 
 func ChooseBeaconsToDraft():
-	var beaconNumber: int = randi_range(0, (draftButtons.size() - 1))
-	print(draftButtons[beaconNumber].name)
+	var currentDraft: Array[Node] = draftButtons.duplicate()
+	currentDraft.shuffle()
+	currentDraft.resize(numberOfBeaconsToDraft)
+	var buttonsToShow: Array[Button]
+	for beacon in currentDraft:
+		var button: Button = find_child(beacon.name)
+		buttonsToShow.append(button)
+	currentBeaconButtonSet = buttonsToShow.duplicate(true)
+	print(currentBeaconButtonSet)
+		#so what if there was an array of buttons that was empty, but this populated them
+		#and then show beacon buttons 
+
+	#find the two buttons in draftButtons that correspond with the two picks in currentDraft
+	#set each position to the stored positions

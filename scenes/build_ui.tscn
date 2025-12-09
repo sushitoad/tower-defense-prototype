@@ -33,11 +33,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_uej6l")
+timeToFullCharge = 5.0
 chargeIcons = [NodePath("CanvasLayer/ChargeIcon"), NodePath("CanvasLayer/ChargeIcon2"), NodePath("CanvasLayer/ChargeIcon3"), NodePath("CanvasLayer/ChargeIcon4"), NodePath("CanvasLayer/ChargeIcon5")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="DraftButtonManager" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("buttonOnePosition", "buttonTwoPosition")]
+[node name="DraftButtonManager" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("draftedButtonPositons")]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -47,8 +48,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("2_r2a2q")
-buttonOnePosition = NodePath("BasicTowerButton")
-buttonTwoPosition = NodePath("ChargeTowerButton")
+draftedButtonPositons = [NodePath("BasicTowerButton"), NodePath("ChargeTowerButton")]
 metadata/_edit_use_anchors_ = true
 
 [node name="DraftButton" type="Button" parent="CanvasLayer/DraftButtonManager"]
@@ -206,15 +206,15 @@ scale = Vector2(0.16, 0.16)
 size_flags_vertical = 8
 
 [connection signal="pressed" from="CanvasLayer/DraftButtonManager/DraftButton" to="CanvasLayer/DraftButtonManager" method="_on_draft_button_pressed"]
-[connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="ShowHideBasicTowerTooltip"]
+[connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="_on_button_mouse_exited"]
 [connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="ShowHideBasicTowerTooltip"]
 [connection signal="pressed" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="CanvasLayer/ChargeBar" method="_on_basic_tower_button_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="." method="ShowHideChargeTowerTooltip"]
-[connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="." method="ShowHideChargeTowerTooltip"]
 [connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="." method="_on_button_mouse_exited"]
+[connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="." method="ShowHideChargeTowerTooltip"]
 [connection signal="pressed" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="CanvasLayer/ChargeBar" method="_on_charge_tower_button_pressed"]
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="ToggleDraftButton"]
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="_on_charge_bar_charge_amount_changed"]
