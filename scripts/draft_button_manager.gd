@@ -25,7 +25,10 @@ func ToggleDraftButton(numberOfCharges: int):
 func ShowBeaconButtons():
 	var count: int = 0
 	for button in currentBeaconButtonSet:
+		#print(currentBeaconButtonSet)
 		button.position = draftedButtonPositons[count].position
+		print(draftedButtonPositons[count].position)
+		print(count)
 		button.visible = true
 		count += 1
 		#this part isn't working, check the formatting of the ui elements and see if
@@ -56,7 +59,7 @@ func ChooseBeaconsToDraft():
 		var button: Button = find_child(beacon.name)
 		buttonsToShow.append(button)
 	currentBeaconButtonSet = buttonsToShow.duplicate(true)
-	print(currentBeaconButtonSet)
+
 		#so what if there was an array of buttons that was empty, but this populated them
 		#and then show beacon buttons 
 
