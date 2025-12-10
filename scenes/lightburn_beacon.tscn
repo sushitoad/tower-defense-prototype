@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dncxjlgaytiy"]
+[gd_scene load_steps=7 format=3 uid="uid://o6p8fpnya0iv"]
 
-[ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="1_3lh4g"]
-[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/tower.gd" id="1_88xce"]
-[ext_resource type="Script" uid="uid://b406orvvjlixj" path="res://scripts/charge_tower.gd" id="2_6xbv0"]
-[ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="3_ljo3c"]
+[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/tower.gd" id="1_v32jo"]
+[ext_resource type="Script" uid="uid://cd4mx3y5mon33" path="res://scripts/lightburn_beacon.gd" id="2_v32jo"]
+[ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="3_u6muo"]
+[ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="4_b05yk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6xbv0"]
 radius = 100.0
@@ -11,16 +11,15 @@ radius = 100.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_88xce"]
 radius = 16.0
 
-[node name="ChargeTower" type="StaticBody2D" groups=["beacon"]]
-script = ExtResource("1_88xce")
-maxHealth = 60
-allure = 25.0
-dormantTime = 12.0
-towerType = 1
+[node name="LightburnBeacon" type="StaticBody2D" groups=["beacon"]]
+script = ExtResource("1_v32jo")
+maxHealth = 75
+allure = 12.0
+dormantTime = 15.0
+towerType = 3
 
 [node name="Area2D" type="Area2D" parent="."]
-script = ExtResource("2_6xbv0")
-enemySlowAmount = 10.0
+script = ExtResource("2_v32jo")
 
 [node name="RangeShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_6xbv0")
@@ -30,14 +29,15 @@ visible = false
 modulate = Color(1, 1, 1, 0.196078)
 position = Vector2(3.21865e-06, -5.24521e-06)
 scale = Vector2(3.0625, 3.0625)
-texture = ExtResource("3_ljo3c")
+texture = ExtResource("3_u6muo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)
 shape = SubResource("CircleShape2D_88xce")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_3lh4g")
+modulate = Color(0.465616, 0.985961, 0.509152, 1)
+texture = ExtResource("4_b05yk")
 
 [node name="DormantTimer" type="Timer" parent="."]
 wait_time = 10.0

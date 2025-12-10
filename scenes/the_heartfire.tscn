@@ -7,7 +7,7 @@
 radius = 15.0
 height = 42.0
 
-[node name="TheHeartfire" type="StaticBody2D" groups=["tower"]]
+[node name="TheHeartfire" type="StaticBody2D" groups=["beacon"]]
 script = ExtResource("1_nk2ah")
 maxHealth = 500
 allure = 50.0

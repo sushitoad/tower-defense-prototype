@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 	#velocity doesn't work for this, will need to use transform
 	if collided:
 		var collision = get_last_slide_collision()
-		if collision.get_collider().is_in_group("tower"):
+		if collision.get_collider().is_in_group("beacon"):
 			towerInTheWay = collision.get_collider()
 			if !isCollidingWithTower and collisionPatienceTimer == null:
 				collisionPatienceTimer = get_tree().create_timer(collisionPatience)
@@ -91,7 +91,7 @@ func FindTarget():
 	var closestTarget: Vector2 = Vector2(10000000000, 10000000000)
 	var closestAllure: float = 1
 	#creates array of towers and removes dormant ones
-	var targets = get_tree().get_nodes_in_group("tower")
+	var targets = get_tree().get_nodes_in_group("beacon")
 	for tower in targets:
 		if tower.isDestroyed or tower.isBeingPlaced:
 			targets.remove_at(targets.find(tower))

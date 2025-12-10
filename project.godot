@@ -37,11 +37,11 @@ folder_colors={
 
 [global_group]
 
-tower=""
 enemy=""
 bullet=""
 UI=""
 beacon_button=""
+beacon=""
 
 [input]
 

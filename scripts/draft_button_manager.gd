@@ -25,14 +25,9 @@ func ToggleDraftButton(numberOfCharges: int):
 func ShowBeaconButtons():
 	var count: int = 0
 	for button in currentBeaconButtonSet:
-		#print(currentBeaconButtonSet)
 		button.position = draftedButtonPositons[count].position
-		print(draftedButtonPositons[count].position)
-		print(count)
 		button.visible = true
 		count += 1
-		#this part isn't working, check the formatting of the ui elements and see if
-		#the same thing happens when they're way more spread out
 	$DraftButton.visible = false
 
 func HideBeaconButtons():

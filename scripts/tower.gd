@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-enum TowerType { BASIC, CHARGE, HEARTFIRE }
+enum TowerType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN }
 signal on_destroyed
 signal on_awoke
 
