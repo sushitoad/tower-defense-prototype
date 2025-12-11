@@ -21,6 +21,9 @@ var speedReduction: float = 0
 @export var collisionPatience: float = 3
 var targetableBeacons: Array[StaticBody2D]
 
+#lightburn status effect
+@onready var lightburnStatus: PackedScene = preload("res://scenes/StatusEffects/lightburn_status.tscn")
+
 @onready var collisionShape = $CollisionShape2D.shape
 
 func _ready() -> void:
@@ -44,9 +47,6 @@ func _physics_process(delta: float) -> void:
 		isInRangeOfTarget = false
 	
 	var collided: bool = move_and_slide()
-	#needs to know if it's actually still moving, even though its colliding
-	#that way it can differentiate between running into a tower and being fully stuck
-	#velocity doesn't work for this, will need to use transform
 	if collided:
 		var collision = get_last_slide_collision()
 		if collision.get_collider().is_in_group("beacon"):
@@ -56,13 +56,10 @@ func _physics_process(delta: float) -> void:
 				collisionPatienceTimer.timeout.connect(CollisionPatienceTimeout)
 				stuckPosition = global_position
 			isCollidingWithTower = true
-			#print(str(global_position.distance_to(stuckPosition)) + " away from stuckPosition")
 	else:
 		if isCollidingWithTower:
 			isCollidingWithTower = false
 			towerInTheWay = null
-	#print(self.name + " " + str(isCollidingWithTower))
-
 
 func _process(delta: float) -> void:
 	if hasFacing:
@@ -148,6 +145,7 @@ func AttackTarget():
 	
 func TakeDamage(damage: int):
 	currentHealth -= damage
+	print (str(self.name) + " took " + str(damage) + " damage")
 	if currentHealth <= 0:
 		currentHealth = 0
 		Die()
@@ -156,3 +154,14 @@ func Die():
 	#emits signal that tells all targeting towers to remove this enemy
 	on_death.emit()
 	call_deferred("queue_free")
+
+func GetBurned(burnDamage: int):
+	var newStatus = lightburnStatus.instantiate()
+	add_child(newStatus)
+	#newStatus.effectEndCounter
+	newStatus.timeout.connect(TakeDamage.bind(burnDamage))
+
+func ResetBurnCounter():
+	var burnStatus = $LightburnStatus
+	if burnStatus != null:
+		burnStatus.effectEndCounter = burnStatus.effectEndStartingValue

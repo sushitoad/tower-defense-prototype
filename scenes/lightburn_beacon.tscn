@@ -20,6 +20,7 @@ towerType = 3
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_v32jo")
+burnDamagePerSecond = 10
 
 [node name="RangeShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_6xbv0")

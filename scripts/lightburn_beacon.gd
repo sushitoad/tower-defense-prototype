@@ -3,6 +3,7 @@ extends Area2D
 var enemiesInRangeToBurn: Array[CharacterBody2D]
 var burnedEnemies: Array[CharacterBody2D]
 @export var attackSpeed: float = 1
+@export var burnDamagePerSecond: int = 5
 
 @onready var beacon: StaticBody2D = get_parent()
 @onready var circleShape: Shape2D = $RangeShape2D.shape
@@ -29,7 +30,9 @@ func ActivateLightburnEffect():
 func _on_attack_timer_timeout() -> void:
 	for enemy in enemiesInRangeToBurn:
 		if burnedEnemies.find(enemy) != -1:
+			enemy.ResetBurnCounter()
 			print(str(enemy) + "'s burn counter is reset")
 		else:
 			burnedEnemies.append(enemy)
+			enemy.GetBurned(burnDamagePerSecond)
 			print(str(enemy) + " started burning!")

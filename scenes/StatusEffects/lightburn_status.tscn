@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://x33rvfe5dd07"]
+
+[ext_resource type="Script" uid="uid://brtmbk1gbrbth" path="res://scripts/StatusEffectScripts/lightburn_status.gd" id="1_o7hvc"]
+
+[node name="LightburnStatus" type="Timer"]
+autostart = true
+script = ExtResource("1_o7hvc")
+
+[connection signal="timeout" from="." to="." method="_on_timeout"]
