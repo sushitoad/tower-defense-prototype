@@ -44,8 +44,5 @@ func AddCharges(chargeAmount: int):
 	if chargesBefore >= chargeCap and chargesBefore > numberOfCharges:
 		currentCharge = 0
 
-func _on_basic_tower_button_pressed() -> void:
-	AddCharges(-1)
-
-func _on_charge_tower_button_pressed() -> void:
+func OnBeaconButtonPressed():
 	AddCharges(-1)

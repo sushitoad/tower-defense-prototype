@@ -145,7 +145,7 @@ func AttackTarget():
 	
 func TakeDamage(damage: int):
 	currentHealth -= damage
-	print (str(self.name) + " took " + str(damage) + " damage")
+	#print (str(self.name) + " took " + str(damage) + " damage")
 	if currentHealth <= 0:
 		currentHealth = 0
 		Die()
@@ -158,7 +158,6 @@ func Die():
 func GetBurned(burnDamage: int):
 	var newStatus = lightburnStatus.instantiate()
 	add_child(newStatus)
-	#newStatus.effectEndCounter
 	newStatus.timeout.connect(TakeDamage.bind(burnDamage))
 
 func ResetBurnCounter():

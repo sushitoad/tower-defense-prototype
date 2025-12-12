@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://3s7v6hrcvn3b"]
+[gd_scene load_steps=10 format=3 uid="uid://3s7v6hrcvn3b"]
 
 [ext_resource type="Script" uid="uid://3jdwqtai60f7" path="res://scripts/build_ui.gd" id="1_uej6l"]
 [ext_resource type="Script" uid="uid://bgpr5f4gvybwt" path="res://scripts/draft_button_manager.gd" id="2_r2a2q"]
 [ext_resource type="Script" uid="uid://yaquu6i5b8mf" path="res://scripts/charge_bar.gd" id="2_xa1c1"]
 [ext_resource type="PackedScene" uid="uid://divrvuwe2ftlx" path="res://scenes/charge_icon.tscn" id="3_gkqg4"]
+[ext_resource type="Script" uid="uid://dy666mad52ngn" path="res://scripts/button_with_tooltip.gd" id="3_y05bs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkqg4"]
 bg_color = Color(0, 0, 0, 0.352941)
@@ -109,6 +110,7 @@ offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Spire Candle"
+script = ExtResource("3_y05bs")
 
 [node name="BasicTowerTooltip" type="Label" parent="CanvasLayer/DraftButtonManager/BasicTowerButton"]
 visible = false
@@ -137,6 +139,7 @@ offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Round Candle"
+script = ExtResource("3_y05bs")
 
 [node name="ChargeTowerTooltip" type="Label" parent="CanvasLayer/DraftButtonManager/ChargeTowerButton"]
 visible = false
@@ -147,6 +150,36 @@ offset_right = 115.0
 offset_bottom = -6.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_gkqg4")
 text = "Increases light charge and slows the Despair"
+label_settings = SubResource("LabelSettings_r2a2q")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="LightburnBeaconButton2" type="Button" parent="CanvasLayer/DraftButtonManager" groups=["beacon_button"]]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -66.0
+offset_right = 118.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Lightburn Beacon"
+script = ExtResource("3_y05bs")
+
+[node name="LightburnBeaconTooltip" type="Label" parent="CanvasLayer/DraftButtonManager/LightburnBeaconButton2"]
+visible = false
+layout_mode = 0
+offset_left = 2.0
+offset_top = -39.0
+offset_right = 115.0
+offset_bottom = -6.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_gkqg4")
+text = "Applies lightburn damage over time in an area"
 label_settings = SubResource("LabelSettings_r2a2q")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -234,15 +267,11 @@ scale = Vector2(0.16, 0.16)
 size_flags_vertical = 8
 
 [connection signal="pressed" from="CanvasLayer/DraftButtonManager/DraftButton" to="CanvasLayer/DraftButtonManager" method="_on_draft_button_pressed"]
-[connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="ShowHideBasicTowerTooltip"]
 [connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="_on_button_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="ShowHideBasicTowerTooltip"]
 [connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="." method="_on_button_mouse_exited"]
-[connection signal="pressed" from="CanvasLayer/DraftButtonManager/BasicTowerButton" to="CanvasLayer/ChargeBar" method="_on_basic_tower_button_pressed"]
-[connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="." method="ShowHideChargeTowerTooltip"]
 [connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="." method="_on_button_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="." method="ShowHideChargeTowerTooltip"]
 [connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="." method="_on_button_mouse_exited"]
-[connection signal="pressed" from="CanvasLayer/DraftButtonManager/ChargeTowerButton" to="CanvasLayer/ChargeBar" method="_on_charge_tower_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/DraftButtonManager/LightburnBeaconButton2" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/DraftButtonManager/LightburnBeaconButton2" to="." method="_on_button_mouse_exited"]
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="ToggleDraftButton"]
 [connection signal="chargeAmountChanged" from="CanvasLayer/ChargeBar" to="." method="_on_charge_bar_charge_amount_changed"]

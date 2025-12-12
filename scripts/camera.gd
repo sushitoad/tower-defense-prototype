@@ -3,7 +3,7 @@ extends Camera2D
 @export var cameraSpeed: float = 400
 
 func _ready() -> void:
-	var towers = get_tree().get_nodes_in_group("tower")
+	var towers = get_tree().get_nodes_in_group("beacon")
 	for tower in towers:
 		if tower.name == "TheHeartfire":
 			global_position = tower.global_position

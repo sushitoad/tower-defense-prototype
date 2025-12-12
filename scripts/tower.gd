@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if isBeingPlaced:
-		var allOtherTowers = get_tree().get_nodes_in_group("tower")
+		var allOtherTowers = get_tree().get_nodes_in_group("beacon")
 		allOtherTowers.remove_at(allOtherTowers.find(self))
 		var noneTooClose: bool = true
 		for tower in allOtherTowers:

@@ -14,6 +14,7 @@ func _ready() -> void:
 	for button in draftButtons:
 		button.pressed.connect(HideBeaconButtons)
 		button.pressed.connect(SetIsPlacingBeacon.bind(true))
+		button.pressed.connect(%ChargeBar.OnBeaconButtonPressed)
 	HideBeaconButtons()
 
 func ToggleDraftButton(numberOfCharges: int):
@@ -54,9 +55,3 @@ func ChooseBeaconsToDraft():
 		var button: Button = find_child(beacon.name)
 		buttonsToShow.append(button)
 	currentBeaconButtonSet = buttonsToShow.duplicate(true)
-
-		#so what if there was an array of buttons that was empty, but this populated them
-		#and then show beacon buttons 
-
-	#find the two buttons in draftButtons that correspond with the two picks in currentDraft
-	#set each position to the stored positions
