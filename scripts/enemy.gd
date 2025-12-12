@@ -21,7 +21,6 @@ var speedReduction: float = 0
 @export var collisionPatience: float = 3
 var targetableBeacons: Array[StaticBody2D]
 
-#lightburn status effect
 @onready var lightburnStatus: PackedScene = preload("res://scenes/StatusEffects/lightburn_status.tscn")
 
 @onready var collisionShape = $CollisionShape2D.shape
@@ -96,12 +95,12 @@ func FindTarget():
 		#weighs the search based on enemy personality
 		var allureMultiplier: float = 1
 		if seeksHeartfire:
-			if tower.towerType == 2:
+			if tower.beaconType == 2:
 				allureMultiplier = 5
 			else:
 				allureMultiplier = 0.2
 		else:
-			if tower.towerType == 2:
+			if tower.beaconType == 2:
 				allureMultiplier = 0.4
 			else:
 				allureMultiplier = 1
@@ -145,7 +144,7 @@ func AttackTarget():
 	
 func TakeDamage(damage: int):
 	currentHealth -= damage
-	#print (str(self.name) + " took " + str(damage) + " damage")
+	print (str(self.name) + " took " + str(damage) + " damage")
 	if currentHealth <= 0:
 		currentHealth = 0
 		Die()
@@ -156,9 +155,12 @@ func Die():
 	call_deferred("queue_free")
 
 func GetBurned(burnDamage: int):
-	var newStatus = lightburnStatus.instantiate()
-	add_child(newStatus)
-	newStatus.timeout.connect(TakeDamage.bind(burnDamage))
+	if find_child("LightburnStatus") == null:
+		var newStatus = lightburnStatus.instantiate()
+		add_child(newStatus)
+		newStatus.timeout.connect(TakeDamage.bind(burnDamage))
+	else:
+		ResetBurnCounter()
 
 func ResetBurnCounter():
 	var burnStatus = $LightburnStatus

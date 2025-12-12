@@ -4,24 +4,24 @@ signal beaconPlaced
 
 @export var basicTower: PackedScene
 @export var chargeTower: PackedScene
+@export var lightburnBeacon: PackedScene
 @export var buildUI: Control
-
-#var ghostTower: Sprite2D
 
 var placingBeacon: bool = false
 var mousePosition: Vector2
 
-enum BeaconType { BASIC, CHARGE, HEARTFIRE }
+enum BeaconType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN }
 var beaconTypeToPlace: BeaconType
 var newBeacon: StaticBody2D
 
 func _ready() -> void:
-	#for button in buildUI.find_children("*", "Button"):
-		#button.pressed.connect(SpawnBeacon)
 	var basicButtion = buildUI.find_child("BasicTowerButton")
 	basicButtion.pressed.connect(SpawnBeacon.bind(BeaconType.BASIC))
 	var chargeButtion = buildUI.find_child("ChargeTowerButton")
 	chargeButtion.pressed.connect(SpawnBeacon.bind(BeaconType.CHARGE))
+	var lightburnButton = buildUI.find_child("LightburnBeaconButton")
+	lightburnButton.pressed.connect(SpawnBeacon.bind(BeaconType.LIGHTBURN))
+	
 
 func _process(delta: float) -> void:
 	mousePosition = get_global_mouse_position()
@@ -39,6 +39,8 @@ func SpawnBeacon(type: BeaconType):
 			newBeacon = basicTower.instantiate()
 		1:
 			newBeacon = chargeTower.instantiate()
+		3:
+			newBeacon = lightburnBeacon.instantiate()
 		_:
 			print("error- BeaconType")
 	add_child(newBeacon)
@@ -49,7 +51,7 @@ func SpawnBeacon(type: BeaconType):
 func PlaceSpawnedBeacon():
 	newBeacon.isBeingPlaced = false
 	beaconPlaced.emit()
-	newBeacon.WakeThisTower()
+	newBeacon.WakeThisBeacon()
 	newBeacon.get_node("CollisionShape2D").disabled = false
 	newBeacon.find_child("RangeSprite2D").visible = false
 	newBeacon = null

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjh8qx3046uwq"]
+[gd_scene load_steps=7 format=3 uid="uid://cjh8qx3046uwq"]
 
 [ext_resource type="Script" uid="uid://uowtl4xy7oj5" path="res://scripts/beacon_manager.gd" id="1_a7kvn"]
 [ext_resource type="PackedScene" uid="uid://d3ipy8tqa17n4" path="res://scenes/proto_tower.tscn" id="2_2p8be"]
 [ext_resource type="PackedScene" uid="uid://dncxjlgaytiy" path="res://scenes/charge_tower.tscn" id="3_qlyc5"]
+[ext_resource type="PackedScene" uid="uid://o6p8fpnya0iv" path="res://scenes/lightburn_beacon.tscn" id="4_2p8be"]
 [ext_resource type="Texture2D" uid="uid://3avl1qlj0i44" path="res://art/basic tower proto 2.png" id="4_qlwgw"]
 [ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="5_jv24h"]
 
@@ -10,6 +11,7 @@
 script = ExtResource("1_a7kvn")
 basicTower = ExtResource("2_2p8be")
 chargeTower = ExtResource("3_qlyc5")
+lightburnBeacon = ExtResource("4_2p8be")
 
 [node name="BasicTowerSprite" type="Sprite2D" parent="."]
 visible = false

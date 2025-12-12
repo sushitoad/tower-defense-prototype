@@ -10,22 +10,26 @@ var burnedEnemies: Array[CharacterBody2D]
 
 func _ready() -> void:
 	$AttackTimer.wait_time = attackSpeed
-	ActivateLightburnEffect()
+	beacon.on_destroyed.connect(StopLightburnEffect)
+	beacon.on_awoke.connect(ActivateLightburnEffect)
 
 func _on_body_entered(body: Node2D) -> void:
-	# if its an enemy, add it to enemiesInRangeToBurn
 	if body.is_in_group("enemy"):
 		enemiesInRangeToBurn.append(body)
-		#print(enemiesInRangeToBurn)
+		if burnedEnemies.find(body) == -1 and body.find_child("LightburnStatus") != null:
+			burnedEnemies.append(body)
 
 func _on_body_exited(body: Node2D) -> void:
-	# if its an enemy, remove it from enemiesInRangeToBurn
 	if body.is_in_group("enemy"):
 		enemiesInRangeToBurn.remove_at(enemiesInRangeToBurn.find(body))
-		#print(enemiesInRangeToBurn)
+		if burnedEnemies.find(body) != -1:
+			burnedEnemies.remove_at(burnedEnemies.find(body))
 
 func ActivateLightburnEffect():
 	$AttackTimer.start()
+
+func StopLightburnEffect():
+	$AttackTimer.stop()
 
 func _on_attack_timer_timeout() -> void:
 	for enemy in enemiesInRangeToBurn:

@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-enum TowerType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN }
+enum BeaconType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN }
 signal on_destroyed
 signal on_awoke
 
@@ -9,28 +9,30 @@ signal on_awoke
 @export var dormantTime: float = 10
 @export var dormantColor: Color = Color(1, 1, 1, 0.5)
 @export var distanceNeededToPlace: float = 40
-@export var towerType: TowerType
+@export var beaconType: BeaconType
 var currentHealth: int
+var baseColor: Color
 var isDestroyed: bool = false
 var isBeingPlaced: bool = false
 var tooCloseToOthers: bool = false
 
 func _ready() -> void:
+	baseColor = $Sprite2D.modulate
 	currentHealth = maxHealth
 	isDestroyed = false
-	if towerType != TowerType.HEARTFIRE:
-		$DormantTimer.timeout.connect(WakeThisTower)
+	if beaconType != BeaconType.HEARTFIRE:
+		$DormantTimer.timeout.connect(WakeThisBeacon)
 
 func _process(delta: float) -> void:
 	if isBeingPlaced:
-		var allOtherTowers = get_tree().get_nodes_in_group("beacon")
-		allOtherTowers.remove_at(allOtherTowers.find(self))
+		var allOtherBeacons = get_tree().get_nodes_in_group("beacon")
+		allOtherBeacons.remove_at(allOtherBeacons.find(self))
 		var noneTooClose: bool = true
-		for tower in allOtherTowers:
+		for beacon in allOtherBeacons:
 			var distanceNeeded: float = distanceNeededToPlace
-			if tower.name == "TheHeartfire":
+			if beacon.name == "TheHeartfire":
 				distanceNeeded = distanceNeededToPlace * 2
-			if global_position.distance_to(tower.global_position) < distanceNeeded:
+			if global_position.distance_to(beacon.global_position) < distanceNeeded:
 				tooCloseToOthers = true
 				$Sprite2D.modulate = dormantColor
 				noneTooClose = false
@@ -45,15 +47,15 @@ func TakeDamage(damage: int):
 		isDestroyed = true
 		$CollisionShape2D.disabled = true
 		on_destroyed.emit()
-		if towerType != TowerType.HEARTFIRE:
+		if beaconType != BeaconType.HEARTFIRE:
 			$DormantTimer.start(dormantTime)
 			$Sprite2D.modulate = dormantColor
 		else:
 			get_node("%LevelManager").GameEnd(false)
 
-func WakeThisTower():
+func WakeThisBeacon():
 	isDestroyed = false
 	$CollisionShape2D.disabled = false
 	on_awoke.emit()
 	currentHealth = maxHealth
-	$Sprite2D.modulate = Color(1, 1, 1, 1)
+	$Sprite2D.modulate = baseColor

@@ -90,6 +90,7 @@ activatesLater = true
 
 [node name="TheHeartfire" parent="." instance=ExtResource("4_7ddre")]
 position = Vector2(598, 531)
+beaconType = 2
 
 [node name="ChargeTower" parent="." instance=ExtResource("8_h3xc6")]
 position = Vector2(534, 236)
