@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5u3s0l2e7tq7"]
+
+[ext_resource type="Script" uid="uid://drgvmg56jqmao" path="res://scripts/Autoloads/beacon_type.gd" id="1_1grqq"]
+
+[node name="BeaconTypeEnum" type="Node"]
+script = ExtResource("1_1grqq")

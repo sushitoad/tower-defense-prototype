@@ -109,7 +109,7 @@ offset_right = -7.5
 offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Spire Candle"
+text = "Prism Beacon"
 script = ExtResource("3_y05bs")
 
 [node name="BasicTowerTooltip" type="Label" parent="CanvasLayer/DraftButtonManager/BasicTowerButton"]

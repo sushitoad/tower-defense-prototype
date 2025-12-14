@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://d3ipy8tqa17n4"]
 
-[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/tower.gd" id="1_6myfv"]
+[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/beacon.gd" id="1_6myfv"]
 [ext_resource type="Texture2D" uid="uid://3avl1qlj0i44" path="res://art/basic tower proto 2.png" id="2_6myfv"]
 [ext_resource type="Script" uid="uid://b5fgm115ib0qt" path="res://scripts/basic_tower.gd" id="2_em1u4"]
 [ext_resource type="PackedScene" uid="uid://bagjql0mprpil" path="res://scenes/bullet.tscn" id="3_m4352"]

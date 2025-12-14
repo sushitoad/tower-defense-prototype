@@ -48,12 +48,12 @@ func SpawnBullet():
 	var newBullet
 	newBullet = bullet.instantiate()
 	add_child(newBullet)
-	newBullet.parentTower = self
+	newBullet.parentBeacon = self
 	newBullet.global_position = bulletSpawnPos.global_position
 	newBullet.speed = bulletSpeed
 	newBullet.damage = attackDamage
 	newBullet.target = currentTarget
-	newBullet.towerRange = attackRange
+	newBullet.beaconRange = attackRange
 
 func ForgetThisEnemy(enemy: Node2D):
 	enemiesInRange.remove_at(enemiesInRange.find(enemy))

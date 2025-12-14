@@ -4,8 +4,8 @@ signal on_death
 
 var currentTarget: Node2D
 var isInRangeOfTarget: bool = false
-var isCollidingWithTower: bool = false
-var towerInTheWay: StaticBody2D = null
+var isCollidingWithBeacon: bool = false
+var beaconInTheWay: StaticBody2D = null
 var stuckPosition: Vector2
 var collisionPatienceTimer: SceneTreeTimer = null
 @export var maxHealth: int = 40
@@ -49,16 +49,16 @@ func _physics_process(delta: float) -> void:
 	if collided:
 		var collision = get_last_slide_collision()
 		if collision.get_collider().is_in_group("beacon"):
-			towerInTheWay = collision.get_collider()
-			if !isCollidingWithTower and collisionPatienceTimer == null:
+			beaconInTheWay = collision.get_collider()
+			if !isCollidingWithBeacon and collisionPatienceTimer == null:
 				collisionPatienceTimer = get_tree().create_timer(collisionPatience)
 				collisionPatienceTimer.timeout.connect(CollisionPatienceTimeout)
 				stuckPosition = global_position
-			isCollidingWithTower = true
+			isCollidingWithBeacon = true
 	else:
-		if isCollidingWithTower:
-			isCollidingWithTower = false
-			towerInTheWay = null
+		if isCollidingWithBeacon:
+			isCollidingWithBeacon = false
+			beaconInTheWay = null
 
 func _process(delta: float) -> void:
 	if hasFacing:
@@ -88,30 +88,30 @@ func FindTarget():
 	var closestAllure: float = 1
 	#creates array of towers and removes dormant ones
 	var targets = get_tree().get_nodes_in_group("beacon")
-	for tower in targets:
-		if tower.isDestroyed or tower.isBeingPlaced:
-			targets.remove_at(targets.find(tower))
-	for tower in targets:
+	for beacon in targets:
+		if beacon.isDestroyed or beacon.isBeingPlaced:
+			targets.remove_at(targets.find(beacon))
+	for beacon in targets:
 		#weighs the search based on enemy personality
 		var allureMultiplier: float = 1
 		if seeksHeartfire:
-			if tower.beaconType == 2:
+			if beacon.beaconType == 2:
 				allureMultiplier = 5
 			else:
 				allureMultiplier = 0.2
 		else:
-			if tower.beaconType == 2:
+			if beacon.beaconType == 2:
 				allureMultiplier = 0.4
 			else:
 				allureMultiplier = 1
-		if tower == towerInTheWay and tower == currentTarget:
+		if beacon == beaconInTheWay and beacon == currentTarget:
 			allureMultiplier = 200
-		#compares tower distances divided by allure (smaller value wins)
-		var allureToCheck: float = tower.allure * allureMultiplier
-		if(tower.global_position.distance_to(global_position) / allureToCheck) < (closestTarget.distance_to(global_position) / closestAllure):
-			if !tower.isDestroyed:
-				newTarget = tower
-				closestTarget = tower.global_position
+		#compares beacon distances divided by allure (smaller value wins)
+		var allureToCheck: float = beacon.allure * allureMultiplier
+		if(beacon.global_position.distance_to(global_position) / allureToCheck) < (closestTarget.distance_to(global_position) / closestAllure):
+			if !beacon.isDestroyed:
+				newTarget = beacon
+				closestTarget = beacon.global_position
 				closestAllure = allureToCheck
 	currentTarget = newTarget
 	if currentTarget != null:
@@ -122,12 +122,12 @@ func FindTarget():
 func CollisionPatienceTimeout():
 	#still not working but cool ideas
 	var acceptableDistance: float = collisionShape.radius * 2
-	if isCollidingWithTower and global_position.distance_to(stuckPosition) < acceptableDistance:
+	if isCollidingWithBeacon and global_position.distance_to(stuckPosition) < acceptableDistance:
 		currentTarget.on_destroyed.disconnect(FindTarget)
-		currentTarget = towerInTheWay
+		currentTarget = beaconInTheWay
 		currentTarget.on_destroyed.connect(FindTarget)
-		print("fuck this tower!")
-	else: towerInTheWay = null
+		print("fuck this beacon!")
+	else: beaconInTheWay = null
 
 func UpdateTargetableBeacons():
 	pass #this will update the array targetableBeacons

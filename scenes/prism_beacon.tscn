@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbbl4flw5psj5"]
+
+[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/beacon.gd" id="1_gs3bi"]
+[ext_resource type="Script" uid="uid://ncsp5efet7lh" path="res://scripts/prism_beacon.gd" id="2_gs3bi"]
+[ext_resource type="PackedScene" uid="uid://bagjql0mprpil" path="res://scenes/bullet.tscn" id="3_oeg75"]
+[ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="4_7fwdv"]
+[ext_resource type="Texture2D" uid="uid://3avl1qlj0i44" path="res://art/basic tower proto 2.png" id="5_oaq2h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c7lry"]
+radius = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gs3bi"]
+radius = 120.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m4352"]
+
+[node name="PrismBeacon" type="StaticBody2D" groups=["beacon"]]
+script = ExtResource("1_gs3bi")
+beaconType = 4
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("bulletSpawnPos")]
+script = ExtResource("2_gs3bi")
+bullet = ExtResource("3_oeg75")
+bulletSpawnPos = NodePath("BulletSpawnPoint")
+
+[node name="RangeShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_c7lry")
+
+[node name="RangeSprite2D" type="Sprite2D" parent="Area2D/RangeShape2D"]
+visible = false
+modulate = Color(1, 1, 1, 0.196078)
+position = Vector2(7.89762e-06, 0.500004)
+scale = Vector2(3.0625, 3.07812)
+texture = ExtResource("4_7fwdv")
+
+[node name="AttackTimer" type="Timer" parent="Area2D"]
+
+[node name="BulletSpawnPoint" type="Node2D" parent="Area2D"]
+position = Vector2(0, -9)
+
+[node name="PrismBuddiesArea2D" type="Area2D" parent="Area2D"]
+
+[node name="NearbyBeaconRange2D" type="CollisionShape2D" parent="Area2D/PrismBuddiesArea2D"]
+shape = SubResource("CircleShape2D_gs3bi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 12)
+shape = SubResource("CircleShape2D_m4352")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.95158, 0.95158, 0.95158, 1)
+texture = ExtResource("5_oaq2h")
+
+[node name="DormantTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
+[connection signal="timeout" from="Area2D/AttackTimer" to="Area2D" method="SpawnBullet"]
+[connection signal="body_entered" from="Area2D/PrismBuddiesArea2D" to="Area2D" method="_on_prism_buddies_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D/PrismBuddiesArea2D" to="Area2D" method="_on_prism_buddies_area_2d_body_exited"]

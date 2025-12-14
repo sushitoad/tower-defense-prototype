@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://o6p8fpnya0iv"]
 
-[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/tower.gd" id="1_v32jo"]
+[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/beacon.gd" id="1_v32jo"]
 [ext_resource type="Script" uid="uid://cd4mx3y5mon33" path="res://scripts/lightburn_beacon.gd" id="2_v32jo"]
 [ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="3_u6muo"]
 [ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="4_b05yk"]

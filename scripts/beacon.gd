@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-enum BeaconType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN }
+#enum BeaconType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN }
 signal on_destroyed
 signal on_awoke
 
@@ -9,7 +9,7 @@ signal on_awoke
 @export var dormantTime: float = 10
 @export var dormantColor: Color = Color(1, 1, 1, 0.5)
 @export var distanceNeededToPlace: float = 40
-@export var beaconType: BeaconType
+@export var beaconType: BeaconTypeEnum.BeaconType
 var currentHealth: int
 var baseColor: Color
 var isDestroyed: bool = false
@@ -20,7 +20,7 @@ func _ready() -> void:
 	baseColor = $Sprite2D.modulate
 	currentHealth = maxHealth
 	isDestroyed = false
-	if beaconType != BeaconType.HEARTFIRE:
+	if beaconType != BeaconTypeEnum.BeaconType.HEARTFIRE:
 		$DormantTimer.timeout.connect(WakeThisBeacon)
 
 func _process(delta: float) -> void:
@@ -47,7 +47,7 @@ func TakeDamage(damage: int):
 		isDestroyed = true
 		$CollisionShape2D.disabled = true
 		on_destroyed.emit()
-		if beaconType != BeaconType.HEARTFIRE:
+		if beaconType != BeaconTypeEnum.BeaconType.HEARTFIRE:
 			$DormantTimer.start(dormantTime)
 			$Sprite2D.modulate = dormantColor
 		else:

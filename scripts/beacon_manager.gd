@@ -10,17 +10,17 @@ signal beaconPlaced
 var placingBeacon: bool = false
 var mousePosition: Vector2
 
-enum BeaconType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN }
-var beaconTypeToPlace: BeaconType
+#enum BeaconType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN }
+var beaconTypeToPlace: BeaconTypeEnum.BeaconType
 var newBeacon: StaticBody2D
 
 func _ready() -> void:
 	var basicButtion = buildUI.find_child("BasicTowerButton")
-	basicButtion.pressed.connect(SpawnBeacon.bind(BeaconType.BASIC))
+	basicButtion.pressed.connect(SpawnBeacon.bind(BeaconTypeEnum.BeaconType.BASIC))
 	var chargeButtion = buildUI.find_child("ChargeTowerButton")
-	chargeButtion.pressed.connect(SpawnBeacon.bind(BeaconType.CHARGE))
+	chargeButtion.pressed.connect(SpawnBeacon.bind(BeaconTypeEnum.BeaconType.CHARGE))
 	var lightburnButton = buildUI.find_child("LightburnBeaconButton")
-	lightburnButton.pressed.connect(SpawnBeacon.bind(BeaconType.LIGHTBURN))
+	lightburnButton.pressed.connect(SpawnBeacon.bind(BeaconTypeEnum.BeaconType.LIGHTBURN))
 	
 
 func _process(delta: float) -> void:
@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 			if newBeacon.isBeingPlaced and !newBeacon.tooCloseToOthers:
 				PlaceSpawnedBeacon()
 
-func SpawnBeacon(type: BeaconType):
+func SpawnBeacon(type: BeaconTypeEnum.BeaconType):
 	placingBeacon = true
 	match type:
 		0:

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dncxjlgaytiy"]
 
 [ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="1_3lh4g"]
-[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/tower.gd" id="1_88xce"]
+[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/beacon.gd" id="1_88xce"]
 [ext_resource type="Script" uid="uid://b406orvvjlixj" path="res://scripts/charge_tower.gd" id="2_6xbv0"]
 [ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="3_ljo3c"]
 
