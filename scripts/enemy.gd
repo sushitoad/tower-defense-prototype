@@ -22,7 +22,7 @@ var speedReduction: float = 0
 var targetableBeacons: Array[StaticBody2D]
 
 @onready var lightburnStatus: PackedScene = preload("res://scenes/StatusEffects/lightburn_status.tscn")
-
+@onready var lightburnSprite: Sprite2D = $LightburnSprite2D
 @onready var collisionShape = $CollisionShape2D.shape
 
 func _ready() -> void:
@@ -95,12 +95,12 @@ func FindTarget():
 		#weighs the search based on enemy personality
 		var allureMultiplier: float = 1
 		if seeksHeartfire:
-			if beacon.beaconType == 2:
+			if beacon.beaconType == GlobalEnums.BeaconType.HEARTFIRE:
 				allureMultiplier = 5
 			else:
 				allureMultiplier = 0.2
 		else:
-			if beacon.beaconType == 2:
+			if beacon.beaconType == GlobalEnums.BeaconType.HEARTFIRE:
 				allureMultiplier = 0.4
 			else:
 				allureMultiplier = 1
@@ -159,6 +159,8 @@ func GetBurned(burnDamage: int):
 		var newStatus = lightburnStatus.instantiate()
 		add_child(newStatus)
 		newStatus.timeout.connect(TakeDamage.bind(burnDamage))
+		newStatus.effect_end.connect(EndLightburnEffect)
+		lightburnSprite.visible = true
 	else:
 		ResetBurnCounter()
 
@@ -166,3 +168,6 @@ func ResetBurnCounter():
 	var burnStatus = $LightburnStatus
 	if burnStatus != null:
 		burnStatus.effectEndCounter = burnStatus.effectEndStartingValue
+
+func EndLightburnEffect():
+	lightburnSprite.visible = false

@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0oom0k2b8ssg"]
+[gd_scene load_steps=9 format=3 uid="uid://d0oom0k2b8ssg"]
 
 [ext_resource type="Script" uid="uid://b1wxb56uxo5eq" path="res://scripts/enemy.gd" id="1_i8de8"]
 [ext_resource type="Texture2D" uid="uid://b7yqlarrbx0es" path="res://art/stalker enemy proto 1.png" id="2_i8de8"]
+[ext_resource type="Texture2D" uid="uid://b7ydg16pk8awo" path="res://art/lightburn status proto 2.png" id="2_sq1rc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sq1rc"]
 atlas = ExtResource("2_i8de8")
@@ -51,6 +52,11 @@ range = 40.0
 attackDamage = 25
 attackSpeed = 2.0
 seeksHeartfire = true
+
+[node name="LightburnSprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 12)
+texture = ExtResource("2_sq1rc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3whrh")

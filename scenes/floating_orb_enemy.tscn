@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddiwxlxpx87cf"]
+[gd_scene load_steps=6 format=3 uid="uid://ddiwxlxpx87cf"]
 
 [ext_resource type="Script" uid="uid://b1wxb56uxo5eq" path="res://scripts/enemy.gd" id="1_pv3vx"]
+[ext_resource type="Texture2D" uid="uid://b7ydg16pk8awo" path="res://art/lightburn status proto 2.png" id="2_d5m6o"]
 [ext_resource type="Texture2D" uid="uid://d2py12igykmqc" path="res://art/floating orb enemy proto 2.png" id="2_pv3vx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pv3vx"]
@@ -34,6 +35,11 @@ script = ExtResource("1_pv3vx")
 moveSpeed = 40.0
 range = 40.0
 hasFacing = true
+
+[node name="LightburnSprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 4)
+texture = ExtResource("2_d5m6o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pv3vx")

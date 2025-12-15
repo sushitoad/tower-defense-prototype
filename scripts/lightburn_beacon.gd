@@ -12,6 +12,7 @@ func _ready() -> void:
 	$AttackTimer.wait_time = attackSpeed
 	beacon.on_destroyed.connect(StopLightburnEffect)
 	beacon.on_awoke.connect(ActivateLightburnEffect)
+	#ActivateLightburnEffect()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):

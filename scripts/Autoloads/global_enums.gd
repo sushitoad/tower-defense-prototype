@@ -1,5 +1,5 @@
 
-class_name BeaconTypeEnum
+class_name GlobalEnums
 #maybe just give it a class name
 
 enum BeaconType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN, PRISM }

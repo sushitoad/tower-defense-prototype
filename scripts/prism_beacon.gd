@@ -94,8 +94,11 @@ func UpdatePrismBuddies():
 		#free it if thee are less buddies than lines
 		#update draw to point to current buddies each frame
 
+func DrawLineToPrismBuddy(buddy: StaticBody2D):
+	pass
+
 func _on_prism_buddies_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("beacon") and body.beaconType == BeaconTypeEnum.BeaconType.PRISM:
+	if body.is_in_group("beacon") and body.beaconType == GlobalEnums.BeaconType.PRISM:
 		potentialPrismBuddies.append(body)
 
 func _on_prism_buddies_area_2d_body_exited(body: Node2D) -> void:

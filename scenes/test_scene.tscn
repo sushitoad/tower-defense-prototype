@@ -105,17 +105,7 @@ position = Vector2(1042, 210)
 position = Vector2(601, 541)
 
 [node name="PrismBeacon" parent="." instance=ExtResource("11_6qxox")]
-position = Vector2(709, 468)
-maxHealth = 100
-allure = 10.0
-dormantTime = 10.0
-dormantColor = Color(1, 1, 1, 0.5)
-distanceNeededToPlace = 40.0
+position = Vector2(823, 595)
 
 [node name="PrismBeacon2" parent="." instance=ExtResource("11_6qxox")]
-position = Vector2(709, 468)
-maxHealth = 100
-allure = 10.0
-dormantTime = 10.0
-dormantColor = Color(1, 1, 1, 0.5)
-distanceNeededToPlace = 40.0
+position = Vector2(807, 717)
