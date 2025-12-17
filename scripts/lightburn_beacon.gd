@@ -12,7 +12,8 @@ func _ready() -> void:
 	$AttackTimer.wait_time = attackSpeed
 	beacon.on_destroyed.connect(StopLightburnEffect)
 	beacon.on_awoke.connect(ActivateLightburnEffect)
-	#ActivateLightburnEffect()
+	if !beacon.isBeingPlaced:
+		ActivateLightburnEffect()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
@@ -28,16 +29,20 @@ func _on_body_exited(body: Node2D) -> void:
 
 func ActivateLightburnEffect():
 	$AttackTimer.start()
+	$AttackSprite2D.visible = true
 
 func StopLightburnEffect():
 	$AttackTimer.stop()
+	$AttackSprite2D.visible = false
 
 func _on_attack_timer_timeout() -> void:
-	for enemy in enemiesInRangeToBurn:
-		if burnedEnemies.find(enemy) != -1:
-			enemy.ResetBurnCounter()
-			#print(str(enemy) + "'s burn counter is reset")
-		else:
-			burnedEnemies.append(enemy)
-			enemy.GetBurned(burnDamagePerSecond)
-			print(str(enemy) + " started burning!")
+	if !beacon.isBeingPlaced:
+		$AnimationPlayer.play("attack")
+		for enemy in enemiesInRangeToBurn:
+			if burnedEnemies.find(enemy) != -1:
+				enemy.ResetBurnCounter()
+				#print(str(enemy) + "'s burn counter is reset")
+			else:
+				burnedEnemies.append(enemy)
+				enemy.GetBurned(burnDamagePerSecond)
+				print(str(enemy) + " started burning!")

@@ -55,7 +55,7 @@ victoryText = "triumph"
 
 [node name="TimeManager" parent="." instance=ExtResource("4_6qxox")]
 unique_name_in_owner = true
-timeToVictory = 44.0
+timeToVictory = 88.0
 
 [node name="BuildUI" parent="." instance=ExtResource("1_g7g4h")]
 
