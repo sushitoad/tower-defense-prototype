@@ -18,6 +18,13 @@ func _ready() -> void:
 	nearbyBeaconDistance = $PrismBuddiesArea2D/NearbyBeaconRange2D.shape.radius
 	beacon = get_parent()
 	prismBuddies.resize(2)
+	#trying to figure out drawing lines
+	$BuddyOneLine2D.add_point(beacon.global_position)
+	var heartfire: StaticBody2D
+	for beacon in get_tree().get_nodes_in_group("beacon"):
+		if beacon.beaconType == GlobalEnums.BeaconType.HEARTFIRE:
+			heartfire = beacon
+	$BuddyOneLine2D.add_point(heartfire.global_position)
 
 func _process(delta: float) -> void:
 	if !beacon.isDestroyed and !beacon.isBeingPlaced:
@@ -85,17 +92,25 @@ func UpdatePrismBuddies():
 		buddyOne = null
 		buddyTwo = null
 	prismBuddies[0] = buddyOne
-	#this feels close but the buddyTwo assignment keeps breaking when I go from 2 buddies to 1
 	prismBuddies[1] = buddyTwo
 	print(prismBuddies)
+	#this isn't doing crap yet but thats ok haha
+	if buddyOne != null:
+		DrawLineToPrismBuddy(prismBuddies[0], $BuddyOneLine2D)
+	else: $BuddyOneLine2D.clear_points()
+	if buddyTwo != null:
+		DrawLineToPrismBuddy(prismBuddies[1], $BuddyTwoLine2D)
+	else: $BuddyTwoLine2D.clear_points()
 	#under this conditional, find the two closest beacons (that aren't buddies already)
 	#add them to prismBuddies and draw Line2Ds
 		#instantiate a line for each buddy
 		#free it if thee are less buddies than lines
 		#update draw to point to current buddies each frame
 
-func DrawLineToPrismBuddy(buddy: StaticBody2D):
-	pass
+func DrawLineToPrismBuddy(buddy: StaticBody2D, line: Line2D):
+	line.clear_points()
+	line.add_point(beacon.global_position)
+	line.add_point(buddy.global_position)
 
 func _on_prism_buddies_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("beacon") and body.beaconType == GlobalEnums.BeaconType.PRISM:

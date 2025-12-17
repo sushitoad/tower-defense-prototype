@@ -43,6 +43,12 @@ position = Vector2(0, -9)
 [node name="NearbyBeaconRange2D" type="CollisionShape2D" parent="Area2D/PrismBuddiesArea2D"]
 shape = SubResource("CircleShape2D_gs3bi")
 
+[node name="BuddyOneLine2D" type="Line2D" parent="Area2D"]
+points = PackedVector2Array(0, 0, 100, 0)
+
+[node name="BuddyTwoLine2D" type="Line2D" parent="Area2D"]
+points = PackedVector2Array(0, 0, 0, 0)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 12)
 shape = SubResource("CircleShape2D_m4352")

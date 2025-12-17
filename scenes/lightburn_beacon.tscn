@@ -50,8 +50,8 @@ radius = 16.0
 
 [node name="LightburnBeacon" type="StaticBody2D" groups=["beacon"]]
 script = ExtResource("1_v32jo")
-maxHealth = 20
-allure = 33.0
+maxHealth = 70
+allure = 14.0
 dormantTime = 15.0
 dormantColor = Color(0.4606, 0.98, 0.503883, 0.403922)
 beaconType = 3
