@@ -18,10 +18,11 @@ radius = 120.0
 script = ExtResource("1_gs3bi")
 beaconType = 4
 
-[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("bulletSpawnPos")]
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("bulletSpawnPos", "buddyLines")]
 script = ExtResource("2_gs3bi")
 bullet = ExtResource("3_oeg75")
 bulletSpawnPos = NodePath("BulletSpawnPoint")
+buddyLines = [NodePath("BuddyOneLine2D"), NodePath("BuddyTwoLine2D")]
 
 [node name="RangeShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_c7lry")
@@ -45,9 +46,11 @@ shape = SubResource("CircleShape2D_gs3bi")
 
 [node name="BuddyOneLine2D" type="Line2D" parent="Area2D"]
 points = PackedVector2Array(0, 0, 100, 0)
+width = 4.0
 
 [node name="BuddyTwoLine2D" type="Line2D" parent="Area2D"]
 points = PackedVector2Array(0, 0, 0, 0)
+width = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 12)

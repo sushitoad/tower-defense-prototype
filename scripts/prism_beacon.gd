@@ -5,6 +5,7 @@ extends Area2D
 @export var attackDamage: int = 10
 @export var bullet: PackedScene
 @export var bulletSpawnPos: Node2D
+@export var buddyLines: Array[Line2D]
 var nearbyBeaconDistance: float = 100
 var attackRange: float
 var enemiesInRange = Array()
@@ -13,18 +14,16 @@ var beacon: StaticBody2D
 var potentialPrismBuddies: Array[StaticBody2D]
 var prismBuddies: Array[StaticBody2D]
 
+#line2Ds are local coordinates based on the line node's position
+#I need to subtract the line2Ds global position from the target global position
+# or from whatever position I want. Basically to get local its always -Line2D.global_position
+
 func _ready() -> void:
 	attackRange = $RangeShape2D.shape.radius
 	nearbyBeaconDistance = $PrismBuddiesArea2D/NearbyBeaconRange2D.shape.radius
 	beacon = get_parent()
 	prismBuddies.resize(2)
-	#trying to figure out drawing lines
-	$BuddyOneLine2D.add_point(beacon.global_position)
-	var heartfire: StaticBody2D
-	for beacon in get_tree().get_nodes_in_group("beacon"):
-		if beacon.beaconType == GlobalEnums.BeaconType.HEARTFIRE:
-			heartfire = beacon
-	$BuddyOneLine2D.add_point(heartfire.global_position)
+
 
 func _process(delta: float) -> void:
 	if !beacon.isDestroyed and !beacon.isBeingPlaced:
@@ -94,13 +93,6 @@ func UpdatePrismBuddies():
 	prismBuddies[0] = buddyOne
 	prismBuddies[1] = buddyTwo
 	print(prismBuddies)
-	#this isn't doing crap yet but thats ok haha
-	if buddyOne != null:
-		DrawLineToPrismBuddy(prismBuddies[0], $BuddyOneLine2D)
-	else: $BuddyOneLine2D.clear_points()
-	if buddyTwo != null:
-		DrawLineToPrismBuddy(prismBuddies[1], $BuddyTwoLine2D)
-	else: $BuddyTwoLine2D.clear_points()
 	#under this conditional, find the two closest beacons (that aren't buddies already)
 	#add them to prismBuddies and draw Line2Ds
 		#instantiate a line for each buddy

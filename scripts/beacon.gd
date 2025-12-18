@@ -51,6 +51,7 @@ func TakeDamage(damage: int):
 			$DormantTimer.start(dormantTime)
 			$Sprite2D.modulate = dormantColor
 		else:
+			#fix this
 			get_node("%LevelManager").GameEnd(false)
 
 func WakeThisBeacon():
