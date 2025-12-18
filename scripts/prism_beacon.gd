@@ -24,7 +24,6 @@ func _ready() -> void:
 	beacon = get_parent()
 	prismBuddies.resize(2)
 
-
 func _process(delta: float) -> void:
 	if !beacon.isDestroyed and !beacon.isBeingPlaced:
 		if currentTarget == null:
@@ -93,16 +92,26 @@ func UpdatePrismBuddies():
 	prismBuddies[0] = buddyOne
 	prismBuddies[1] = buddyTwo
 	print(prismBuddies)
-	#under this conditional, find the two closest beacons (that aren't buddies already)
-	#add them to prismBuddies and draw Line2Ds
-		#instantiate a line for each buddy
-		#free it if thee are less buddies than lines
-		#update draw to point to current buddies each frame
+	var count: int = 0
+	for buddy in prismBuddies:
+		var line: Line2D = buddyLines[count]
+		var start: Vector2 = Vector2.ZERO
+		var end: Vector2 = Vector2.ZERO
+		if buddy != null:
+			start = beacon.global_position - line.global_position
+			end = buddy.global_position - line.global_position
+		line.set_point_position(0, start)
+		line.set_point_position(1, end)
+		count += 1
 
-func DrawLineToPrismBuddy(buddy: StaticBody2D, line: Line2D):
-	line.clear_points()
-	line.add_point(beacon.global_position)
-	line.add_point(buddy.global_position)
+#end goal: once set, all 3 beacons have the same buddies
+#this means that new beacons are checking to see if there is an open buddy slot
+#if there is, they would want to look at the other buddy and see if they're in range
+#if they're in range of both, draw a line to each, otherwise no line at all
+
+#case: if there are two potential buddies that don't connect to each other
+#this needs to see that they don't have buddies, and draw a line to the nearest one
+#so in a sense this is only ever drawing one line unless the beacon it draws to has a buddy
 
 func _on_prism_buddies_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("beacon") and body.beaconType == GlobalEnums.BeaconType.PRISM:

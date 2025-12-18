@@ -45,7 +45,7 @@ position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_gs3bi")
 
 [node name="BuddyOneLine2D" type="Line2D" parent="Area2D"]
-points = PackedVector2Array(0, 0, 100, 0)
+points = PackedVector2Array(0, 0, 0, 0)
 width = 4.0
 
 [node name="BuddyTwoLine2D" type="Line2D" parent="Area2D"]
