@@ -3,6 +3,7 @@ extends StaticBody2D
 #enum BeaconType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN }
 signal on_destroyed
 signal on_awoke
+signal on_placed
 
 @export var maxHealth: int = 100
 @export var allure: float = 10
@@ -39,6 +40,10 @@ func _process(delta: float) -> void:
 		if noneTooClose:
 			tooCloseToOthers = false
 			$Sprite2D.modulate = Color(1, 1, 1, 1)
+
+func EmitOnPlaced():
+	if isBeingPlaced:
+		on_placed.emit()
 
 func TakeDamage(damage: int):
 	currentHealth -= damage

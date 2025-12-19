@@ -23,6 +23,8 @@ func _ready() -> void:
 	nearbyBeaconDistance = $PrismBuddiesArea2D/NearbyBeaconRange2D.shape.radius
 	beacon = get_parent()
 	prismBuddies.resize(2)
+	beacon.on_placed.connect(SetPrismBuddies)
+	FindNewPrismBuddies()
 
 func _process(delta: float) -> void:
 	if !beacon.isDestroyed and !beacon.isBeingPlaced:
@@ -43,7 +45,7 @@ func _process(delta: float) -> void:
 		if !$AttackTimer.is_stopped():
 			$AttackTimer.stop()
 	if beacon.isBeingPlaced:
-		UpdatePrismBuddies()
+		FindNewPrismBuddies()
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
@@ -70,7 +72,7 @@ func SpawnBullet():
 func ForgetThisEnemy(enemy: Node2D):
 	enemiesInRange.remove_at(enemiesInRange.find(enemy))
 
-func UpdatePrismBuddies():
+func FindNewPrismBuddies():
 	var buddyOne: StaticBody2D
 	var buddyTwo: StaticBody2D
 	var closestPosition: Vector2 = Vector2(100000, 100000)
@@ -92,6 +94,9 @@ func UpdatePrismBuddies():
 	prismBuddies[0] = buddyOne
 	prismBuddies[1] = buddyTwo
 	print(prismBuddies)
+	DrawLinesToBuddies()
+
+func DrawLinesToBuddies():
 	var count: int = 0
 	for buddy in prismBuddies:
 		var line: Line2D = buddyLines[count]
@@ -109,13 +114,29 @@ func UpdatePrismBuddies():
 #if there is, they would want to look at the other buddy and see if they're in range
 #if they're in range of both, draw a line to each, otherwise no line at all
 
+func UpdatePrismBuddiesTo(one: StaticBody2D, two: StaticBody2D):
+	prismBuddies[0] = one
+	prismBuddies[1] = two
+
+func SetPrismBuddies():
+	if prismBuddies[0] != null: 
+		var buddyOne: Area2D = prismBuddies[0].find_child("Area2D")
+		buddyOne.UpdatePrismBuddiesTo(beacon, prismBuddies[1])
+		buddyOne.DrawLinesToBuddies()
+	if prismBuddies[1] != null:
+		var buddyTwo: Area2D = prismBuddies[1].find_child("Area2D")
+		buddyTwo.UpdatePrismBuddiesTo(beacon, prismBuddies[0])
+		buddyTwo.DrawLinesToBuddies()
+	print(prismBuddies)
+
 #case: if there are two potential buddies that don't connect to each other
 #this needs to see that they don't have buddies, and draw a line to the nearest one
 #so in a sense this is only ever drawing one line unless the beacon it draws to has a buddy
 
 func _on_prism_buddies_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("beacon") and body.beaconType == GlobalEnums.BeaconType.PRISM:
-		potentialPrismBuddies.append(body)
+		#if body.find_child("Area2D").prismBuddies[1] == null:
+			potentialPrismBuddies.append(body)
 
 func _on_prism_buddies_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("beacon"):

@@ -108,7 +108,4 @@ position = Vector2(601, 541)
 position = Vector2(823, 595)
 
 [node name="PrismBeacon2" parent="." instance=ExtResource("11_6qxox")]
-position = Vector2(807, 717)
-
-[node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0, 0, 80, 12)
+position = Vector2(812, 677)
