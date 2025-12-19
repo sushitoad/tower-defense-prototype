@@ -41,10 +41,6 @@ func _process(delta: float) -> void:
 			tooCloseToOthers = false
 			$Sprite2D.modulate = Color(1, 1, 1, 1)
 
-func EmitOnPlaced():
-	if isBeingPlaced:
-		on_placed.emit()
-
 func TakeDamage(damage: int):
 	currentHealth -= damage
 	if currentHealth <= 0:

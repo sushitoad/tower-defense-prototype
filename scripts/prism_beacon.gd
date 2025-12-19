@@ -13,6 +13,7 @@ var currentTarget: CharacterBody2D
 var beacon: StaticBody2D
 var potentialPrismBuddies: Array[StaticBody2D]
 var prismBuddies: Array[StaticBody2D]
+var hasTwoBuddies: bool = false
 
 #line2Ds are local coordinates based on the line node's position
 #I need to subtract the line2Ds global position from the target global position
@@ -24,7 +25,10 @@ func _ready() -> void:
 	beacon = get_parent()
 	prismBuddies.resize(2)
 	beacon.on_placed.connect(SetPrismBuddies)
-	FindNewPrismBuddies()
+	#these prism beacons that start in the scene refuse to add each other as buddies
+	if Time.get_ticks_msec() < 2000:
+		SearchForNearestBuddy()
+		SetPrismBuddies()
 
 func _process(delta: float) -> void:
 	if !beacon.isDestroyed and !beacon.isBeingPlaced:
@@ -45,7 +49,7 @@ func _process(delta: float) -> void:
 		if !$AttackTimer.is_stopped():
 			$AttackTimer.stop()
 	if beacon.isBeingPlaced:
-		FindNewPrismBuddies()
+		SearchForNearestBuddy()
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
@@ -72,6 +76,7 @@ func SpawnBullet():
 func ForgetThisEnemy(enemy: Node2D):
 	enemiesInRange.remove_at(enemiesInRange.find(enemy))
 
+#deprecate this version
 func FindNewPrismBuddies():
 	var buddyOne: StaticBody2D
 	var buddyTwo: StaticBody2D
@@ -96,6 +101,30 @@ func FindNewPrismBuddies():
 	print(prismBuddies)
 	DrawLinesToBuddies()
 
+func SearchForNearestBuddy():
+	var closestBuddy: StaticBody2D = null
+	var extraBuddy: StaticBody2D = null
+	var closestPosition: Vector2 = Vector2(100000, 100000)
+	for beacon in potentialPrismBuddies:
+		if global_position.distance_to(beacon.global_position) < global_position.distance_to(closestPosition):
+			extraBuddy = beacon.find_child("Area2D").prismBuddies[0]
+			if extraBuddy != null:
+				if potentialPrismBuddies.find(extraBuddy) != -1:
+					closestBuddy = beacon
+					closestPosition = beacon.global_position
+			else:
+				closestBuddy = beacon
+				closestPosition = beacon.global_position
+	if potentialPrismBuddies.size() == 1:
+		extraBuddy = null
+	elif potentialPrismBuddies.size() < 1:
+		closestBuddy = null
+		extraBuddy = null
+	prismBuddies[0] = closestBuddy
+	prismBuddies[1] = extraBuddy
+	print(prismBuddies)
+	DrawLinesToBuddies()
+
 func DrawLinesToBuddies():
 	var count: int = 0
 	for buddy in prismBuddies:
@@ -113,33 +142,34 @@ func DrawLinesToBuddies():
 #this means that new beacons are checking to see if there is an open buddy slot
 #if there is, they would want to look at the other buddy and see if they're in range
 #if they're in range of both, draw a line to each, otherwise no line at all
+#   so if the potentialPrismBuddies already have a buddy, this needs to see if both are in range
+
+func SetPrismBuddies():
+	#this is what happens when the prism beacon is placed, so its attached to a signal
+	if prismBuddies[0] != null: 
+		var buddyOne: Area2D = prismBuddies[0].find_child("Area2D")
+		buddyOne.UpdatePrismBuddiesTo(beacon, prismBuddies[1])
+		buddyOne.DrawLinesToBuddies()
+		if buddyOne.prismBuddies[1] != null:
+			buddyOne.hasTwoBuddies = true
+	if prismBuddies[1] != null:
+		var buddyTwo: Area2D = prismBuddies[1].find_child("Area2D")
+		buddyTwo.UpdatePrismBuddiesTo(beacon, prismBuddies[0])
+		buddyTwo.DrawLinesToBuddies()
+		if buddyTwo.prismBuddies[1] != null:
+			buddyTwo.hasTwoBuddies = true
+		hasTwoBuddies = true
+	print(prismBuddies)
 
 func UpdatePrismBuddiesTo(one: StaticBody2D, two: StaticBody2D):
 	prismBuddies[0] = one
 	prismBuddies[1] = two
 
-func SetPrismBuddies():
-	if prismBuddies[0] != null: 
-		var buddyOne: Area2D = prismBuddies[0].find_child("Area2D")
-		buddyOne.UpdatePrismBuddiesTo(beacon, prismBuddies[1])
-		buddyOne.DrawLinesToBuddies()
-	if prismBuddies[1] != null:
-		var buddyTwo: Area2D = prismBuddies[1].find_child("Area2D")
-		buddyTwo.UpdatePrismBuddiesTo(beacon, prismBuddies[0])
-		buddyTwo.DrawLinesToBuddies()
-	print(prismBuddies)
-
-#case: if there are two potential buddies that don't connect to each other
-#this needs to see that they don't have buddies, and draw a line to the nearest one
-#so in a sense this is only ever drawing one line unless the beacon it draws to has a buddy
-
 func _on_prism_buddies_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("beacon") and body.beaconType == GlobalEnums.BeaconType.PRISM:
-		#if body.find_child("Area2D").prismBuddies[1] == null:
+		if !body.find_child("Area2D").hasTwoBuddies:
 			potentialPrismBuddies.append(body)
 
 func _on_prism_buddies_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("beacon"):
 		potentialPrismBuddies.remove_at(potentialPrismBuddies.find(body))
-		#if prismBuddies.find(body) != -1:
-		#	prismBuddies.remove_at(prismBuddies.find(body))
