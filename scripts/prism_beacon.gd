@@ -70,36 +70,14 @@ func SpawnBullet():
 	newBullet.speed = bulletSpeed
 	newBullet.target = currentTarget
 	newBullet.beaconRange = attackRange
-	var damageModifier: float = (prismBuddies.size() + 1)
+	var damageModifier: float = 1
+	for buddy in prismBuddies:
+		if buddy != null:
+			damageModifier += 1
 	newBullet.damage = attackDamage * damageModifier
 
 func ForgetThisEnemy(enemy: Node2D):
 	enemiesInRange.remove_at(enemiesInRange.find(enemy))
-
-#deprecate this version
-func FindNewPrismBuddies():
-	var buddyOne: StaticBody2D
-	var buddyTwo: StaticBody2D
-	var closestPosition: Vector2 = Vector2(100000, 100000)
-	for beacon in potentialPrismBuddies:
-		if global_position.distance_to(beacon.global_position) < global_position.distance_to(closestPosition):
-			buddyOne = beacon
-			closestPosition = beacon.global_position
-	closestPosition = Vector2(100000, 100000)
-	for beacon in potentialPrismBuddies:
-		if global_position.distance_to(beacon.global_position) < global_position.distance_to(closestPosition):
-			if beacon != buddyOne:
-				buddyTwo = beacon
-				closestPosition = beacon.global_position
-	if potentialPrismBuddies.size() == 1:
-		buddyTwo = null
-	elif potentialPrismBuddies.size() < 1:
-		buddyOne = null
-		buddyTwo = null
-	prismBuddies[0] = buddyOne
-	prismBuddies[1] = buddyTwo
-	print(prismBuddies)
-	DrawLinesToBuddies()
 
 func SearchForNearestBuddy():
 	var closestBuddy: StaticBody2D = null
@@ -122,9 +100,10 @@ func SearchForNearestBuddy():
 		extraBuddy = null
 	prismBuddies[0] = closestBuddy
 	prismBuddies[1] = extraBuddy
-	print(prismBuddies)
+	#print(prismBuddies)
 	DrawLinesToBuddies()
 
+#making the lines always under the beacons would be a nice touch
 func DrawLinesToBuddies():
 	var count: int = 0
 	for buddy in prismBuddies:
@@ -137,12 +116,6 @@ func DrawLinesToBuddies():
 		line.set_point_position(0, start)
 		line.set_point_position(1, end)
 		count += 1
-
-#end goal: once set, all 3 beacons have the same buddies
-#this means that new beacons are checking to see if there is an open buddy slot
-#if there is, they would want to look at the other buddy and see if they're in range
-#if they're in range of both, draw a line to each, otherwise no line at all
-#   so if the potentialPrismBuddies already have a buddy, this needs to see if both are in range
 
 func SetPrismBuddies():
 	#this is what happens when the prism beacon is placed, so its attached to a signal

@@ -45,4 +45,4 @@ func _on_attack_timer_timeout() -> void:
 			else:
 				burnedEnemies.append(enemy)
 				enemy.GetBurned(burnDamagePerSecond)
-				print(str(enemy) + " started burning!")
+				#print(str(enemy) + " started burning!")
