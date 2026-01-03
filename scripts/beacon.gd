@@ -11,6 +11,7 @@ signal on_placed
 @export var dormantColor: Color = Color(1, 1, 1, 0.5)
 @export var distanceNeededToPlace: float = 40
 @export var beaconType: GlobalEnums.BeaconType
+var rangeSprite: Sprite2D
 var currentHealth: int
 var baseColor: Color
 var isDestroyed: bool = false
@@ -23,6 +24,7 @@ func _ready() -> void:
 	isDestroyed = false
 	if beaconType != GlobalEnums.BeaconType.HEARTFIRE:
 		$DormantTimer.timeout.connect(WakeThisBeacon)
+	rangeSprite = find_child("RangeSprite2D")
 
 func _process(delta: float) -> void:
 	if isBeingPlaced:

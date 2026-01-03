@@ -1,15 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://dncxjlgaytiy"]
+[gd_scene load_steps=9 format=3 uid="uid://dncxjlgaytiy"]
 
 [ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="1_3lh4g"]
 [ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/beacon.gd" id="1_88xce"]
 [ext_resource type="Script" uid="uid://b406orvvjlixj" path="res://scripts/charge_tower.gd" id="2_6xbv0"]
 [ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="3_ljo3c"]
+[ext_resource type="Script" uid="uid://bqf70r6vj3a7i" path="res://scripts/mouse_over_display.gd" id="5_si648"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6xbv0"]
 radius = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88xce"]
 radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tgn6e"]
+radius = 15.0
 
 [node name="ChargeTower" type="StaticBody2D" groups=["beacon"]]
 script = ExtResource("1_88xce")
@@ -42,5 +46,17 @@ texture = ExtResource("1_3lh4g")
 wait_time = 10.0
 one_shot = true
 
+[node name="MouseOverArea2D" type="Area2D" parent="." node_paths=PackedStringArray("displayNode")]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("5_si648")
+displayNode = NodePath("../Area2D/RangeSprite2D")
+
+[node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_tgn6e")
+
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
+[connection signal="mouse_entered" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_exited"]

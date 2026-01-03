@@ -132,7 +132,7 @@ func SetPrismBuddies():
 		if buddyTwo.prismBuddies[1] != null:
 			buddyTwo.hasTwoBuddies = true
 		hasTwoBuddies = true
-	print(prismBuddies)
+	#print(prismBuddies)
 
 func UpdatePrismBuddiesTo(one: StaticBody2D, two: StaticBody2D):
 	prismBuddies[0] = one

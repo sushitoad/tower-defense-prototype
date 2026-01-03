@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://o6p8fpnya0iv"]
+[gd_scene load_steps=13 format=3 uid="uid://o6p8fpnya0iv"]
 
 [ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/beacon.gd" id="1_v32jo"]
 [ext_resource type="Script" uid="uid://cd4mx3y5mon33" path="res://scripts/lightburn_beacon.gd" id="2_v32jo"]
 [ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="3_u6muo"]
 [ext_resource type="Texture2D" uid="uid://b7ydg16pk8awo" path="res://art/lightburn status proto 2.png" id="4_2aigk"]
 [ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="4_b05yk"]
+[ext_resource type="Script" uid="uid://bqf70r6vj3a7i" path="res://scripts/mouse_over_display.gd" id="6_u6muo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6xbv0"]
 radius = 100.0
@@ -47,6 +48,9 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88xce"]
 radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b05yk"]
+radius = 15.0
 
 [node name="LightburnBeacon" type="StaticBody2D" groups=["beacon"]]
 script = ExtResource("1_v32jo")
@@ -94,6 +98,18 @@ texture = ExtResource("4_b05yk")
 wait_time = 10.0
 one_shot = true
 
+[node name="MouseOverArea2D" type="Area2D" parent="." node_paths=PackedStringArray("displayNode")]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("6_u6muo")
+displayNode = NodePath("../Area2D/RangeSprite2D")
+
+[node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_b05yk")
+
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
 [connection signal="timeout" from="Area2D/AttackTimer" to="Area2D" method="_on_attack_timer_timeout"]
+[connection signal="mouse_entered" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_exited"]

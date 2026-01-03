@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbbl4flw5psj5"]
+[gd_scene load_steps=11 format=3 uid="uid://cbbl4flw5psj5"]
 
 [ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/beacon.gd" id="1_gs3bi"]
 [ext_resource type="Script" uid="uid://ncsp5efet7lh" path="res://scripts/prism_beacon.gd" id="2_gs3bi"]
 [ext_resource type="PackedScene" uid="uid://bagjql0mprpil" path="res://scenes/bullet.tscn" id="3_oeg75"]
 [ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="4_7fwdv"]
 [ext_resource type="Texture2D" uid="uid://3avl1qlj0i44" path="res://art/basic tower proto 2.png" id="5_oaq2h"]
+[ext_resource type="Script" uid="uid://bqf70r6vj3a7i" path="res://scripts/mouse_over_display.gd" id="6_jtiyq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c7lry"]
 radius = 100.0
@@ -13,6 +14,9 @@ radius = 100.0
 radius = 120.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m4352"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oeg75"]
+radius = 6.0
 
 [node name="PrismBeacon" type="StaticBody2D" groups=["beacon"]]
 script = ExtResource("1_gs3bi")
@@ -64,8 +68,20 @@ texture = ExtResource("5_oaq2h")
 wait_time = 10.0
 one_shot = true
 
+[node name="MouseOverArea2D" type="Area2D" parent="." node_paths=PackedStringArray("displayNode")]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("6_jtiyq")
+displayNode = NodePath("../Area2D/RangeShape2D/RangeSprite2D")
+
+[node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D"]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_oeg75")
+
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
 [connection signal="timeout" from="Area2D/AttackTimer" to="Area2D" method="SpawnBullet"]
 [connection signal="body_entered" from="Area2D/PrismBuddiesArea2D" to="Area2D" method="_on_prism_buddies_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D/PrismBuddiesArea2D" to="Area2D" method="_on_prism_buddies_area_2d_body_exited"]
+[connection signal="mouse_entered" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_exited"]
