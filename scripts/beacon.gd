@@ -18,6 +18,8 @@ var isDestroyed: bool = false
 var isBeingPlaced: bool = false
 var tooCloseToOthers: bool = false
 
+@onready var animPlayer: AnimationPlayer = $AnimationPlayer
+
 func _ready() -> void:
 	baseColor = $Sprite2D.modulate
 	currentHealth = maxHealth
@@ -56,6 +58,9 @@ func TakeDamage(damage: int):
 		else:
 			#fix this
 			get_node("%LevelManager").GameEnd(false)
+	else:
+		animPlayer.stop()
+		animPlayer.play("take_damage")
 
 func WakeThisBeacon():
 	isDestroyed = false
