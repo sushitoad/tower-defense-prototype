@@ -94,9 +94,11 @@ position = Vector2(598, 531)
 
 [node name="ChargeTower" parent="." instance=ExtResource("8_h3xc6")]
 position = Vector2(534, 236)
+beaconType = 1
 
 [node name="ChargeTower2" parent="." instance=ExtResource("8_h3xc6")]
 position = Vector2(617, 207)
+beaconType = 1
 
 [node name="LightburnBeacon" parent="." instance=ExtResource("10_6qxox")]
 position = Vector2(1042, 210)

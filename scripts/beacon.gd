@@ -8,12 +8,12 @@ signal on_placed
 @export var maxHealth: int = 100
 @export var allure: float = 10
 @export var dormantTime: float = 10
-@export var dormantColor: Color = Color(1, 1, 1, 0.5)
+@export var baseColor: Color = Color(1, 1, 1, 1)
+@export var dormantColor: Color = Color(1, 1, 1, 0.4)
 @export var distanceNeededToPlace: float = 40
 @export var beaconType: GlobalEnums.BeaconType
 var rangeSprite: Sprite2D
 var currentHealth: int
-var baseColor: Color
 var isDestroyed: bool = false
 var isBeingPlaced: bool = false
 var tooCloseToOthers: bool = false
@@ -21,7 +21,8 @@ var tooCloseToOthers: bool = false
 @onready var animPlayer: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
-	baseColor = $Sprite2D.modulate
+	#baseColor = $Sprite2D.modulate
+	print(self.name + " base color is: " + str(baseColor))
 	currentHealth = maxHealth
 	isDestroyed = false
 	if beaconType != GlobalEnums.BeaconType.HEARTFIRE:
@@ -43,7 +44,7 @@ func _process(delta: float) -> void:
 				noneTooClose = false
 		if noneTooClose:
 			tooCloseToOthers = false
-			$Sprite2D.modulate = Color(1, 1, 1, 1)
+			$Sprite2D.modulate = baseColor
 
 func TakeDamage(damage: int):
 	currentHealth -= damage

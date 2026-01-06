@@ -20,17 +20,31 @@ radius = 6.0
 
 [sub_resource type="Animation" id="Animation_jtiyq"]
 length = 0.001
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&""],
+"method": &"_on_animation_player_animation_finished"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.95158, 0.95158, 0.95158, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_oeg75"]
@@ -97,7 +111,6 @@ position = Vector2(-1, 12)
 shape = SubResource("CircleShape2D_m4352")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.95158, 0.95158, 0.95158, 1)
 texture = ExtResource("5_oaq2h")
 
 [node name="DormantTimer" type="Timer" parent="."]

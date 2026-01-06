@@ -27,7 +27,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.95158, 0.95158, 0.95158, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_oeg75"]
@@ -56,6 +56,7 @@ script = ExtResource("1_88xce")
 maxHealth = 60
 allure = 25.0
 dormantTime = 12.0
+beaconType = 1
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_6xbv0")
@@ -76,7 +77,6 @@ position = Vector2(0, 9)
 shape = SubResource("CircleShape2D_88xce")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.95158, 0.95158, 0.95158, 1)
 texture = ExtResource("1_3lh4g")
 
 [node name="DormantTimer" type="Timer" parent="."]
