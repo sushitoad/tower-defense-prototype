@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddiwxlxpx87cf"]
+[gd_scene load_steps=9 format=3 uid="uid://ddiwxlxpx87cf"]
 
 [ext_resource type="Script" uid="uid://b1wxb56uxo5eq" path="res://scripts/enemy.gd" id="1_pv3vx"]
 [ext_resource type="Texture2D" uid="uid://b7ydg16pk8awo" path="res://art/lightburn status proto 2.png" id="2_d5m6o"]
@@ -27,6 +27,42 @@ animations = [{
 radius = 5.0
 height = 16.0
 
+[sub_resource type="Animation" id="Animation_ipmaq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_d5m6o"]
+resource_name = "take_damage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.258824), Color(0.890196, 0.854902, 0.0313726, 1), Color(1, 1, 1, 0.258824), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_76s4j"]
+_data = {
+&"RESET": SubResource("Animation_ipmaq"),
+&"take_damage": SubResource("Animation_d5m6o")
+}
+
 [node name="FloatingOrbEnemy" type="CharacterBody2D" groups=["enemy"]]
 motion_mode = 1
 wall_min_slide_angle = 0.872665
@@ -49,5 +85,10 @@ animation = &"stand"
 shape = SubResource("CapsuleShape2D_5hhww")
 
 [node name="AttackTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_76s4j")
+}
 
 [connection signal="timeout" from="AttackTimer" to="." method="AttackTarget"]

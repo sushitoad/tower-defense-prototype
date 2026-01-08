@@ -24,6 +24,7 @@ var targetableBeacons: Array[StaticBody2D]
 @onready var lightburnStatus: PackedScene = preload("res://scenes/StatusEffects/lightburn_status.tscn")
 @onready var lightburnSprite: Sprite2D = $LightburnSprite2D
 @onready var collisionShape = $CollisionShape2D.shape
+@onready var animPlayer = $AnimationPlayer
 
 func _ready() -> void:
 	currentHealth = maxHealth
@@ -148,6 +149,10 @@ func TakeDamage(damage: int):
 	if currentHealth <= 0:
 		currentHealth = 0
 		Die()
+	else:
+		#this will break when you need to use the animation player for more things
+		animPlayer.stop()
+		animPlayer.play("take_damage")
 
 func Die():
 	#emits signal that tells all targeting towers to remove this enemy
