@@ -1,0 +1,103 @@
+[gd_scene load_steps=12 format=3 uid="uid://c1njx36rg1ep8"]
+
+[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/beacon.gd" id="1_abr7s"]
+[ext_resource type="Script" uid="uid://b3qasj6h261ot" path="res://scripts/sun_beacon.gd" id="2_abr7s"]
+[ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="3_kmb6o"]
+[ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="4_rv5td"]
+[ext_resource type="Script" uid="uid://bqf70r6vj3a7i" path="res://scripts/mouse_over_display.gd" id="5_lhow0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6xbv0"]
+radius = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_88xce"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tgn6e"]
+radius = 15.0
+
+[sub_resource type="Animation" id="Animation_jtiyq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_oeg75"]
+resource_name = "take_damage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0684905, 0.133781, 0.200351, 0.267561, 0.334131),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.392157), Color(3.02261e-05, 0.355447, 0.980434, 1), Color(1, 1, 1, 0.392157), Color(0.582415, 0.524759, 0.930953, 1), Color(1, 1, 1, 0.392157), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7fwdv"]
+_data = {
+&"RESET": SubResource("Animation_jtiyq"),
+&"take_damage": SubResource("Animation_oeg75")
+}
+
+[node name="SunBeacon" type="StaticBody2D" groups=["beacon"]]
+script = ExtResource("1_abr7s")
+maxHealth = 60
+allure = 25.0
+dormantTime = 12.0
+beaconType = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_abr7s")
+
+[node name="RangeShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_6xbv0")
+
+[node name="RangeSprite2D" type="Sprite2D" parent="Area2D"]
+visible = false
+modulate = Color(1, 1, 1, 0.196078)
+position = Vector2(3.21865e-06, -5.24521e-06)
+scale = Vector2(3.0625, 3.0625)
+texture = ExtResource("3_kmb6o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("CircleShape2D_88xce")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_rv5td")
+
+[node name="DormantTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="MouseOverArea2D" type="Area2D" parent="." node_paths=PackedStringArray("displayNode")]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("5_lhow0")
+displayNode = NodePath("../Area2D/RangeSprite2D")
+
+[node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_tgn6e")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7fwdv")
+}
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
+[connection signal="mouse_entered" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_exited"]
