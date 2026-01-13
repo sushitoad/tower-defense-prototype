@@ -5,12 +5,12 @@ signal beaconPlaced
 @export var basicTower: PackedScene
 @export var chargeTower: PackedScene
 @export var lightburnBeacon: PackedScene
+@export var sunBeacon: PackedScene
 @export var buildUI: Control
 
 var placingBeacon: bool = false
 var mousePosition: Vector2
 
-#enum BeaconType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN }
 var beaconTypeToPlace: GlobalEnums.BeaconType
 var newBeacon: StaticBody2D
 
@@ -21,7 +21,8 @@ func _ready() -> void:
 	chargeButtion.pressed.connect(SpawnBeacon.bind(GlobalEnums.BeaconType.CHARGE))
 	var lightburnButton = buildUI.find_child("LightburnBeaconButton")
 	lightburnButton.pressed.connect(SpawnBeacon.bind(GlobalEnums.BeaconType.LIGHTBURN))
-	
+	var sunButton = buildUI.find_child("SunBeaconButton")
+	sunButton.pressed.connect(SpawnBeacon.bind(GlobalEnums.BeaconType.SUN))
 
 func _process(delta: float) -> void:
 	mousePosition = get_global_mouse_position()
@@ -41,6 +42,8 @@ func SpawnBeacon(type: GlobalEnums.BeaconType):
 			newBeacon = chargeTower.instantiate()
 		3:
 			newBeacon = lightburnBeacon.instantiate()
+		5:
+			newBeacon = sunBeacon.instantiate()
 		_:
 			print("error- BeaconType")
 	add_child(newBeacon)

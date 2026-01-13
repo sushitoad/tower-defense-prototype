@@ -1,6 +1,5 @@
 extends StaticBody2D
 
-#enum BeaconType { BASIC, CHARGE, HEARTFIRE, LIGHTBURN }
 signal on_destroyed
 signal on_awoke
 signal on_placed
