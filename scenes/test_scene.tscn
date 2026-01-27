@@ -55,7 +55,7 @@ victoryText = "triumph"
 
 [node name="TimeManager" parent="." instance=ExtResource("4_6qxox")]
 unique_name_in_owner = true
-timeToVictory = 88.0
+timeToVictory = 120.0
 
 [node name="BuildUI" parent="." instance=ExtResource("1_g7g4h")]
 
@@ -68,12 +68,14 @@ position = Vector2(-119, 28)
 enemySpawnRatio = 0.75
 timeBetweenSpawns = 15.0
 timeToIncreaseSpawns = 50.0
+activatesLater = true
 
 [node name="EnemySpawner2" parent="." instance=ExtResource("5_6qxox")]
 position = Vector2(1441, 9)
 enemySpawnRatio = 0.25
 timeBetweenSpawns = 15.0
 timeToIncreaseSpawns = 45.0
+activatesLater = true
 
 [node name="EnemySpawner3" parent="." instance=ExtResource("5_6qxox")]
 position = Vector2(-97, 985)

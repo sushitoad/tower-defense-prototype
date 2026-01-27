@@ -4,6 +4,7 @@ extends Area2D
 @export var nearbyBeaconSlowRangeBonus: float = 10
 @onready var beacon: StaticBody2D = get_parent()
 @onready var circleShape: Shape2D = $RangeShape2D.shape
+@onready var circleStartingRadius: float = circleShape.radius
 var enemiesInRangeToSlow: Array[CharacterBody2D]
 var slowedEnemies: Array[CharacterBody2D]
 var nearbyBeacons: Array[StaticBody2D]
@@ -43,6 +44,8 @@ func UnslowEnemy(enemy: CharacterBody2D):
 	slowedEnemies.remove_at(slowedEnemies.find(enemy))
 	enemy.speedReduction -= enemySlowAmount
 
+#why does this not happen when beacon is placed?
+#can I comb through this and make sure the basic behaviors are happening as intended?
 func SetSlowRange():
 	var uniqueBeacons: Array[StaticBody2D]
 	var otherSunBeaconCounter: int = 0
@@ -58,17 +61,23 @@ func SetSlowRange():
 					isUnique = false
 		if isUnique:
 			uniqueBeacons.append(beacon)
-	print(uniqueBeacons)
-	print(otherSunBeaconCounter)
-	#range += unique beacon array.size() + nearbyBeaconSlowRangeBonus
-	#range -= otherSunBeaconCounter * nearbyBeaconSlowRangeBonus
+	#print(uniqueBeacons)
+	#print(otherSunBeaconCounter)
+	circleShape.radius = circleStartingRadius + (uniqueBeacons.size() * nearbyBeaconSlowRangeBonus)
+	circleShape.radius = circleShape.radius - (otherSunBeaconCounter * nearbyBeaconSlowRangeBonus)
+	print(circleShape.radius)
+	#im not updating the rangesprite and I honestly have no idea how I'd do that
 
+#this isn't running at all after the beacon is placed... whyyyyy?!
 func _on_nearby_beacons_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("beacon"):
-		nearbyBeacons.append(body)
+		print("what's this? what's this? a " + str(body.name))
+		if body != get_parent():
+			nearbyBeacons.append(body)
 	SetSlowRange()
 
 func _on_nearby_beacons_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("beacon"):
+		print("bye bye bye " + str(body.name))
 		nearbyBeacons.remove_at(nearbyBeacons.find(body))
 	SetSlowRange()
