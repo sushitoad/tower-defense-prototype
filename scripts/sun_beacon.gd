@@ -49,6 +49,7 @@ func UnslowEnemy(enemy: CharacterBody2D):
 func SetSlowRange():
 	var uniqueBeacons: Array[StaticBody2D]
 	var otherSunBeaconCounter: int = 0
+	print(nearbyBeacons)
 	for beacon in nearbyBeacons:
 		var type: GlobalEnums.BeaconType = beacon.beaconType
 		var isUnique: bool = false
@@ -72,12 +73,32 @@ func SetSlowRange():
 func _on_nearby_beacons_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("beacon"):
 		print("what's this? what's this? a " + str(body.name))
+		connect_signals_to_nearby(body, true)
 		if body != get_parent():
-			nearbyBeacons.append(body)
-	SetSlowRange()
+			if !body.isDestroyed and !body.isBeingPlaced:
+				nearbyBeacons.append(body)
+		SetSlowRange()
 
 func _on_nearby_beacons_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("beacon"):
 		print("bye bye bye " + str(body.name))
+		connect_signals_to_nearby(body, false)
 		nearbyBeacons.remove_at(nearbyBeacons.find(body))
-	SetSlowRange()
+		SetSlowRange()
+
+func connect_signals_to_nearby(beacon: StaticBody2D, connect: bool):
+	if connect:
+		beacon.on_destroyed.connect(remove_nearby_beacon.bind(beacon))
+		beacon.on_awoke.connect(add_nearby_beacon.bind(beacon))
+		beacon.on_placed.connect(add_nearby_beacon.bind(beacon))
+	else:
+		beacon.on_destroyed.disconnect(remove_nearby_beacon)
+		beacon.on_awoke.disconnect(add_nearby_beacon)
+		beacon.on_placed.disconnect(add_nearby_beacon)
+
+func add_nearby_beacon(beacon: StaticBody2D):
+	nearbyBeacons.append(beacon)
+
+func remove_nearby_beacon(beacon: StaticBody2D):
+	nearbyBeacons.remove_at(nearbyBeacons.find(beacon))
+	
