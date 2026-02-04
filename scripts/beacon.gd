@@ -26,6 +26,13 @@ func _ready() -> void:
 		$DormantTimer.timeout.connect(WakeThisBeacon)
 	rangeSprite = find_child("RangeSprite2D")
 
+#its like what each beacon needs is data for each beacon that's considered nearby
+#and a reference to the line between them? does every nearby beacon need a line to it
+#or just the ones that have a relevant mechanical reason?
+#let's say relevant mechanical only, so not every beacon needs to know about lines
+#and many beacons will care about nearby beacons but not all, to this might be
+#on a script to script basis which is fine because copy pasting is real
+
 func _process(delta: float) -> void:
 	if isBeingPlaced:
 		var allOtherBeacons = get_tree().get_nodes_in_group("beacon")

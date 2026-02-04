@@ -1,6 +1,7 @@
 extends Area2D
 
-@export var enemySlowAmount: float = 20
+@export var defaultEnemySlowAmount: float = 20
+var totalEnemySlowAmount: float
 @export var nearbyBeaconSlowRangeBonus: float = 10
 @onready var beacon: StaticBody2D = get_parent()
 @onready var circleShape: Shape2D = $RangeShape2D.shape
@@ -12,6 +13,7 @@ var nearbyBeacons: Array[StaticBody2D]
 func _ready() -> void:
 	beacon.on_destroyed.connect(StopSlowOnDormant)
 	beacon.on_awoke.connect(StartSlowOnAwoke)
+	totalEnemySlowAmount = defaultEnemySlowAmount
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
@@ -38,18 +40,18 @@ func StartSlowOnAwoke():
 
 func SlowEnemy(enemy: CharacterBody2D):
 	slowedEnemies.append(enemy)
-	enemy.speedReduction += enemySlowAmount
+	enemy.speedReduction += defaultEnemySlowAmount
 
 func UnslowEnemy(enemy: CharacterBody2D):
 	slowedEnemies.remove_at(slowedEnemies.find(enemy))
-	enemy.speedReduction -= enemySlowAmount
+	enemy.speedReduction -= defaultEnemySlowAmount
 
 #why does this not happen when beacon is placed?
 #can I comb through this and make sure the basic behaviors are happening as intended?
 func SetSlowRange():
 	var uniqueBeacons: Array[StaticBody2D]
 	var otherSunBeaconCounter: int = 0
-	print(nearbyBeacons)
+	#print(nearbyBeacons)
 	for beacon in nearbyBeacons:
 		var type: GlobalEnums.BeaconType = beacon.beaconType
 		var isUnique: bool = false
@@ -66,39 +68,14 @@ func SetSlowRange():
 	#print(otherSunBeaconCounter)
 	circleShape.radius = circleStartingRadius + (uniqueBeacons.size() * nearbyBeaconSlowRangeBonus)
 	circleShape.radius = circleShape.radius - (otherSunBeaconCounter * nearbyBeaconSlowRangeBonus)
-	print(circleShape.radius)
+	#print(circleShape.radius)
 	#im not updating the rangesprite and I honestly have no idea how I'd do that
 
 #this isn't running at all after the beacon is placed... whyyyyy?!
 func _on_nearby_beacons_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("beacon"):
-		print("what's this? what's this? a " + str(body.name))
-		connect_signals_to_nearby(body, true)
-		if body != get_parent():
-			if !body.isDestroyed and !body.isBeingPlaced:
-				nearbyBeacons.append(body)
-		SetSlowRange()
+		print("nearby beacon: " + str(body.name))
 
 func _on_nearby_beacons_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("beacon"):
-		print("bye bye bye " + str(body.name))
-		connect_signals_to_nearby(body, false)
-		nearbyBeacons.remove_at(nearbyBeacons.find(body))
-		SetSlowRange()
-
-func connect_signals_to_nearby(beacon: StaticBody2D, connect: bool):
-	if connect:
-		beacon.on_destroyed.connect(remove_nearby_beacon.bind(beacon))
-		beacon.on_awoke.connect(add_nearby_beacon.bind(beacon))
-		beacon.on_placed.connect(add_nearby_beacon.bind(beacon))
-	else:
-		beacon.on_destroyed.disconnect(remove_nearby_beacon)
-		beacon.on_awoke.disconnect(add_nearby_beacon)
-		beacon.on_placed.disconnect(add_nearby_beacon)
-
-func add_nearby_beacon(beacon: StaticBody2D):
-	nearbyBeacons.append(beacon)
-
-func remove_nearby_beacon(beacon: StaticBody2D):
-	nearbyBeacons.remove_at(nearbyBeacons.find(beacon))
-	
+		print("bye bye " + str(body.name))
