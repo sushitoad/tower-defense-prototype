@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0a7qlgf4xbbu"]
+
+[ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="1_epesy"]
+[ext_resource type="Script" uid="uid://chrckpbvs8gu" path="res://test_moving_beacon.gd" id="1_kif7u"]
+[ext_resource type="Script" uid="uid://by6156xypdv05" path="res://test_nearby_beacon.gd" id="3_anvdr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kif7u"]
+radius = 16.492422
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_anvdr"]
+radius = 80.0
+
+[node name="fixing nearby beacons" type="Node2D"]
+
+[node name="moving beacon" type="AnimatableBody2D" parent="." groups=["beacon"]]
+script = ExtResource("1_kif7u")
+is_being_placed = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="moving beacon"]
+shape = SubResource("CircleShape2D_kif7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="moving beacon"]
+texture = ExtResource("1_epesy")
+
+[node name="NearbyBeaconArea2D" type="Area2D" parent="moving beacon"]
+script = ExtResource("3_anvdr")
+
+[node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="moving beacon/NearbyBeaconArea2D"]
+shape = SubResource("CircleShape2D_anvdr")
+
+[node name="Placed beacon" type="AnimatableBody2D" parent="." groups=["beacon"]]
+position = Vector2(214, 75)
+script = ExtResource("1_kif7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Placed beacon"]
+shape = SubResource("CircleShape2D_kif7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Placed beacon"]
+texture = ExtResource("1_epesy")
+
+[node name="NearbyBeaconArea2D" type="Area2D" parent="Placed beacon"]
+script = ExtResource("3_anvdr")
+
+[node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="Placed beacon/NearbyBeaconArea2D"]
+shape = SubResource("CircleShape2D_anvdr")
+
+[connection signal="body_entered" from="moving beacon/NearbyBeaconArea2D" to="moving beacon/NearbyBeaconArea2D" method="_on_body_entered"]
+[connection signal="body_exited" from="moving beacon/NearbyBeaconArea2D" to="moving beacon/NearbyBeaconArea2D" method="_on_body_exited"]
+[connection signal="body_entered" from="Placed beacon/NearbyBeaconArea2D" to="Placed beacon/NearbyBeaconArea2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Placed beacon/NearbyBeaconArea2D" to="Placed beacon/NearbyBeaconArea2D" method="_on_body_exited"]

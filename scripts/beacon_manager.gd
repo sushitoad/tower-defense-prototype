@@ -48,7 +48,7 @@ func SpawnBeacon(type: GlobalEnums.BeaconType):
 			print("error- BeaconType")
 	add_child(newBeacon)
 	newBeacon.isBeingPlaced = true
-	#newBeacon.get_node("CollisionShape2D").disabled = true
+	newBeacon.get_node("CollisionShape2D").disabled = true
 	newBeacon.find_child("RangeSprite2D").visible = true
 
 func PlaceSpawnedBeacon():
