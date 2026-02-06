@@ -1,8 +1,8 @@
 extends Area2D
 
-var nearbyBeacons: Array[AnimatableBody2D]
+var nearbyBeacons: Array[StaticBody2D]
 
-@onready var beacon_body: AnimatableBody2D = get_parent()
+@onready var beacon_body: StaticBody2D = get_parent()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("beacon") and !beacon_body.is_being_placed:

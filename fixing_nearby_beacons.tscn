@@ -13,8 +13,7 @@ radius = 80.0
 [node name="fixing nearby beacons" type="Node2D"]
 
 [node name="moving beacon" type="AnimatableBody2D" parent="." groups=["beacon"]]
-script = ExtResource("1_kif7u")
-is_being_placed = true
+position = Vector2(-685, -251)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="moving beacon"]
 shape = SubResource("CircleShape2D_kif7u")
@@ -22,15 +21,8 @@ shape = SubResource("CircleShape2D_kif7u")
 [node name="Sprite2D" type="Sprite2D" parent="moving beacon"]
 texture = ExtResource("1_epesy")
 
-[node name="NearbyBeaconArea2D" type="Area2D" parent="moving beacon"]
-script = ExtResource("3_anvdr")
-
-[node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="moving beacon/NearbyBeaconArea2D"]
-shape = SubResource("CircleShape2D_anvdr")
-
 [node name="Placed beacon" type="AnimatableBody2D" parent="." groups=["beacon"]]
-position = Vector2(214, 75)
-script = ExtResource("1_kif7u")
+position = Vector2(-471, -176)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Placed beacon"]
 shape = SubResource("CircleShape2D_kif7u")
@@ -38,13 +30,39 @@ shape = SubResource("CircleShape2D_kif7u")
 [node name="Sprite2D" type="Sprite2D" parent="Placed beacon"]
 texture = ExtResource("1_epesy")
 
-[node name="NearbyBeaconArea2D" type="Area2D" parent="Placed beacon"]
+[node name="static moving beacon" type="StaticBody2D" parent="."]
+script = ExtResource("1_kif7u")
+is_being_placed = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="static moving beacon"]
+shape = SubResource("CircleShape2D_kif7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="static moving beacon"]
+texture = ExtResource("1_epesy")
+
+[node name="NearbyBeaconArea2D" type="Area2D" parent="static moving beacon"]
 script = ExtResource("3_anvdr")
 
-[node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="Placed beacon/NearbyBeaconArea2D"]
+[node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="static moving beacon/NearbyBeaconArea2D"]
 shape = SubResource("CircleShape2D_anvdr")
 
-[connection signal="body_entered" from="moving beacon/NearbyBeaconArea2D" to="moving beacon/NearbyBeaconArea2D" method="_on_body_entered"]
-[connection signal="body_exited" from="moving beacon/NearbyBeaconArea2D" to="moving beacon/NearbyBeaconArea2D" method="_on_body_exited"]
-[connection signal="body_entered" from="Placed beacon/NearbyBeaconArea2D" to="Placed beacon/NearbyBeaconArea2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Placed beacon/NearbyBeaconArea2D" to="Placed beacon/NearbyBeaconArea2D" method="_on_body_exited"]
+[node name="static moving beacon2" type="StaticBody2D" parent="."]
+position = Vector2(363, 220)
+script = ExtResource("1_kif7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="static moving beacon2"]
+shape = SubResource("CircleShape2D_kif7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="static moving beacon2"]
+texture = ExtResource("1_epesy")
+
+[node name="NearbyBeaconArea2D" type="Area2D" parent="static moving beacon2"]
+script = ExtResource("3_anvdr")
+
+[node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="static moving beacon2/NearbyBeaconArea2D"]
+shape = SubResource("CircleShape2D_anvdr")
+
+[connection signal="body_entered" from="static moving beacon/NearbyBeaconArea2D" to="static moving beacon/NearbyBeaconArea2D" method="_on_body_entered"]
+[connection signal="body_exited" from="static moving beacon/NearbyBeaconArea2D" to="static moving beacon/NearbyBeaconArea2D" method="_on_body_exited"]
+[connection signal="body_entered" from="static moving beacon2/NearbyBeaconArea2D" to="static moving beacon2/NearbyBeaconArea2D" method="_on_body_entered"]
+[connection signal="body_exited" from="static moving beacon2/NearbyBeaconArea2D" to="static moving beacon2/NearbyBeaconArea2D" method="_on_body_exited"]
