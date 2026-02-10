@@ -8,7 +8,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsjmg"]
 radius = 80.0
 
-[node name="new beacon" type="AnimatableBody2D"]
+[node name="new beacon" type="AnimatableBody2D" groups=["beacon"]]
 script = ExtResource("1_rsjmg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
