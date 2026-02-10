@@ -5,6 +5,7 @@
 [node name="fixing nearby beacons" type="Node2D"]
 
 [node name="new beacon" parent="." instance=ExtResource("1_epesy")]
+position = Vector2(390, 181)
 
 [node name="new beacon2" parent="." instance=ExtResource("1_epesy")]
 position = Vector2(198, 140)

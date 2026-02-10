@@ -21,10 +21,22 @@ var nearbyBeacons: Array[AnimatableBody2D]
 
 var nearbyBeaconShape: Shape2D
 
+#okay what are the modular elements we need?
+#fires a bullet at enemies
+#slows enemies in a radius
+#applies lightburn to enemies in a radius
+#gives/drains charge over time?
+#heals other beacons in radius over time
+#draw lines to other beacons?
+#Im sure some things will need to be custom
+
+
 func _ready() -> void:
 	nearbyBeaconShape = find_child("NearbyBeaconShape2D").shape
 	nearbyBeaconShape.radius = nearbyBeaconRadius
 	baseColor = $Sprite2D.modulate
+	if is_being_placed:
+		isBeingPlaced = true
 
 func _physics_process(delta: float) -> void:
 	if is_being_placed:
@@ -32,7 +44,8 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if isBeingPlaced:
-		var noneTooClose: bool = true
+		#this assumes that nearbyRadius is bigger than distanceNeededToPlace
+		#i think I'm ok with that but I wanna remember
 		for beacon in nearbyBeacons:
 			var distanceNeeded: float = distanceNeededToPlace
 			if beacon.beaconType == GlobalEnums.BeaconType.HEARTFIRE:
@@ -42,10 +55,9 @@ func _process(delta: float) -> void:
 				print("get away from meeeeee")
 				tooCloseToOthers = true
 				$Sprite2D.modulate = dimColor
-				noneTooClose = false
-		if noneTooClose:
-			tooCloseToOthers = false
-			$Sprite2D.modulate = baseColor
+			else:
+				tooCloseToOthers = false
+				$Sprite2D.modulate = baseColor
 
 func OnPlaced():
 	print(self.name + " was just placed :)")
