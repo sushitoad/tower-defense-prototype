@@ -11,6 +11,10 @@ signal on_placed
 @export var dimColor: Color = Color(1, 1, 1, 0.4)
 @export var distanceNeededToPlace: float = 40
 @export var beaconType: GlobalEnums.BeaconType
+#for plugging in behaviors (might not need export, might not need at all)
+@export var beaconBehaviors: Array[Node2D]
+#is this gonna be handled here?
+@export var behaviorRangeToDisplay: Node2D
 #don't forget to update beacon types and remove basic (keep charge for now)
 var currentHealth: int
 var isBeingPlaced: bool = false
@@ -51,7 +55,6 @@ func _process(delta: float) -> void:
 			if beacon.beaconType == GlobalEnums.BeaconType.HEARTFIRE:
 				distanceNeeded = distanceNeededToPlace * 2
 			if global_position.distance_to(beacon.global_position) < distanceNeeded:
-				#this section is missing something, the print statement is never triggering
 				print("get away from meeeeee")
 				tooCloseToOthers = true
 				$Sprite2D.modulate = dimColor
