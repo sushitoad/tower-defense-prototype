@@ -8,6 +8,7 @@ radius = 100.0
 
 [node name="SlowEnemiesInArea2D" type="Area2D"]
 script = ExtResource("1_vl46u")
+defaultEnemySlowAmount = 33.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vl46u")

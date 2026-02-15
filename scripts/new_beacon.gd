@@ -36,6 +36,7 @@ var nearbyBeaconShape: Shape2D
 
 
 func _ready() -> void:
+	on_placed.connect(OnPlaced)
 	nearbyBeaconShape = find_child("NearbyBeaconShape2D").shape
 	nearbyBeaconShape.radius = nearbyBeaconRadius
 	baseColor = $Sprite2D.modulate
@@ -66,7 +67,6 @@ func OnPlaced():
 	print(self.name + " was just placed :)")
 	currentHealth = maxHealth
 	isBeingPlaced = false
-	on_placed.emit()
 
 func TakeDamage(damage: int):
 	currentHealth -= damage

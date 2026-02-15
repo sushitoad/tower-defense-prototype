@@ -1,15 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://cttmq4f88tp1c"]
+[gd_scene load_steps=6 format=3 uid="uid://cttmq4f88tp1c"]
 
 [ext_resource type="Script" uid="uid://b63ifx0lxk1td" path="res://scripts/new_beacon.gd" id="1_rsjmg"]
 [ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="2_7x338"]
+[ext_resource type="PackedScene" uid="uid://ba6wx2uxp2c3a" path="res://scenes/BeaconBehaviors/slow_enemies_in_area_2d.tscn" id="3_7x338"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b4kar"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsjmg"]
 radius = 80.0
 
-[node name="new beacon" type="AnimatableBody2D" groups=["beacon"]]
+[node name="new beacon" type="AnimatableBody2D" node_paths=PackedStringArray("beaconBehaviors") groups=["beacon"]]
 script = ExtResource("1_rsjmg")
+beaconType = 5
+beaconBehaviors = [NodePath("SlowEnemiesInArea2D")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_b4kar")
@@ -21,6 +24,8 @@ texture = ExtResource("2_7x338")
 
 [node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="NearbyBeaconArea2D"]
 shape = SubResource("CircleShape2D_rsjmg")
+
+[node name="SlowEnemiesInArea2D" parent="." instance=ExtResource("3_7x338")]
 
 [connection signal="body_entered" from="NearbyBeaconArea2D" to="." method="_on_nearby_beacon_area_2d_body_entered"]
 [connection signal="body_exited" from="NearbyBeaconArea2D" to="." method="_on_nearby_beacon_area_2d_body_exited"]

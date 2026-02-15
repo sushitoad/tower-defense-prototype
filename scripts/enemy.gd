@@ -90,7 +90,7 @@ func FindTarget():
 	#creates array of towers and removes dormant ones
 	var targets = get_tree().get_nodes_in_group("beacon")
 	for beacon in targets:
-		if beacon.isDestroyed or beacon.isBeingPlaced:
+		if beacon.isBeingPlaced:
 			targets.remove_at(targets.find(beacon))
 	for beacon in targets:
 		#weighs the search based on enemy personality
@@ -110,10 +110,9 @@ func FindTarget():
 		#compares beacon distances divided by allure (smaller value wins)
 		var allureToCheck: float = beacon.allure * allureMultiplier
 		if(beacon.global_position.distance_to(global_position) / allureToCheck) < (closestTarget.distance_to(global_position) / closestAllure):
-			if !beacon.isDestroyed:
-				newTarget = beacon
-				closestTarget = beacon.global_position
-				closestAllure = allureToCheck
+			newTarget = beacon
+			closestTarget = beacon.global_position
+			closestAllure = allureToCheck
 	currentTarget = newTarget
 	if currentTarget != null:
 		currentTarget.on_destroyed.connect(FindTarget)

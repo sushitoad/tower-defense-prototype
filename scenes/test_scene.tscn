@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cp3bno7h7a6jm"]
+[gd_scene load_steps=14 format=4 uid="uid://cp3bno7h7a6jm"]
 
 [ext_resource type="PackedScene" uid="uid://3s7v6hrcvn3b" path="res://scenes/build_ui.tscn" id="1_g7g4h"]
 [ext_resource type="Texture2D" uid="uid://bic7sw8gjb4fr" path="res://art/ground tileset proto 1.png" id="1_h3xc6"]
@@ -7,10 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://blkwgp5ucujp6" path="res://scenes/time_manager.tscn" id="4_6qxox"]
 [ext_resource type="PackedScene" uid="uid://nwxp6m1042v5" path="res://scenes/the_heartfire.tscn" id="4_7ddre"]
 [ext_resource type="PackedScene" uid="uid://c3ly8m2djtyo2" path="res://scenes/enemy_spawner.tscn" id="5_6qxox"]
-[ext_resource type="PackedScene" uid="uid://dncxjlgaytiy" path="res://scenes/charge_tower.tscn" id="8_h3xc6"]
-[ext_resource type="PackedScene" uid="uid://o6p8fpnya0iv" path="res://scenes/lightburn_beacon.tscn" id="10_6qxox"]
+[ext_resource type="PackedScene" uid="uid://cttmq4f88tp1c" path="res://scenes/new_beacon.tscn" id="6_h3xc6"]
 [ext_resource type="PackedScene" uid="uid://bke6wmd6gbbnp" path="res://scenes/camera.tscn" id="10_s36qc"]
-[ext_resource type="PackedScene" uid="uid://cbbl4flw5psj5" path="res://scenes/prism_beacon.tscn" id="11_6qxox"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s36qc"]
 texture = ExtResource("1_h3xc6")
@@ -61,6 +59,7 @@ timeToVictory = 120.0
 
 [node name="BeaconManager" parent="." node_paths=PackedStringArray("buildUI") instance=ExtResource("2_j8ivh")]
 unique_name_in_owner = true
+sunBeacon = ExtResource("6_h3xc6")
 buildUI = NodePath("../BuildUI")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("5_6qxox")]
@@ -75,7 +74,6 @@ position = Vector2(1441, 9)
 enemySpawnRatio = 0.25
 timeBetweenSpawns = 15.0
 timeToIncreaseSpawns = 45.0
-activatesLater = true
 
 [node name="EnemySpawner3" parent="." instance=ExtResource("5_6qxox")]
 position = Vector2(-97, 985)
@@ -94,20 +92,5 @@ activatesLater = true
 [node name="TheHeartfire" parent="." instance=ExtResource("4_7ddre")]
 position = Vector2(598, 531)
 
-[node name="ChargeTower" parent="." instance=ExtResource("8_h3xc6")]
-position = Vector2(534, 236)
-
-[node name="ChargeTower2" parent="." instance=ExtResource("8_h3xc6")]
-position = Vector2(617, 207)
-
-[node name="LightburnBeacon" parent="." instance=ExtResource("10_6qxox")]
-position = Vector2(1042, 210)
-
 [node name="Camera2D" parent="." instance=ExtResource("10_s36qc")]
 position = Vector2(601, 541)
-
-[node name="PrismBeacon" parent="." instance=ExtResource("11_6qxox")]
-position = Vector2(823, 595)
-
-[node name="PrismBeacon2" parent="." instance=ExtResource("11_6qxox")]
-position = Vector2(812, 677)
