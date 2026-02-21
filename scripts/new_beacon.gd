@@ -2,6 +2,7 @@ extends AnimatableBody2D
 
 signal on_destroyed
 signal on_placed
+signal update_nearby_beacons
 
 @export var is_being_placed: bool = false
 
@@ -76,6 +77,7 @@ func TakeDamage(damage: int):
 		#what if the destroyed beacons gave you a little charge back?
 		if beaconType == GlobalEnums.BeaconType.HEARTFIRE:
 			get_node("%LevelManager").GameEnd(false)
+		call_deferred("queue_free")
 	else:
 		pass
 		#animPlayer.stop()
@@ -84,10 +86,12 @@ func TakeDamage(damage: int):
 func _on_nearby_beacon_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("beacon") and body != self:
 		nearbyBeacons.append(body)
+		#this should show something when two sun beacons are nearby but it isn't...
+		update_nearby_beacons.emit()
 		print(nearbyBeacons)
-
 
 func _on_nearby_beacon_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("beacon"):
 		nearbyBeacons.remove_at(nearbyBeacons.find(body))
+		update_nearby_beacons.emit()
 		print(nearbyBeacons)
