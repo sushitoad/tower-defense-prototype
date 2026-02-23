@@ -14,6 +14,8 @@ var mousePosition: Vector2
 var beaconTypeToPlace: GlobalEnums.BeaconType
 var newBeacon: StaticBody2D
 
+@onready var gameScene: Node2D = get_parent()
+
 func _ready() -> void:
 	var basicButtion = buildUI.find_child("BasicTowerButton")
 	basicButtion.pressed.connect(SpawnBeacon.bind(GlobalEnums.BeaconType.BASIC))

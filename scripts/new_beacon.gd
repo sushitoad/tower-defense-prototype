@@ -65,7 +65,7 @@ func _process(delta: float) -> void:
 				$Sprite2D.modulate = baseColor
 
 func OnPlaced():
-	print(self.name + " was just placed :)")
+	#print(self.name + " was just placed :)")
 	currentHealth = maxHealth
 	isBeingPlaced = false
 
@@ -84,14 +84,17 @@ func TakeDamage(damage: int):
 		#animPlayer.play("take_damage")
 
 func _on_nearby_beacon_area_2d_body_entered(body: Node2D) -> void:
+	print(body.name)
+	#currently this is printing for everything but other beacons (except the heartfire for some reason)
+	#an also no beacons are colliding with enemies anymore
 	if body.is_in_group("beacon") and body != self:
 		nearbyBeacons.append(body)
 		#this should show something when two sun beacons are nearby but it isn't...
 		update_nearby_beacons.emit()
-		print(nearbyBeacons)
+		print(body.name + " nearby")
 
 func _on_nearby_beacon_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("beacon"):
 		nearbyBeacons.remove_at(nearbyBeacons.find(body))
 		update_nearby_beacons.emit()
-		print(nearbyBeacons)
+		print(body.name + " left")
