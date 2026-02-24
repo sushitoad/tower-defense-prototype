@@ -10,6 +10,7 @@
 radius = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b4kar"]
+radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsjmg"]
 radius = 80.0
@@ -20,7 +21,7 @@ radius = 15.0
 [node name="Sun Beacon" type="AnimatableBody2D" unique_id=761245209 node_paths=PackedStringArray("beaconBehaviors") groups=["beacon"]]
 script = ExtResource("1_tsrak")
 beaconType = 5
-beaconBehaviors = [NodePath("")]
+beaconBehaviors = [null]
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1128270970]
 script = ExtResource("2_tsrak")
@@ -35,11 +36,11 @@ position = Vector2(3.21865e-06, -5.24521e-06)
 scale = Vector2(3.0625, 3.0625)
 texture = ExtResource("3_sge43")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1941853233]
-shape = SubResource("CircleShape2D_b4kar")
-
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=947155335]
 texture = ExtResource("2_sge43")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1941853233]
+shape = SubResource("CircleShape2D_b4kar")
 
 [node name="NearbyBeaconArea2D" type="Area2D" parent="." unique_id=430923587]
 

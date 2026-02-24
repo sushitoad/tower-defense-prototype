@@ -57,7 +57,7 @@ func PlaceSpawnedBeacon():
 	beaconPlaced.emit()
 	newBeacon.on_placed.emit()
 	#newBeacon.WakeThisBeacon()
-	#newBeacon.get_node("CollisionShape2D").disabled = false
+	newBeacon.get_node("CollisionShape2D").disabled = false
 	newBeacon.find_child("RangeSprite2D").visible = false
 	newBeacon.isBeingPlaced = false
 	newBeacon = null

@@ -26,16 +26,6 @@ var nearbyBeacons: Array[AnimatableBody2D]
 
 var nearbyBeaconShape: Shape2D
 
-#okay what are the modular elements we need?
-#fires a bullet at enemies
-#slows enemies in a radius
-#applies lightburn to enemies in a radius
-#gives/drains charge over time?
-#heals other beacons in radius over time
-#draw lines to other beacons?
-#Im sure some things will need to be custom
-
-
 func _ready() -> void:
 	on_placed.connect(OnPlaced)
 	nearbyBeaconShape = find_child("NearbyBeaconShape2D").shape
