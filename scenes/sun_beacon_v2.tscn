@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://ly2hrj4mpj4g"]
+
+[ext_resource type="Script" uid="uid://b63ifx0lxk1td" path="res://scripts/new_beacon.gd" id="1_tsrak"]
+[ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="2_sge43"]
+[ext_resource type="Script" uid="uid://b3qasj6h261ot" path="res://scripts/sun_beacon.gd" id="2_tsrak"]
+[ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="3_sge43"]
+[ext_resource type="Script" uid="uid://bqf70r6vj3a7i" path="res://scripts/mouse_over_display.gd" id="5_h0ln1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sge43"]
+radius = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b4kar"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rsjmg"]
+radius = 80.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2l316"]
+radius = 15.0
+
+[node name="Sun Beacon" type="AnimatableBody2D" unique_id=761245209 node_paths=PackedStringArray("beaconBehaviors") groups=["beacon"]]
+script = ExtResource("1_tsrak")
+beaconType = 5
+beaconBehaviors = [NodePath("")]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1128270970]
+script = ExtResource("2_tsrak")
+
+[node name="RangeShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1540119920]
+shape = SubResource("CircleShape2D_sge43")
+
+[node name="RangeSprite2D" type="Sprite2D" parent="Area2D" unique_id=635796649]
+visible = false
+modulate = Color(1, 1, 1, 0.196078)
+position = Vector2(3.21865e-06, -5.24521e-06)
+scale = Vector2(3.0625, 3.0625)
+texture = ExtResource("3_sge43")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1941853233]
+shape = SubResource("CircleShape2D_b4kar")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=947155335]
+texture = ExtResource("2_sge43")
+
+[node name="NearbyBeaconArea2D" type="Area2D" parent="." unique_id=430923587]
+
+[node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="NearbyBeaconArea2D" unique_id=22119219]
+shape = SubResource("CircleShape2D_rsjmg")
+
+[node name="MouseOverArea2D" type="Area2D" parent="." unique_id=1235051986 node_paths=PackedStringArray("displayNode")]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("5_h0ln1")
+displayNode = NodePath("../Area2D/RangeSprite2D")
+
+[node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D" unique_id=539993801]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_2l316")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
+[connection signal="body_entered" from="NearbyBeaconArea2D" to="." method="_on_nearby_beacon_area_2d_body_entered"]
+[connection signal="body_exited" from="NearbyBeaconArea2D" to="." method="_on_nearby_beacon_area_2d_body_exited"]
+[connection signal="mouse_entered" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_exited"]

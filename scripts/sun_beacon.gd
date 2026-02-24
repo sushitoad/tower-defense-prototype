@@ -10,7 +10,7 @@ var slowedEnemies: Array[CharacterBody2D]
 
 func _ready() -> void:
 	beacon.on_destroyed.connect(UnslowAllEnemies)
-	beacon.on_awoke.connect(Activate)
+	beacon.on_placed.connect(Activate)
 	beacon.update_nearby_beacons.connect(UpdateNearbySlowBonus)
 
 
