@@ -13,7 +13,6 @@ func _ready() -> void:
 	beacon.on_placed.connect(Activate)
 	beacon.update_nearby_beacons.connect(UpdateNearbySlowBonus)
 
-
 func SlowEnemy(enemy: CharacterBody2D):
 	slowedEnemies.append(enemy)
 	enemy.speedReduction += defaultEnemySlowAmount + currentSlowBonus
@@ -32,14 +31,14 @@ func UnslowAllEnemies():
 		UnslowEnemy(enemy)
 
 func UpdateNearbySlowBonus():
+	var numberOfNearby: int
 	for beacon in beacon.nearbyBeacons:
 		if beacon.beaconType == GlobalEnums.BeaconType.SUN:
-			pass # add to negative
+			numberOfNearby -= 1
 		else:
-			pass # add to positive
-	var numberOfNearby: int = beacon.nearbyBeacons.size()
-	currentSlowBonus += slowBonusForNearbyBeacon * numberOfNearby
-	print(currentSlowBonus)
+			numberOfNearby += 1
+	currentSlowBonus = slowBonusForNearbyBeacon * numberOfNearby
+	print(numberOfNearby)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):

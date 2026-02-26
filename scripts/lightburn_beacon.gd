@@ -5,13 +5,13 @@ var burnedEnemies: Array[CharacterBody2D]
 @export var attackSpeed: float = 1
 @export var burnDamagePerSecond: int = 5
 
-@onready var beacon: StaticBody2D = get_parent()
+@onready var beacon: AnimatableBody2D = get_parent()
 @onready var circleShape: Shape2D = $RangeShape2D.shape
 
 func _ready() -> void:
 	$AttackTimer.wait_time = attackSpeed
 	beacon.on_destroyed.connect(StopLightburnEffect)
-	beacon.on_awoke.connect(ActivateLightburnEffect)
+	beacon.on_placed.connect(ActivateLightburnEffect)
 	if !beacon.isBeingPlaced:
 		ActivateLightburnEffect()
 

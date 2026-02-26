@@ -4,18 +4,12 @@ signal on_destroyed
 signal on_placed
 signal update_nearby_beacons
 
-@export var is_being_placed: bool = false
-
 @export var nearbyBeaconRadius: float = 80
 @export var maxHealth: int = 100
 @export var allure: float = 10
 @export var dimColor: Color = Color(1, 1, 1, 0.4)
 @export var distanceNeededToPlace: float = 40
 @export var beaconType: GlobalEnums.BeaconType
-#for plugging in behaviors (might not need export, might not need at all)
-@export var beaconBehaviors: Array[Node2D]
-#is this gonna be handled here?
-@export var behaviorRangeToDisplay: Node2D
 #don't forget to update beacon types and remove basic (keep charge for now)
 var currentHealth: int
 var isBeingPlaced: bool = false
@@ -31,12 +25,6 @@ func _ready() -> void:
 	nearbyBeaconShape = find_child("NearbyBeaconShape2D").shape
 	nearbyBeaconShape.radius = nearbyBeaconRadius
 	baseColor = $Sprite2D.modulate
-	if is_being_placed:
-		isBeingPlaced = true
-
-func _physics_process(delta: float) -> void:
-	if is_being_placed:
-		global_position = get_global_mouse_position()
 
 func _process(delta: float) -> void:
 	if isBeingPlaced:
@@ -47,7 +35,8 @@ func _process(delta: float) -> void:
 			if beacon.beaconType == GlobalEnums.BeaconType.HEARTFIRE:
 				distanceNeeded = distanceNeededToPlace * 2
 			if global_position.distance_to(beacon.global_position) < distanceNeeded:
-				print("get away from meeeeee")
+				if tooCloseToOthers == false:
+					print("get away from meeeeee")
 				tooCloseToOthers = true
 				$Sprite2D.modulate = dimColor
 			else:
@@ -74,12 +63,11 @@ func TakeDamage(damage: int):
 		#animPlayer.play("take_damage")
 
 func _on_nearby_beacon_area_2d_body_entered(body: Node2D) -> void:
-	print(body.name)
-	#currently this is printing for everything but other beacons (except the heartfire for some reason)
-	#an also no beacons are colliding with enemies anymore
+	#so basically, this is only working when the sun beacon is the moving body
+	#because it is an animatableBody2D
+	#so if I update multiple beacons to have that base type it should work?
 	if body.is_in_group("beacon") and body != self:
 		nearbyBeacons.append(body)
-		#this should show something when two sun beacons are nearby but it isn't...
 		update_nearby_beacons.emit()
 		print(body.name + " nearby")
 

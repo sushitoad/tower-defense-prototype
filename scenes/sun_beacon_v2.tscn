@@ -18,10 +18,9 @@ radius = 80.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_2l316"]
 radius = 15.0
 
-[node name="Sun Beacon" type="AnimatableBody2D" unique_id=761245209 node_paths=PackedStringArray("beaconBehaviors") groups=["beacon"]]
+[node name="Sun Beacon" type="AnimatableBody2D" unique_id=761245209 groups=["beacon"]]
 script = ExtResource("1_tsrak")
 beaconType = 5
-beaconBehaviors = [null]
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1128270970]
 script = ExtResource("2_tsrak")

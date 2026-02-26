@@ -1,6 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://o6p8fpnya0iv"]
+[gd_scene format=3 uid="uid://o6p8fpnya0iv"]
 
-[ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/beacon.gd" id="1_v32jo"]
+[ext_resource type="Script" uid="uid://b63ifx0lxk1td" path="res://scripts/new_beacon.gd" id="1_u6muo"]
 [ext_resource type="Script" uid="uid://cd4mx3y5mon33" path="res://scripts/lightburn_beacon.gd" id="2_v32jo"]
 [ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="3_u6muo"]
 [ext_resource type="Texture2D" uid="uid://b7ydg16pk8awo" path="res://art/lightburn status proto 2.png" id="4_2aigk"]
@@ -49,6 +49,9 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_88xce"]
 radius = 16.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_u6muo"]
+radius = 80.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_b05yk"]
 radius = 15.0
 
@@ -88,69 +91,63 @@ _data = {
 &"take_damage": SubResource("Animation_oeg75")
 }
 
-[node name="LightburnBeacon" type="StaticBody2D" groups=["beacon"]]
-script = ExtResource("1_v32jo")
-maxHealth = 70
-allure = 14.0
-dormantTime = 15.0
-dormantColor = Color(0.4606, 0.98, 0.503883, 0.403922)
-beaconType = 3
+[node name="LightburnBeacon" type="AnimatableBody2D" unique_id=950712991 groups=["beacon"]]
+script = ExtResource("1_u6muo")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=695527384]
 script = ExtResource("2_v32jo")
 burnDamagePerSecond = 4
 
-[node name="RangeShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="RangeShape2D" type="CollisionShape2D" parent="Area2D" unique_id=105923975]
 shape = SubResource("CircleShape2D_6xbv0")
 
-[node name="RangeSprite2D" type="Sprite2D" parent="Area2D"]
+[node name="RangeSprite2D" type="Sprite2D" parent="Area2D" unique_id=1370970903]
 visible = false
 modulate = Color(1, 1, 1, 0.196078)
 position = Vector2(3.21865e-06, -5.24521e-06)
 scale = Vector2(3.0625, 3.0625)
 texture = ExtResource("3_u6muo")
 
-[node name="AttackTimer" type="Timer" parent="Area2D"]
+[node name="AttackTimer" type="Timer" parent="Area2D" unique_id=1279029046]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Area2D"]
-libraries = {
-&"": SubResource("AnimationLibrary_8ovjv")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Area2D" unique_id=1143158160]
+libraries/ = SubResource("AnimationLibrary_8ovjv")
 
-[node name="AttackSprite2D" type="Sprite2D" parent="Area2D"]
+[node name="AttackSprite2D" type="Sprite2D" parent="Area2D" unique_id=976952538]
 modulate = Color(1, 1, 1, 0.196078)
 position = Vector2(0, 8)
 texture = ExtResource("4_2aigk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1445637124]
 position = Vector2(0, 9)
 shape = SubResource("CircleShape2D_88xce")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=885857034]
 modulate = Color(0.458824, 0.980392, 0.501961, 1)
 texture = ExtResource("4_b05yk")
 
-[node name="DormantTimer" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
+[node name="NearbyBeaconArea2D" type="Area2D" parent="." unique_id=1530339861]
 
-[node name="MouseOverArea2D" type="Area2D" parent="." node_paths=PackedStringArray("displayNode")]
+[node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="NearbyBeaconArea2D" unique_id=615397939]
+shape = SubResource("CircleShape2D_u6muo")
+
+[node name="MouseOverArea2D" type="Area2D" parent="." unique_id=26602654 node_paths=PackedStringArray("displayNode")]
 collision_layer = 16
 collision_mask = 16
 script = ExtResource("6_u6muo")
 displayNode = NodePath("../Area2D/RangeSprite2D")
 
-[node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D"]
+[node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D" unique_id=1822706634]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_b05yk")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_7fwdv")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=278801979]
+libraries/ = SubResource("AnimationLibrary_7fwdv")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
 [connection signal="timeout" from="Area2D/AttackTimer" to="Area2D" method="_on_attack_timer_timeout"]
+[connection signal="body_entered" from="NearbyBeaconArea2D" to="." method="_on_nearby_beacon_area_2d_body_entered"]
+[connection signal="body_exited" from="NearbyBeaconArea2D" to="." method="_on_nearby_beacon_area_2d_body_exited"]
 [connection signal="mouse_entered" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MouseOverArea2D" to="MouseOverArea2D" method="_on_mouse_exited"]
