@@ -32,8 +32,8 @@ func UnslowAllEnemies():
 
 func UpdateNearbySlowBonus():
 	var numberOfNearby: int
-	for beacon in beacon.nearbyBeacons:
-		if beacon.beaconType == GlobalEnums.BeaconType.SUN:
+	for buddy in beacon.nearbyBeacons:
+		if buddy.beaconType == GlobalEnums.BeaconType.SUN:
 			numberOfNearby -= 1
 		else:
 			numberOfNearby += 1

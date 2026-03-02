@@ -10,7 +10,7 @@ var nearbyBeaconDistance: float = 100
 var attackRange: float
 var enemiesInRange = Array()
 var currentTarget: CharacterBody2D
-var beacon: StaticBody2D
+var beacon: AnimatableBody2D
 var potentialPrismBuddies: Array[StaticBody2D]
 var prismBuddies: Array[StaticBody2D]
 var hasTwoBuddies: bool = false
@@ -25,13 +25,11 @@ func _ready() -> void:
 	beacon = get_parent()
 	prismBuddies.resize(2)
 	beacon.on_placed.connect(SetPrismBuddies)
-	#these prism beacons that start in the scene refuse to add each other as buddies
-	if Time.get_ticks_msec() < 2000:
-		SearchForNearestBuddy()
-		SetPrismBuddies()
+
+#okay this is drawing lines but has this weird bugs there they disappear after a while
 
 func _process(delta: float) -> void:
-	if !beacon.isDestroyed and !beacon.isBeingPlaced:
+	if !beacon.isBeingPlaced:
 		if currentTarget == null:
 			$AttackTimer.stop()
 			if !enemiesInRange.is_empty():
@@ -80,8 +78,8 @@ func ForgetThisEnemy(enemy: Node2D):
 	enemiesInRange.remove_at(enemiesInRange.find(enemy))
 
 func SearchForNearestBuddy():
-	var closestBuddy: StaticBody2D = null
-	var extraBuddy: StaticBody2D = null
+	var closestBuddy: AnimatableBody2D = null
+	var extraBuddy: AnimatableBody2D = null
 	var closestPosition: Vector2 = Vector2(100000, 100000)
 	for beacon in potentialPrismBuddies:
 		if global_position.distance_to(beacon.global_position) < global_position.distance_to(closestPosition):
