@@ -25,6 +25,9 @@ func _ready() -> void:
 	nearbyBeaconShape = find_child("NearbyBeaconShape2D").shape
 	nearbyBeaconShape.radius = nearbyBeaconRadius
 	baseColor = $Sprite2D.modulate
+	$HealthBar.max_value = maxHealth
+	$HealthBar.value = maxHealth
+	$HealthBar.visible = false
 
 func _process(delta: float) -> void:
 	if isBeingPlaced:
@@ -46,10 +49,12 @@ func _process(delta: float) -> void:
 func OnPlaced():
 	#print(self.name + " was just placed :)")
 	currentHealth = maxHealth
+	$HealthBar.visible = true
 	isBeingPlaced = false
 
 func TakeDamage(damage: int):
 	currentHealth -= damage
+	$HealthBar.value = currentHealth
 	if currentHealth <= 0:
 		currentHealth = 0
 		on_destroyed.emit()
