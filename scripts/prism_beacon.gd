@@ -30,6 +30,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if !beacon.isBeingPlaced:
+		#print(enemiesInRange)
 		if currentTarget == null:
 			$AttackTimer.stop()
 			if !enemiesInRange.is_empty():
@@ -38,11 +39,12 @@ func _process(delta: float) -> void:
 						if position.distance_to(enemy.position) < position.distance_to(closestEnemy.position):
 							closestEnemy = enemy
 				currentTarget = closestEnemy
-				currentTarget.on_death.connect(ForgetThisEnemy.bind(currentTarget))
+				#currentTarget.on_death.connect(ForgetThisEnemy.bind(currentTarget))
 				#print(currentTarget)
 		elif currentTarget != null:
 			if $AttackTimer.is_stopped():
 				$AttackTimer.start(attackSpeed)
+
 	else:
 		if !$AttackTimer.is_stopped():
 			$AttackTimer.stop()
@@ -75,6 +77,7 @@ func SpawnBullet():
 	newBullet.damage = attackDamage * damageModifier
 
 func ForgetThisEnemy(enemy: Node2D):
+	print(enemy)
 	enemiesInRange.remove_at(enemiesInRange.find(enemy))
 
 func SearchForNearestBuddy():

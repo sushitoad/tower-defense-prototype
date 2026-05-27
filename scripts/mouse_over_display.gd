@@ -1,10 +1,12 @@
 extends Area2D
 
 #reference to the node that it will show/hide
-@export var displayNode: CanvasItem
+@export var displayNode: Array[CanvasItem]
 
 func _on_mouse_entered() -> void:
-	displayNode.visible = true
+	for node in displayNode:
+		node.visible = true
 
 func _on_mouse_exited() -> void:
-	displayNode.visible = false
+	for node in displayNode:
+		node.visible = false

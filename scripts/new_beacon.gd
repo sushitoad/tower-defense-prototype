@@ -15,6 +15,7 @@ var currentHealth: int
 var isBeingPlaced: bool = false
 var tooCloseToOthers: bool = false
 var baseColor: Color
+@onready var animPlayer: AnimationPlayer = $AnimationPlayer
 
 var nearbyBeacons: Array[AnimatableBody2D]
 
@@ -26,10 +27,10 @@ func _ready() -> void:
 	nearbyBeaconShape.radius = nearbyBeaconRadius
 	baseColor = $Sprite2D.modulate
 	$HealthBar.max_value = maxHealth
-	$HealthBar.value = maxHealth
-	$HealthBar.visible = false
+	currentHealth = maxHealth
+	$HealthBar.value = currentHealth
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if isBeingPlaced:
 		#this assumes that nearbyRadius is bigger than distanceNeededToPlace
 		#i think I'm ok with that but I wanna remember
@@ -49,7 +50,6 @@ func _process(delta: float) -> void:
 func OnPlaced():
 	#print(self.name + " was just placed :)")
 	currentHealth = maxHealth
-	$HealthBar.visible = true
 	isBeingPlaced = false
 
 func TakeDamage(damage: int):
@@ -63,9 +63,8 @@ func TakeDamage(damage: int):
 			get_node("%LevelManager").GameEnd(false)
 		call_deferred("queue_free")
 	else:
-		pass
-		#animPlayer.stop()
-		#animPlayer.play("take_damage")
+		animPlayer.stop()
+		animPlayer.play("take_damage")
 
 func _on_nearby_beacon_area_2d_body_entered(body: Node2D) -> void:
 	#so basically, this is only working when the sun beacon is the moving body

@@ -71,6 +71,12 @@ _data = {
 &"take_damage": SubResource("Animation_oeg75")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jtiyq"]
+bg_color = Color(0.2231029, 0.2231029, 0.22310284, 0.87058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oeg75"]
+bg_color = Color(0.84313726, 0.42352942, 0.4392157, 1)
+
 [node name="PrismBeacon" type="AnimatableBody2D" unique_id=484080291 groups=["beacon"]]
 script = ExtResource("1_jtiyq")
 beaconType = 4
@@ -125,7 +131,7 @@ shape = SubResource("CircleShape2D_oeg75")
 collision_layer = 16
 collision_mask = 16
 script = ExtResource("6_jtiyq")
-displayNode = NodePath("../Area2D/RangeShape2D/RangeSprite2D")
+displayNode = [NodePath("../Area2D/RangeShape2D/RangeSprite2D")]
 
 [node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D" unique_id=813989574]
 position = Vector2(0, 1)
@@ -135,13 +141,15 @@ shape = SubResource("CapsuleShape2D_oeg75")
 libraries/ = SubResource("AnimationLibrary_7fwdv")
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=951543564]
-modulate = Color(0.84313726, 0.42352942, 0.4392157, 1)
 offset_left = -19.0
-offset_top = 17.0
+offset_top = 18.0
 offset_right = 19.0
-offset_bottom = 21.0
-theme_override_colors/font_color = Color(0.8419832, 0.42380303, 0.43808317, 1)
-value = 80.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_jtiyq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_oeg75")
+value = 66.0
+rounded = true
 show_percentage = false
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
