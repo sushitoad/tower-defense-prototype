@@ -91,6 +91,12 @@ _data = {
 &"take_damage": SubResource("Animation_oeg75")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u6muo"]
+bg_color = Color(0.2231029, 0.2231029, 0.22310284, 0.87058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b05yk"]
+bg_color = Color(0.84313726, 0.42352942, 0.4392157, 1)
+
 [node name="LightburnBeacon" type="AnimatableBody2D" unique_id=950712991 groups=["beacon"]]
 script = ExtResource("1_u6muo")
 
@@ -131,11 +137,10 @@ texture = ExtResource("4_b05yk")
 [node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="NearbyBeaconArea2D" unique_id=615397939]
 shape = SubResource("CircleShape2D_u6muo")
 
-[node name="MouseOverArea2D" type="Area2D" parent="." unique_id=26602654 node_paths=PackedStringArray("displayNode")]
+[node name="MouseOverArea2D" type="Area2D" parent="." unique_id=26602654]
 collision_layer = 16
 collision_mask = 16
 script = ExtResource("6_u6muo")
-displayNode = NodePath("../Area2D/RangeSprite2D")
 
 [node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D" unique_id=1822706634]
 position = Vector2(0, 1)
@@ -143,6 +148,18 @@ shape = SubResource("CircleShape2D_b05yk")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=278801979]
 libraries/ = SubResource("AnimationLibrary_7fwdv")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=850953427]
+offset_left = -19.0
+offset_top = 18.0
+offset_right = 19.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_u6muo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b05yk")
+value = 66.0
+rounded = true
+show_percentage = false
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

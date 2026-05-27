@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dncxjlgaytiy"]
+[gd_scene format=3 uid="uid://dncxjlgaytiy"]
 
 [ext_resource type="Texture2D" uid="uid://dc5tfe3rwimm0" path="res://art/charge tower proto 1.png" id="1_3lh4g"]
 [ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/beacon.gd" id="1_88xce"]
@@ -51,52 +51,67 @@ _data = {
 &"take_damage": SubResource("Animation_oeg75")
 }
 
-[node name="ChargeTower" type="StaticBody2D" groups=["beacon"]]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_si648"]
+bg_color = Color(0.2231029, 0.2231029, 0.22310284, 0.87058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tgn6e"]
+bg_color = Color(0.84313726, 0.42352942, 0.4392157, 1)
+
+[node name="ChargeTower" type="StaticBody2D" unique_id=1898039198 groups=["beacon"]]
 script = ExtResource("1_88xce")
 maxHealth = 60
 allure = 25.0
 dormantTime = 12.0
 beaconType = 1
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=19142345]
 script = ExtResource("2_6xbv0")
 enemySlowAmount = 10.0
 
-[node name="RangeShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="RangeShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2076962392]
 shape = SubResource("CircleShape2D_6xbv0")
 
-[node name="RangeSprite2D" type="Sprite2D" parent="Area2D"]
+[node name="RangeSprite2D" type="Sprite2D" parent="Area2D" unique_id=1813829796]
 visible = false
 modulate = Color(1, 1, 1, 0.196078)
 position = Vector2(3.21865e-06, -5.24521e-06)
 scale = Vector2(3.0625, 3.0625)
 texture = ExtResource("3_ljo3c")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1459913879]
 position = Vector2(0, 9)
 shape = SubResource("CircleShape2D_88xce")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1027382547]
 texture = ExtResource("1_3lh4g")
 
-[node name="DormantTimer" type="Timer" parent="."]
+[node name="DormantTimer" type="Timer" parent="." unique_id=877232329]
 wait_time = 10.0
 one_shot = true
 
-[node name="MouseOverArea2D" type="Area2D" parent="." node_paths=PackedStringArray("displayNode")]
+[node name="MouseOverArea2D" type="Area2D" parent="." unique_id=114448614]
 collision_layer = 16
 collision_mask = 16
 script = ExtResource("5_si648")
-displayNode = NodePath("../Area2D/RangeSprite2D")
 
-[node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D"]
+[node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D" unique_id=1605113320]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_tgn6e")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_7fwdv")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=706839994]
+libraries/ = SubResource("AnimationLibrary_7fwdv")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1854970193]
+offset_left = -19.0
+offset_top = 18.0
+offset_right = 19.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_si648")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tgn6e")
+value = 66.0
+rounded = true
+show_percentage = false
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
