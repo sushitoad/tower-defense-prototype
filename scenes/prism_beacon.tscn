@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://ncsp5efet7lh" path="res://scripts/prism_beacon.gd" id="2_gs3bi"]
 [ext_resource type="PackedScene" uid="uid://bagjql0mprpil" path="res://scenes/bullet.tscn" id="3_oeg75"]
 [ext_resource type="Texture2D" uid="uid://cjdakpcotbbih" path="res://art/effect area UI proto 1.png" id="4_7fwdv"]
-[ext_resource type="Texture2D" uid="uid://3avl1qlj0i44" path="res://art/basic tower proto 2.png" id="5_oaq2h"]
 [ext_resource type="Script" uid="uid://bqf70r6vj3a7i" path="res://scripts/mouse_over_display.gd" id="6_jtiyq"]
+[ext_resource type="Texture2D" uid="uid://c37m7c6m3aqeg" path="res://art/v1/v1 prism beacon.png" id="6_oeg75"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c7lry"]
 radius = 100.0
@@ -14,6 +14,80 @@ radius = 100.0
 radius = 120.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m4352"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fwdv"]
+atlas = ExtResource("6_oeg75")
+region = Rect2(0, 8, 48, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtiyq"]
+atlas = ExtResource("6_oeg75")
+region = Rect2(240, 8, 48, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oeg75"]
+atlas = ExtResource("6_oeg75")
+region = Rect2(288, 8, 48, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvn7i"]
+atlas = ExtResource("6_oeg75")
+region = Rect2(336, 8, 48, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nohl"]
+atlas = ExtResource("6_oeg75")
+region = Rect2(384, 8, 48, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oaq2h"]
+atlas = ExtResource("6_oeg75")
+region = Rect2(48, 8, 48, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r41eg"]
+atlas = ExtResource("6_oeg75")
+region = Rect2(96, 8, 48, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hn4o"]
+atlas = ExtResource("6_oeg75")
+region = Rect2(144, 8, 48, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rvn7i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fwdv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtiyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oeg75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvn7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nohl")
+}],
+"loop": false,
+"name": &"destroyed",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oaq2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r41eg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hn4o")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 8.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oeg75"]
 radius = 80.0
@@ -37,33 +111,9 @@ tracks/0/keys = {
 "method": &"_on_animation_player_animation_finished"
 }]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_oeg75"]
 resource_name = "take_damage"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0684905, 0.133781, 0.200351, 0.267561, 0.334131),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.392157), Color(3.02261e-05, 0.355447, 0.980434, 1), Color(1, 1, 1, 0.392157), Color(0.582415, 0.524759, 0.930953, 1), Color(1, 1, 1, 0.392157), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7fwdv"]
 _data = {
@@ -79,10 +129,13 @@ bg_color = Color(0.84313726, 0.42352942, 0.4392157, 1)
 
 [node name="PrismBeacon" type="AnimatableBody2D" unique_id=484080291 groups=["beacon"]]
 script = ExtResource("1_jtiyq")
+maxHealth = 20
 beaconType = 4
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1582080460 node_paths=PackedStringArray("bulletSpawnPos", "buddyLines")]
+[node name="Area2D" type="Area2D" parent="." unique_id=1582080460 node_paths=PackedStringArray("animSprite", "bulletSpawnPos", "buddyLines")]
 script = ExtResource("2_gs3bi")
+attackSpeed = 3.0
+animSprite = NodePath("../AnimatedSprite2D")
 bullet = ExtResource("3_oeg75")
 bulletSpawnPos = NodePath("BulletSpawnPoint")
 buddyLines = [NodePath("BuddyOneLine2D"), NodePath("BuddyTwoLine2D")]
@@ -119,8 +172,10 @@ width = 4.0
 position = Vector2(-1, 12)
 shape = SubResource("CircleShape2D_m4352")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1466006204]
-texture = ExtResource("5_oaq2h")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2056938975]
+sprite_frames = SubResource("SpriteFrames_rvn7i")
+animation = &"destroyed"
+autoplay = "default"
 
 [node name="NearbyBeaconArea2D" type="Area2D" parent="." unique_id=1055498616]
 
@@ -142,9 +197,9 @@ libraries/ = SubResource("AnimationLibrary_7fwdv")
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=951543564]
 offset_left = -19.0
-offset_top = 18.0
+offset_top = 22.0
 offset_right = 19.0
-offset_bottom = 22.0
+offset_bottom = 26.0
 theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_jtiyq")
 theme_override_styles/fill = SubResource("StyleBoxFlat_oeg75")

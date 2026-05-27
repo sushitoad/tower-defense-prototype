@@ -25,7 +25,7 @@ func _ready() -> void:
 	on_placed.connect(OnPlaced)
 	nearbyBeaconShape = find_child("NearbyBeaconShape2D").shape
 	nearbyBeaconShape.radius = nearbyBeaconRadius
-	baseColor = $Sprite2D.modulate
+	baseColor = $AnimatedSprite2D.modulate
 	$HealthBar.max_value = maxHealth
 	currentHealth = maxHealth
 	$HealthBar.value = currentHealth
@@ -42,10 +42,10 @@ func _process(_delta: float) -> void:
 				if tooCloseToOthers == false:
 					print("get away from meeeeee")
 				tooCloseToOthers = true
-				$Sprite2D.modulate = dimColor
+				$AnimatedSprite2D.modulate = dimColor
 			else:
 				tooCloseToOthers = false
-				$Sprite2D.modulate = baseColor
+				$AnimatedSprite2D.modulate = baseColor
 
 func OnPlaced():
 	#print(self.name + " was just placed :)")
@@ -58,10 +58,13 @@ func TakeDamage(damage: int):
 	if currentHealth <= 0:
 		currentHealth = 0
 		on_destroyed.emit()
+		if $AnimatedSprite2D != null:
+			$AnimatedSprite2D.play("destroyed")
+			$AnimatedSprite2D.animation_finished.connect(queue_free)
 		#what if the destroyed beacons gave you a little charge back?
 		if beaconType == GlobalEnums.BeaconType.HEARTFIRE:
 			get_node("%LevelManager").GameEnd(false)
-		call_deferred("queue_free")
+		#call_deferred("queue_free")
 	else:
 		animPlayer.stop()
 		animPlayer.play("take_damage")

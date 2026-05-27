@@ -3,6 +3,7 @@ extends Area2D
 @export var attackSpeed: float = 1
 @export var bulletSpeed: float = 100
 @export var attackDamage: int = 10
+@export var animSprite: AnimatedSprite2D
 @export var bullet: PackedScene
 @export var bulletSpawnPos: Node2D
 @export var buddyLines: Array[Line2D]
@@ -75,6 +76,8 @@ func SpawnBullet():
 		if buddy != null:
 			damageModifier += 1
 	newBullet.damage = attackDamage * damageModifier
+	animSprite.play("shoot")
+
 
 func ForgetThisEnemy(enemy: Node2D):
 	print(enemy)
