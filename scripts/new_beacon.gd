@@ -25,10 +25,12 @@ func _ready() -> void:
 	on_placed.connect(OnPlaced)
 	nearbyBeaconShape = find_child("NearbyBeaconShape2D").shape
 	nearbyBeaconShape.radius = nearbyBeaconRadius
-	baseColor = $AnimatedSprite2D.modulate
-	$HealthBar.max_value = maxHealth
+	if $AnimatedSpite2D != null:
+		baseColor = $AnimatedSprite2D.modulate
 	currentHealth = maxHealth
-	$HealthBar.value = currentHealth
+	if $HealthBar != null:
+		$HealthBar.max_value = maxHealth
+		$HealthBar.value = currentHealth
 
 func _process(_delta: float) -> void:
 	if isBeingPlaced:
@@ -42,10 +44,12 @@ func _process(_delta: float) -> void:
 				if tooCloseToOthers == false:
 					print("get away from meeeeee")
 				tooCloseToOthers = true
-				$AnimatedSprite2D.modulate = dimColor
+				if $AnimatedSpite2D != null:
+					$AnimatedSprite2D.modulate = dimColor
 			else:
 				tooCloseToOthers = false
-				$AnimatedSprite2D.modulate = baseColor
+				if $AnimatedSpite2D != null:
+					$AnimatedSprite2D.modulate = baseColor
 
 func OnPlaced():
 	#print(self.name + " was just placed :)")

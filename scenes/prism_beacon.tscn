@@ -174,7 +174,7 @@ shape = SubResource("CircleShape2D_m4352")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2056938975]
 sprite_frames = SubResource("SpriteFrames_rvn7i")
-animation = &"destroyed"
+animation = &"shoot"
 autoplay = "default"
 
 [node name="NearbyBeaconArea2D" type="Area2D" parent="." unique_id=1055498616]

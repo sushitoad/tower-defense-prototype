@@ -77,6 +77,7 @@ func SpawnBullet():
 			damageModifier += 1
 	newBullet.damage = attackDamage * damageModifier
 	animSprite.play("shoot")
+	animSprite.animation_finished.connect(animSprite.play.bind("default"))
 
 
 func ForgetThisEnemy(enemy: Node2D):
