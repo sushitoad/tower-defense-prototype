@@ -31,9 +31,11 @@ func _ready() -> void:
 	if $HealthBar != null:
 		$HealthBar.max_value = maxHealth
 		$HealthBar.value = currentHealth
+		#print("health bar shows " + str($HealthBar.value) + "health")
 
 func _process(_delta: float) -> void:
 	if isBeingPlaced:
+		print(nearbyBeacons)
 		#this assumes that nearbyRadius is bigger than distanceNeededToPlace
 		#i think I'm ok with that but I wanna remember
 		for beacon in nearbyBeacons:
@@ -59,6 +61,7 @@ func OnPlaced():
 func TakeDamage(damage: int):
 	currentHealth -= damage
 	$HealthBar.value = currentHealth
+	print(str(name) + " took " + str(damage) + " dmg")
 	if currentHealth <= 0:
 		currentHealth = 0
 		on_destroyed.emit()
@@ -74,10 +77,13 @@ func TakeDamage(damage: int):
 		animPlayer.play("take_damage")
 
 func _on_nearby_beacon_area_2d_body_entered(body: Node2D) -> void:
-	#so basically, this is only working when the sun beacon is the moving body
-	#because it is an animatableBody2D
-	#so if I update multiple beacons to have that base type it should work?
 	if body.is_in_group("beacon") and body != self:
+		if body is CharacterBody2D:
+			return
+		#this is specifically broken on the prism beacon for some reason
+		#lightburn and sun v2 seem to be more or less working
+		#the print statement near the end w "nearby" seems funky...
+			#maybe less so than I thought?
 		nearbyBeacons.append(body)
 		update_nearby_beacons.emit()
 		print(body.name + " nearby")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://nwxp6m1042v5"]
+[gd_scene format=3 uid="uid://nwxp6m1042v5"]
 
 [ext_resource type="Texture2D" uid="uid://dhckqq35ourm6" path="res://art/heartfire proto 1.png" id="1_ikkac"]
 [ext_resource type="Script" uid="uid://xebexg7ygoai" path="res://scripts/beacon.gd" id="1_nk2ah"]
@@ -57,20 +57,36 @@ _data = {
 &"take_damage": SubResource("Animation_oeg75")
 }
 
-[node name="TheHeartfire" type="StaticBody2D" groups=["beacon"]]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nk2ah"]
+bg_color = Color(0.2231029, 0.2231029, 0.22310284, 0.87058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuh0n"]
+bg_color = Color(0.84313726, 0.42352942, 0.4392157, 1)
+
+[node name="TheHeartfire" type="StaticBody2D" unique_id=1624594165 groups=["beacon"]]
 script = ExtResource("1_nk2ah")
-maxHealth = 500
+maxHealth = 3000
 allure = 50.0
 beaconType = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1660582959]
 texture = ExtResource("1_ikkac")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1326295998]
 position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_nk2ah")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_7fwdv")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=498823794]
+libraries/ = SubResource("AnimationLibrary_7fwdv")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1888159986]
+offset_left = -19.0
+offset_top = 29.0
+offset_right = 19.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_nk2ah")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xuh0n")
+value = 66.0
+rounded = true
+show_percentage = false

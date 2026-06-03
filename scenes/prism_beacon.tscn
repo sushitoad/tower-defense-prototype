@@ -13,8 +13,6 @@ radius = 100.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_gs3bi"]
 radius = 120.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_m4352"]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_7fwdv"]
 atlas = ExtResource("6_oeg75")
 region = Rect2(0, 8, 48, 40)
@@ -89,11 +87,14 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jtiyq"]
+height = 32.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_oeg75"]
 radius = 80.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oeg75"]
-radius = 6.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_7fwdv"]
+radius = 19.0
 
 [sub_resource type="Animation" id="Animation_jtiyq"]
 length = 0.001
@@ -111,9 +112,34 @@ tracks/0/keys = {
 "method": &"_on_animation_player_animation_finished"
 }]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_oeg75"]
 resource_name = "take_damage"
+length = 0.33333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7fwdv"]
 _data = {
@@ -128,8 +154,8 @@ bg_color = Color(0.2231029, 0.2231029, 0.22310284, 0.87058824)
 bg_color = Color(0.84313726, 0.42352942, 0.4392157, 1)
 
 [node name="PrismBeacon" type="AnimatableBody2D" unique_id=484080291 groups=["beacon"]]
+collision_layer = 3
 script = ExtResource("1_jtiyq")
-maxHealth = 20
 beaconType = 4
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1582080460 node_paths=PackedStringArray("animSprite", "bulletSpawnPos", "buddyLines")]
@@ -168,29 +194,33 @@ width = 4.0
 points = PackedVector2Array(0, 0, 0, 0)
 width = 4.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1332317283]
-position = Vector2(-1, 12)
-shape = SubResource("CircleShape2D_m4352")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2056938975]
+position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_rvn7i")
-animation = &"shoot"
 autoplay = "default"
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1332317283]
+position = Vector2(0, 8)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_jtiyq")
+
 [node name="NearbyBeaconArea2D" type="Area2D" parent="." unique_id=1055498616]
+collision_layer = 2
+collision_mask = 2
 
 [node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="NearbyBeaconArea2D" unique_id=491905347]
 shape = SubResource("CircleShape2D_oeg75")
 
 [node name="MouseOverArea2D" type="Area2D" parent="." unique_id=939965112 node_paths=PackedStringArray("displayNode")]
+position = Vector2(-2, 0)
 collision_layer = 16
 collision_mask = 16
 script = ExtResource("6_jtiyq")
 displayNode = [NodePath("../Area2D/RangeShape2D/RangeSprite2D")]
 
 [node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D" unique_id=813989574]
-position = Vector2(0, 1)
-shape = SubResource("CapsuleShape2D_oeg75")
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_7fwdv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1945372600]
 libraries/ = SubResource("AnimationLibrary_7fwdv")

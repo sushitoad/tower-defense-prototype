@@ -45,7 +45,6 @@ func _process(delta: float) -> void:
 		elif currentTarget != null:
 			if $AttackTimer.is_stopped():
 				$AttackTimer.start(attackSpeed)
-
 	else:
 		if !$AttackTimer.is_stopped():
 			$AttackTimer.stop()
@@ -81,7 +80,7 @@ func SpawnBullet():
 
 
 func ForgetThisEnemy(enemy: Node2D):
-	print(enemy)
+	#print(enemy)
 	enemiesInRange.remove_at(enemiesInRange.find(enemy))
 
 func SearchForNearestBuddy():
@@ -105,7 +104,7 @@ func SearchForNearestBuddy():
 		extraBuddy = null
 	prismBuddies[0] = closestBuddy
 	prismBuddies[1] = extraBuddy
-	#print(prismBuddies)
+	#print(potentialPrismBuddies)
 	DrawLinesToBuddies()
 
 #making the lines always under the beacons would be a nice touch

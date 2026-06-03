@@ -18,8 +18,16 @@ radius = 80.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_2l316"]
 radius = 15.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0ln1"]
+bg_color = Color(0.2231029, 0.2231029, 0.22310284, 0.87058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2l316"]
+bg_color = Color(0.84313726, 0.42352942, 0.4392157, 1)
+
 [node name="Sun Beacon" type="AnimatableBody2D" unique_id=761245209 groups=["beacon"]]
+collision_layer = 3
 script = ExtResource("1_tsrak")
+maxHealth = 60
 beaconType = 5
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1128270970]
@@ -42,19 +50,32 @@ texture = ExtResource("2_sge43")
 shape = SubResource("CircleShape2D_b4kar")
 
 [node name="NearbyBeaconArea2D" type="Area2D" parent="." unique_id=430923587]
+collision_layer = 2
+collision_mask = 2
 
 [node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="NearbyBeaconArea2D" unique_id=22119219]
 shape = SubResource("CircleShape2D_rsjmg")
 
-[node name="MouseOverArea2D" type="Area2D" parent="." unique_id=1235051986 node_paths=PackedStringArray("displayNode")]
+[node name="MouseOverArea2D" type="Area2D" parent="." unique_id=1235051986]
 collision_layer = 16
 collision_mask = 16
 script = ExtResource("5_h0ln1")
-displayNode = NodePath("../Area2D/RangeSprite2D")
 
 [node name="MouseOverShape2D" type="CollisionShape2D" parent="MouseOverArea2D" unique_id=539993801]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_2l316")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=285115935]
+offset_left = -18.0
+offset_top = 18.0
+offset_right = 20.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_h0ln1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2l316")
+value = 66.0
+rounded = true
+show_percentage = false
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

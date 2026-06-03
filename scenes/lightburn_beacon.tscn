@@ -98,6 +98,7 @@ bg_color = Color(0.2231029, 0.2231029, 0.22310284, 0.87058824)
 bg_color = Color(0.84313726, 0.42352942, 0.4392157, 1)
 
 [node name="LightburnBeacon" type="AnimatableBody2D" unique_id=950712991 groups=["beacon"]]
+collision_layer = 3
 script = ExtResource("1_u6muo")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=695527384]
@@ -133,6 +134,8 @@ modulate = Color(0.458824, 0.980392, 0.501961, 1)
 texture = ExtResource("4_b05yk")
 
 [node name="NearbyBeaconArea2D" type="Area2D" parent="." unique_id=1530339861]
+collision_layer = 2
+collision_mask = 2
 
 [node name="NearbyBeaconShape2D" type="CollisionShape2D" parent="NearbyBeaconArea2D" unique_id=615397939]
 shape = SubResource("CircleShape2D_u6muo")

@@ -139,6 +139,7 @@ func UpdateTargetableBeacons():
 func AttackTarget():
 	if currentTarget != null:
 		currentTarget.TakeDamage(attackDamage)
+		#print(str(name) + " attacks for " + str(attackDamage))
 	#this might end up being an animation thing but for now it good
 	#yes, because you can call functions in specific frames of an animation
 	
