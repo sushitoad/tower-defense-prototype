@@ -35,7 +35,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if isBeingPlaced:
-		print(nearbyBeacons)
+		#print(nearbyBeacons)
 		#this assumes that nearbyRadius is bigger than distanceNeededToPlace
 		#i think I'm ok with that but I wanna remember
 		for beacon in nearbyBeacons:

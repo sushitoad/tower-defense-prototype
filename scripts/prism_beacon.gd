@@ -146,7 +146,9 @@ func _on_prism_buddies_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("beacon") and body.beaconType == GlobalEnums.BeaconType.PRISM:
 		if !body.find_child("Area2D").hasTwoBuddies:
 			potentialPrismBuddies.append(body)
+			print("added new potential buddy!")
 
 func _on_prism_buddies_area_2d_body_exited(body: Node2D) -> void:
-	if body.is_in_group("beacon"):
+	if body.is_in_group("beacon") and body.beaconType == GlobalEnums.BeaconType.PRISM:
 		potentialPrismBuddies.remove_at(potentialPrismBuddies.find(body))
+		print("potential buddy left")
