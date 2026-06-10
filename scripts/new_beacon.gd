@@ -35,7 +35,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if isBeingPlaced:
-		#print(nearbyBeacons)
+		print(nearbyBeacons)
 		#this assumes that nearbyRadius is bigger than distanceNeededToPlace
 		#i think I'm ok with that but I wanna remember
 		for beacon in nearbyBeacons:
@@ -80,10 +80,6 @@ func _on_nearby_beacon_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("beacon") and body != self:
 		if body is CharacterBody2D:
 			return
-		#this is specifically broken on the prism beacon for some reason
-		#lightburn and sun v2 seem to be more or less working
-		#the print statement near the end w "nearby" seems funky...
-			#maybe less so than I thought?
 		nearbyBeacons.append(body)
 		update_nearby_beacons.emit()
 		print(body.name + " nearby")

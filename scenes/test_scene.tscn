@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cjh8qx3046uwq" path="res://scenes/beacon_manager.tscn" id="2_j8ivh"]
 [ext_resource type="PackedScene" uid="uid://bc0yshgi1t31y" path="res://scenes/menu_manager.tscn" id="3_s36qc"]
 [ext_resource type="PackedScene" uid="uid://blkwgp5ucujp6" path="res://scenes/time_manager.tscn" id="4_6qxox"]
-[ext_resource type="PackedScene" uid="uid://nwxp6m1042v5" path="res://scenes/the_heartfire.tscn" id="4_7ddre"]
+[ext_resource type="PackedScene" uid="uid://cm6w2k2mwkoew" path="res://scenes/the_heartfire_v2.tscn" id="4_h3xc6"]
 [ext_resource type="PackedScene" uid="uid://c3ly8m2djtyo2" path="res://scenes/enemy_spawner.tscn" id="5_6qxox"]
 [ext_resource type="PackedScene" uid="uid://ly2hrj4mpj4g" path="res://scenes/sun_beacon_v2.tscn" id="6_h3xc6"]
 [ext_resource type="PackedScene" uid="uid://bke6wmd6gbbnp" path="res://scenes/camera.tscn" id="10_s36qc"]
@@ -55,6 +55,9 @@ victoryText = "triumph"
 unique_name_in_owner = true
 timeToVictory = 120.0
 
+[node name="TheHeartfire" parent="." unique_id=1200253683 instance=ExtResource("4_h3xc6")]
+position = Vector2(602, 528)
+
 [node name="BuildUI" parent="." unique_id=1972469658 instance=ExtResource("1_g7g4h")]
 
 [node name="BeaconManager" parent="." unique_id=602770577 node_paths=PackedStringArray("buildUI") instance=ExtResource("2_j8ivh")]
@@ -88,9 +91,6 @@ enemySpawnRatio = 0.0
 timeBetweenSpawns = 20.0
 spawnDelay = 0.4
 activatesLater = true
-
-[node name="TheHeartfire" parent="." unique_id=721718598 instance=ExtResource("4_7ddre")]
-position = Vector2(598, 531)
 
 [node name="Camera2D" parent="." unique_id=604267686 instance=ExtResource("10_s36qc")]
 position = Vector2(601, 541)

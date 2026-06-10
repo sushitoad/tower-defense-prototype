@@ -160,7 +160,7 @@ beaconType = 4
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1582080460 node_paths=PackedStringArray("animSprite", "bulletSpawnPos", "buddyLines")]
 script = ExtResource("2_gs3bi")
-attackSpeed = 3.0
+attackSpeed = 1.2
 animSprite = NodePath("../AnimatedSprite2D")
 bullet = ExtResource("3_oeg75")
 bulletSpawnPos = NodePath("BulletSpawnPoint")
